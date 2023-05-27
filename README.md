@@ -1,6 +1,6 @@
 # Restaurant Review
 
-This project is based on TypeScript and using TailwindCSS
+This project is based on TypeScript with Vite template and using TailwindCSS
 
 ## How to run the project
 
