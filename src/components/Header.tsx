@@ -30,9 +30,9 @@ function Header(): JSX.Element {
   };
 
   return (
-    <div className="flex justify-between items-center pr-4 mb-16 text-lg">
+    <div className="flex justify-between items-center pr-4 mb-16 text-md">
       <Logo />
-      <ul className="flex gap-8 items-center">
+      <ul className="flex gap-4 items-center">
         {navOptions.map((nav) => (
           <li
             onClick={() => setActiveLink(nav.id)}
@@ -47,12 +47,12 @@ function Header(): JSX.Element {
           </li>
         ))}
       </ul>
-      <form className="relative" onSubmit={handleSubmitSearch}>
+      <form className="relative w-1/4" onSubmit={handleSubmitSearch}>
         <input
           type="text"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          className="rounded-full py-3 pl-4 pr-32 w-460 border-none shadow-lg focus:outline-none"
+          className="rounded-full py-3 pl-4 pr-32 w-full border-none shadow-lg focus:outline-none"
           placeholder="料理、レストランの名前を入力"
         ></input>
         <button
@@ -67,7 +67,7 @@ function Header(): JSX.Element {
           <p>検索</p>
         </button>
       </form>
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-2">
         <button className="border-2 border-white text-white bg-main hover:bg-mainShade py-2 px-4 rounded-full ">
           サインアップ
         </button>
