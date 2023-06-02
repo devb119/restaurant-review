@@ -35,9 +35,9 @@ function App() {
     // getDataByDoc();
   }, []);
   return (
-    <div>
+    <>
       <Header />
-    </div>
+    </>
   );
 }
 
