@@ -30,9 +30,9 @@ function Header(): JSX.Element {
   };
 
   return (
-    <div className="flex justify-between items-center pr-4 mb-16 text-md">
+    <div className="flex justify-between items-center pr-4 mb-16 text-lg">
       <Logo />
-      <ul className="flex gap-4 items-center">
+      <ul className="flex gap-6 items-center">
         {navOptions.map((nav) => (
           <li
             onClick={() => setActiveLink(nav.id)}
