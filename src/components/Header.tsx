@@ -30,7 +30,7 @@ function Header(): JSX.Element {
   };
 
   return (
-    <div className="flex justify-between items-center pr-4 mb-16">
+    <div className="flex justify-between items-center pr-4 mb-16 text-lg">
       <Logo />
       <ul className="flex gap-8 items-center">
         {navOptions.map((nav) => (
@@ -52,7 +52,7 @@ function Header(): JSX.Element {
           type="text"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          className="rounded-full py-3 pl-4 pr-32 w-96 border-none shadow-lg focus:outline-none"
+          className="rounded-full py-3 pl-4 pr-32 w-460 border-none shadow-lg focus:outline-none"
           placeholder="料理、レストランの名前を入力"
         ></input>
         <button
