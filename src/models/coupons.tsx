@@ -1,3 +1,5 @@
+import { CouponStatus } from "./enum";
+
 export default interface Coupon {
     id?: string;
     restaurant_id: string;
@@ -7,7 +9,7 @@ export default interface Coupon {
     point: number;
     quantity: number;
     expired_at: Date,
-    status: number;
+    status: CouponStatus;
     image: string;
     created_at?: Date;
     updated_at?: Date;
