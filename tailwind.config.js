@@ -54,7 +54,12 @@ module.exports = {
         xl: "1280px",
         "2xl": "1536px",
       },
-      colors: {},
+      colors: {
+        main: "#FF4201",
+        mainTint: "#FFE8E0",
+        mainShade: "#FF0101",
+        gray: "#9D9693",
+      },
     },
   },
   plugins: [],
