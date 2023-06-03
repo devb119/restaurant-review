@@ -43,6 +43,7 @@ function App() {
       <Header />
       <div className=" max-w-7xl mx-auto font-montserrat">
         <JapaneseFavourites></JapaneseFavourites>
+        <div className="p-4"></div>
         <Restaurants></Restaurants>
       </div>
       <SearchPage />

@@ -1,8 +1,10 @@
 import { AiOutlineArrowRight } from "react-icons/ai";
+import { FaStar } from "react-icons/fa";
 
 interface favoriteProps{
   foodTitle: string;
   imageUrl: string;
+  rating?: number
 }
 
 function FavoriteCard1(props: favoriteProps): JSX.Element {
@@ -57,9 +59,23 @@ function FavoriteCard1(props: favoriteProps): JSX.Element {
     // </div>
   );
 }
-
-export function FavoriteCard2(): JSX.Element {
-  return <div> Card type 2</div>;
+  
+export function FavoriteCard2(props: favoriteProps): JSX.Element {
+ const { foodTitle, rating, imageUrl } = props;
+  return (
+    <div className="bg-white p-4 flex flex-col w-64">
+      <img src={imageUrl}></img>
+      <div className="flex flex-row justify-between items-center">
+        <p className="py-1">{foodTitle} </p>
+        <div className="flex items-center">
+          <span className="font-extrathin text-sm text-yellow-500 px-1">
+            <FaStar></FaStar>
+          </span>
+          <p className="font-thin text-sm">{rating}</p>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export default FavoriteCard1;
