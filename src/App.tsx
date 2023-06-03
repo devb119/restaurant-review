@@ -6,6 +6,8 @@ import {
   getRestaurantByDocId,
 } from "./services/RestaurantApi";
 import { Favorite, Header } from "./components";
+import RestaurantSearch from "./components/RestaurantSearch/RestaurantSearch";
+import SearchPage from "./pages/SearchPage";
 
 function App() {
   //test db
@@ -37,9 +39,7 @@ function App() {
   return (
     <>
       <Header />
-      <div className=" max-w-7xl mx-auto">
-        <Favorite />
-      </div>
+      <SearchPage />
     </>
   );
 }
