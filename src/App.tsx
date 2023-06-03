@@ -8,6 +8,8 @@ import {
 import { Favorite, Header } from "./components";
 import JapaneseFavourites from "./pages/restaurant_lists/japaneseFavourites";
 import { Restaurants } from "./pages";
+import RestaurantSearch from "./components/RestaurantSearch/RestaurantSearch";
+import SearchPage from "./pages/SearchPage";
 
 function App() {
   //test db
@@ -43,6 +45,7 @@ function App() {
         <JapaneseFavourites></JapaneseFavourites>
         <Restaurants></Restaurants>
       </div>
+      <SearchPage />
     </>
   );
 }
