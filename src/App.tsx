@@ -6,6 +6,8 @@ import {
   getRestaurantByDocId,
 } from "./services/RestaurantApi";
 import { Favorite, Header } from "./components";
+import JapaneseFavourites from "./pages/restaurant_lists/japaneseFavourites";
+import { Restaurants } from "./pages";
 
 function App() {
   //test db
@@ -37,8 +39,9 @@ function App() {
   return (
     <>
       <Header />
-      <div className=" max-w-7xl mx-auto">
-        <Favorite />
+      <div className=" max-w-7xl mx-auto font-montserrat">
+        <JapaneseFavourites></JapaneseFavourites>
+        <Restaurants></Restaurants>
       </div>
     </>
   );
