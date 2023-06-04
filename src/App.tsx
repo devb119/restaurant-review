@@ -7,6 +7,8 @@ import {
   generateDummyRestaurant,
 } from "./services/RestaurantApi";
 import { Favorite, Header } from "./components";
+
+import Footer from "./components/Footer";
 import { Restaurants } from "./pages";
 import SearchPage from "./pages/SearchPage";
 import JapaneseFavourites from "./pages/restaurant_lists/JapaneseFavourites";
@@ -50,7 +52,7 @@ function App() {
         <div className="p-4"></div>
         <Restaurants></Restaurants>
       </div>
-      <SearchPage />
+      <Footer />
     </>
   );
 }
