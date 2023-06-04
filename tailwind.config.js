@@ -60,6 +60,11 @@ module.exports = {
         mainShade: "#FF0101",
         gray: "#9D9693",
       },
+      fontFamily: {
+        montserrat: ["Montserrat"],
+        lato: ["Lato"],
+        garamond: ["Garamond"],
+      },
     },
   },
   plugins: [],
