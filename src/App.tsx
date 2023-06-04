@@ -6,8 +6,9 @@ import {
   getRestaurantByDocId,
 } from "./services/RestaurantApi";
 import { Favorite, Header } from "./components";
-import RestaurantSearch from "./components/RestaurantSearch/RestaurantSearch";
+import RestaurantSearch from "./components/RestaurantSearchCard/RestaurantSearchCard";
 import SearchPage from "./pages/SearchPage";
+import Footer from "./components/Footer";
 
 function App() {
   //test db
@@ -40,6 +41,7 @@ function App() {
     <>
       <Header />
       <SearchPage />
+      <Footer />
     </>
   );
 }

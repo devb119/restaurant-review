@@ -1,11 +1,12 @@
 import React from "react";
-import RestaurantSearch from "../components/RestaurantSearch/RestaurantSearch";
+import RestaurantSearchCard from "../components/RestaurantSearchCard/RestaurantSearchCard";
 import PaginationSearch from "../components/PaginationSearch";
 
 const SearchPage = () => {
     return (
         <React.Fragment>
-            <RestaurantSearch />
+            <RestaurantSearchCard />
+            <RestaurantSearchCard />
             <PaginationSearch />
         </React.Fragment>
     )

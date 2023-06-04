@@ -5,7 +5,7 @@ const PaginationSearch = () => {
         <React.Fragment>
             <div className="mx-auto max-w-[75rem]">
                 <nav aria-label="Page navigation example" className="mb-12 flex justify-end">
-                    <ul className="list-style-none flex bg-[#C939191F] max-w-xs p-3 rounded-full w-1/5 mr-20 justify-center gap-0.5">
+                    <ul className="list-style-none flex bg-[#C939191F] max-w-xs p-3 rounded-full mr-20 justify-center gap-0.5">
                         <li>
                         <a
                             className="relative block rounded-full bg-primary-100 px-3 py-1.5 text-sm font-medium text-primary-700 transition-all duration-300 focus:bg-[#C9391969] focus:text-white hover:bg-[#C9391969] hover:text-white"
@@ -39,6 +39,7 @@ const PaginationSearch = () => {
                             href="#!"
                             >5</a>
                         </li>
+                       
                         <li className="flex items-center justify-center">
                             <a
                                 className="relative block rounded-full bg-primary-100 px-3 py-1.5 text-sm font-medium text-primary-700 transition-all duration-300 focus:bg-[#C9391969] focus:text-white hover:bg-[#C9391969] hover:text-white"
