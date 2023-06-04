@@ -1,5 +1,6 @@
 import { firestore } from "../config/firebase";
-import Restaurant from "../models/restaurants";
+import Restaurant, { restaurant_validation } from "../models/restaurants";
+import { faker } from '@faker-js/faker';
 
 //demo api
 export async function createRestaurant(restaurant: Restaurant) {
@@ -37,4 +38,10 @@ export async function getFoodsByRestaurant(food_list: Array<string>) {
   return data.docs.map((item) => ({
     ...item.data(),
   }));
+}
+
+export async function generateDummyRestaurant(n: number) {
+   for(let i = 0; i < n; i++) {
+      createRestaurant({name: faker.company.name(), description: faker.company.name(), manager_id: '1', address: faker.location.streetAddress(), email: faker.internet.email(), phone: faker.phone.imei(), image: faker.image.avatar(), is_active: false, created_at: new Date(Date.now()), updated_at: new Date(Date.now()), food_list: [], license_image: '', website: faker.internet.domainName()});
+   }
 }
