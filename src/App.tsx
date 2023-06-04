@@ -4,16 +4,19 @@ import {
   createRestaurant,
   getRestaurantsByName,
   getRestaurantByDocId,
+  generateDummyRestaurant,
 } from "./services/RestaurantApi";
 import { Favorite, Header } from "./components";
-import JapaneseFavourites from "./pages/restaurant_lists/japaneseFavourites";
 import { Restaurants } from "./pages";
-import RestaurantSearch from "./components/RestaurantSearch/RestaurantSearch";
 import SearchPage from "./pages/SearchPage";
+import JapaneseFavourites from "./pages/restaurant_lists/JapaneseFavourites";
 
 function App() {
   //test db
   React.useEffect(() => {
+    async function generateDumyRestaurantData() {
+      await generateDummyRestaurant(5);
+    }
     async function pushData() {
       await createRestaurant({
         name: "Hoang Anh dep zai 345",
@@ -35,8 +38,9 @@ function App() {
     async function getDataByDoc() {
       console.log(await getRestaurantByDocId("0hR0mV6IS0R82FlwzmVs"));
     }
-    getData();
+    // getData();
     // getDataByDoc();
+    generateDumyRestaurantData();
   }, []);
   return (
     <>
