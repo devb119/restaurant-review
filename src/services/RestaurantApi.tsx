@@ -14,7 +14,7 @@ export async function createRestaurant(restaurant: Restaurant) {
 //get all by 1 ca1 gi do ko unique
 export async function getRestaurantsByName(name: string) {
   const data = await firestore
-    .collection("restaurant")
+    .collection("restaurants")
     .where("name", ">=", name)
     .where("name", "<=", name + "\uf8ff")
     .get();
@@ -44,4 +44,13 @@ export async function generateDummyRestaurant(n: number) {
    for(let i = 0; i < n; i++) {
       createRestaurant({name: faker.company.name(), description: faker.company.name(), manager_id: '1', address: faker.location.streetAddress(), email: faker.internet.email(), phone: faker.phone.imei(), image: faker.image.avatar(), is_active: false, created_at: new Date(Date.now()), updated_at: new Date(Date.now()), food_list: [], license_image: '', website: faker.internet.domainName()});
    }
+}
+
+export function deleteAllCollection(path : string) {
+  const ref = firestore.collection(path)
+  ref.onSnapshot((snapshot) => {
+    snapshot.docs.forEach((doc) => {
+      ref.doc(doc.id).delete();
+    })
+  })
 }
