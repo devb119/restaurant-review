@@ -37,6 +37,7 @@ function App() {
     // async function getDataByDoc() {
     //   console.log(await getRestaurantByDocId("0hR0mV6IS0R82FlwzmVs"));
     // }
+    // getDataByDoc();
     // getData();
     // getDataByDoc();
     // generateDumyRestaurantData();

@@ -1,7 +1,7 @@
 import React from "react";
 import "./RestaurantSearchCard.css"
 
-const RestaurantSearch = () => {
+const RestaurantSearch = ({address} : {address : string}) => {
     return (
         <React.Fragment>
             <div className="restaurant-search-container">
@@ -9,7 +9,7 @@ const RestaurantSearch = () => {
                 <div className="restaurant-search-info">
                     <div className="restaurant-search-image" style={{backgroundImage: 'url("../../../public/img/mock-restaurant.jpg")'}}></div>
                     <div className="restaurant-search-description-wrapper">
-                        <p className="restaurant-search-address">アドレス</p>
+                        <p className="restaurant-search-address">アドレス: {address}</p>
                         <div className="restaurant-search-rating">
                             <p>評価：</p>
                             <div className="flex items-center gap-2">
@@ -45,11 +45,7 @@ const RestaurantSearch = () => {
                         </div>
                     </div>
                 </div>
-            </div>
-
-            
-
-           
+            </div>          
         </React.Fragment>
     )
 }

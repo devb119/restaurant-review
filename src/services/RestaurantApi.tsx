@@ -14,7 +14,7 @@ export async function createRestaurant(restaurant: Restaurant) {
 //get all by 1 ca1 gi do ko unique
 export async function getRestaurantsByName(name: string) {
   const data = await firestore
-    .collection("restaurant")
+    .collection("restaurants")
     .where("name", ">=", name)
     .where("name", "<=", name + "\uf8ff")
     .get();
