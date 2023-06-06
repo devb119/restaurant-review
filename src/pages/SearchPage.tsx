@@ -4,7 +4,7 @@ import PaginationSearch from "../components/PaginationSearch";
 import Restaurant from "../models/restaurants"
 import { getRestaurantsByName } from "../services/RestaurantApi";
 
-const SearchPage = () => {
+const SearchPage = ({query} : {query : string}) => {
     const [searchData, setSearchData] = useState<Restaurant[]>([]);
     const [currentPage, setCurrentPage] = useState<number>(1);
     const restaurantsPerPage = 2;
@@ -15,25 +15,29 @@ const SearchPage = () => {
             setSearchData([...data]);
             console.log(data);
         }
-        getSearchData('');
-    }, []);
+        getSearchData(query);
+    }, [query]);
 
     const indexOfLastRestaurant = currentPage * restaurantsPerPage;
     const indexOfFirstRestaurant = indexOfLastRestaurant - restaurantsPerPage;
     const currentRestaurants = searchData.slice(indexOfFirstRestaurant, indexOfLastRestaurant);
 
-    const paginate = (pageNumber : any) => setCurrentPage(pageNumber)
+    const paginate = (pageNumber : any) => {
+        setCurrentPage(pageNumber);
+        window.scrollTo(0, 0);
+    }
 
     return (
         <React.Fragment>
             {currentRestaurants.map((e) => {
                 return (
-                    <RestaurantSearchCard address={e.address}/>
+                    <RestaurantSearchCard address={e.address} name={e.name}/>
                 ) 
             })}
             <PaginationSearch 
                 restaurantsPerPage ={restaurantsPerPage}
                 totalRestaurants ={searchData.length}
+                currentPage={currentPage}
                 paginate={paginate}
             />
         </React.Fragment>

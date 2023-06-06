@@ -1,15 +1,15 @@
 import React from "react";
 import "./RestaurantSearchCard.css"
 
-const RestaurantSearch = ({address} : {address : string}) => {
+const RestaurantSearch = ({address, name} : {address : string, name : string}) => {
     return (
         <React.Fragment>
             <div className="restaurant-search-container">
-                <p className="restaurant-search-name">レストラン名</p>
+                <p className="restaurant-search-name">レストラン名：{name}</p>
                 <div className="restaurant-search-info">
                     <div className="restaurant-search-image" style={{backgroundImage: 'url("../../../public/img/mock-restaurant.jpg")'}}></div>
                     <div className="restaurant-search-description-wrapper">
-                        <p className="restaurant-search-address">アドレス: {address}</p>
+                        <p className="restaurant-search-address">アドレス： {address}</p>
                         <div className="restaurant-search-rating">
                             <p>評価：</p>
                             <div className="flex items-center gap-2">
