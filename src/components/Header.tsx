@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { BsCheckLg } from "react-icons/bs";
+import { NavLink } from "react-router-dom";
 
 interface NavOption {
   // id là id của phần nội dung sẽ nhảy tới (HTML id)
@@ -8,8 +9,8 @@ interface NavOption {
 }
 
 const navOptions: NavOption[] = [
-  { id: "favorite", title: "日本人好み" },
-  { id: "restaurant", title: "レストラン" },
+  { id: "japanese-favorites", title: "日本人好み" },
+  { id: "restaurants", title: "レストラン" },
   { id: "search", title: "レストラン情報検索" },
 ];
 
@@ -44,7 +45,7 @@ function Header({getQueryData} : {getQueryData : Function}): JSX.Element {
             }
             key={nav.id}
           >
-            <a href={`#${nav.id}`}>{nav.title}</a>
+            <NavLink to={`${nav.id}`}>{nav.title}</NavLink>
           </li>
         ))}
       </ul>

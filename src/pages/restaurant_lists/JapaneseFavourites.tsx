@@ -3,6 +3,7 @@ import {
   BsFillArrowRightCircleFill,
 } from "react-icons/bs";
 import { Favorite, FavoriteCard2, Section } from "../../components";
+import React from "react";
 
 let favorites = [
   {
@@ -44,7 +45,20 @@ let favorites = [
   },
 ];
 
+
 function JapaneseFavourites() {
+  const [hasPrev, setHasPrev] = React.useState(false);
+  const [hasNext, setHasNext] = React.useState(true);
+
+  const handleNextBtnClicked = () => {
+    setHasNext(true);
+  };
+  const handlePrevBtnClicked = () => {
+    setHasPrev(true);
+  };
+  let enableStyle = "text-4xl  text-mainShade m-2 cursor-pointer",
+    disableStyle =
+      "text-4xl text-red-400 m-2 cursor-not-allowed";
   return (
     <Section title="日本人好み料理">
       <div>
@@ -59,10 +73,10 @@ function JapaneseFavourites() {
         </div>
         <div className="flex justify-around w-3/5">
           <div className="flex flex-row mt-2">
-            <span className="text-4xl  text-mainShade m-2">
+            <span className={hasPrev ? enableStyle : disableStyle} onClick={handleNextBtnClicked}>
               <BsFillArrowLeftCircleFill></BsFillArrowLeftCircleFill>
             </span>
-            <span className="text-4xl  text-mainShade m-2">
+            <span className={hasNext? enableStyle : disableStyle} onClick={handlePrevBtnClicked}>
               <BsFillArrowRightCircleFill></BsFillArrowRightCircleFill>
             </span>
           </div>
