@@ -4,8 +4,8 @@ import "./RestaurantSearchCard.css"
 const RestaurantSearch = ({address, name} : {address : string, name : string}) => {
     return (
         <React.Fragment>
-            <div className="restaurant-search-container">
-                <p className="restaurant-search-name">レストラン名：{name}</p>
+            <div className="mb-8">
+                <p className="text-2xl font-semibold mb-4 flex ">レストラン名：{name}</p>
                 <div className="restaurant-search-info">
                     <div className="restaurant-search-image" style={{backgroundImage: 'url("../../../public/img/mock-restaurant.jpg")'}}></div>
                     <div className="restaurant-search-description-wrapper">

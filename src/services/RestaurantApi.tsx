@@ -4,9 +4,9 @@ import { faker } from '@faker-js/faker';
 
 //demo api
 export async function createRestaurant(restaurant: Restaurant) {
-  const newData = await firestore.collection("restaurant").add(restaurant);
+  const newData = await firestore.collection("restaurants").add(restaurant);
   return await firestore
-    .collection("restaurant")
+    .collection("restaurants")
     .doc(newData.id)
     .update({ ...restaurant, id: newData.id }); // update id thanh docId de truy van cho de, create cai gi minh cung nen ntn
 }
@@ -42,7 +42,7 @@ export async function getFoodsByRestaurant(food_list: Array<string>) {
 
 export async function generateDummyRestaurant(n: number) {
    for(let i = 0; i < n; i++) {
-      createRestaurant({name: faker.company.name(), description: faker.company.name(), manager_id: '1', address: faker.location.streetAddress(), email: faker.internet.email(), phone: faker.phone.imei(), image: faker.image.avatar(), is_active: false, created_at: new Date(Date.now()), updated_at: new Date(Date.now()), food_list: [], license_image: '', website: faker.internet.domainName()});
+      createRestaurant({name: faker.company.name(), description: faker.company.name(), manager_id: '1', address: faker.location.streetAddress(), email: faker.internet.email(), phone: faker.phone.imei(), image: faker.image.avatar(), is_active: true, created_at: new Date(Date.now()), updated_at: new Date(Date.now()), food_list: [], license_image: '', website: faker.internet.domainName()});
    }
 }
 
@@ -53,4 +53,16 @@ export function deleteAllCollection(path : string) {
       ref.doc(doc.id).delete();
     })
   })
+}
+
+//get active restaurants
+export async function getActiveRestaurants() {
+  const data = await firestore
+    .collection("restaurant")
+    .where("is_active","!=", false)
+    .get();
+  
+  return data.docs.map((item) => ({
+    ...item.data(),
+  }));
 }
