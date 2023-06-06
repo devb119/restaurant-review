@@ -16,11 +16,13 @@ const SearchPage = ({query} : {query : string}) => {
             console.log(data);
         }
         getSearchData(query);
+        setCurrentPage(1);
     }, [query]);
 
     const indexOfLastRestaurant = currentPage * restaurantsPerPage;
     const indexOfFirstRestaurant = indexOfLastRestaurant - restaurantsPerPage;
-    const currentRestaurants = searchData.slice(indexOfFirstRestaurant, indexOfLastRestaurant);
+    const currentRestaurants = searchData.length > restaurantsPerPage ? searchData.slice(indexOfFirstRestaurant, indexOfLastRestaurant)
+    : searchData;
 
     const paginate = (pageNumber : any) => {
         setCurrentPage(pageNumber);
