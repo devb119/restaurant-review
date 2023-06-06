@@ -24,6 +24,17 @@ export async function getRestaurantsByName(name: string) {
     // docId: item.id,
   }));
 }
+
+export async function getRestaurantById(id: string) {
+  const data = await firestore
+    .collection("restaurants")
+    .where("id", "==", id)
+    .get();
+   return data.docs.map((item) => ({
+     ...item.data(),
+   }))[0];
+}
+
 export async function getRestaurants(page_num: number, num_per_page: number) {
   const data = await firestore
     .collection("restaurants")

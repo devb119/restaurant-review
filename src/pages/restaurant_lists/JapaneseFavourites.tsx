@@ -3,8 +3,12 @@ import {
   BsFillArrowRightCircleFill,
 } from "react-icons/bs";
 import { Favorite, FavoriteCard2, Section } from "../../components";
-import React from "react";
+import React, { useEffect } from "react";
 import Restaurants from "./Restaurants";
+import Food from "../../models/foods";
+import { getFavouriteFoodList } from "../../services/FoodApi";
+import { getRestaurantById } from "../../services/RestaurantApi";
+import Loading from "../../components/common/Loading";
 
 let favorites = [
   {
@@ -48,6 +52,8 @@ let favorites = [
 
 
 function JapaneseFavourites() {
+    const [loading, setLoading] = React.useState<boolean>(true);
+  const [favorites, setFavorites] = React.useState<any>([]);
   // const [hasPrev, setHasPrev] = React.useState(false);
   // const [hasNext, setHasNext] = React.useState(true);
 
@@ -60,19 +66,31 @@ function JapaneseFavourites() {
   // let enableStyle = "text-4xl  text-mainShade m-2 cursor-pointer",
   //   disableStyle =
   //     "text-4xl text-red-400 m-2 cursor-not-allowed";
+  useEffect(() => {
+        setLoading(true);
+
+    getFavouriteFoodList().then(res => setFavorites(res)).catch((err) => console.log(err)).finally(() => { setLoading(false) })
+    
+  },[])
   return (
     <Section title="日本人好み料理">
-      <div>
-        <div className="w-3/5 flex gap-4">
-          {favorites.slice(0, 3).map((i, index) => (
-            <Favorite
-              foodTitle={i.title}
-              imageUrl={i.imageURL}
-              key={index}
-            ></Favorite>
-          ))}
+      {loading ? (
+        <div className="flex justify-center h-420 items-center">
+          <Loading></Loading>
         </div>
-        {/* <div className="flex justify-around w-3/5">
+      ) : (
+        <div>
+          <div className="w-3/5 flex gap-4">
+            {favorites.slice(0, 3).map((i: any, index: number) => (
+              <Favorite
+                foodTitle={i.name}
+                imageUrl={i.image}
+                key={index}
+                restaurant_id=""
+              ></Favorite>
+            ))}
+          </div>
+          {/* <div className="flex justify-around w-3/5">
           <div className="flex flex-row mt-2">
             <span
               className={hasPrev ? enableStyle : disableStyle}
@@ -88,20 +106,22 @@ function JapaneseFavourites() {
             </span>
           </div>
         </div> */}
-        <div className="flex flex-row mt-4 mb-8">
-          {favorites.slice(3).map((i, index) => (
-            <FavoriteCard2
-              foodTitle={i.title}
-              imageUrl={i.imageURL}
-              key={index}
-              rating={i.rating}
-            ></FavoriteCard2>
-          ))}
+          <div className="flex flex-row mt-4 mb-8">
+            {favorites.slice(3, 8).map((i: any, index: number) => (
+              <FavoriteCard2
+                foodTitle={i.name}
+                imageUrl={i.image}
+                key={index}
+                rating={i.rating}
+                restaurant_id={i.restaurant_id}
+              ></FavoriteCard2>
+            ))}
+          </div>
+          <div id="restaurants" className="mb-8">
+            <Restaurants></Restaurants>
+          </div>
         </div>
-        <div id="restaurants" className="mb-8">
-          <Restaurants></Restaurants>
-        </div>
-      </div>
+      )}
     </Section>
   );
 }

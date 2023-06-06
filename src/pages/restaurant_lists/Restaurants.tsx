@@ -1,6 +1,7 @@
 import React from "react";
 import { RestaurantCard, Section } from "../../components";
 import { getRestaurantsByName } from "../../services/RestaurantApi";
+import Loading from "../../components/common/Loading";
 
 function Restaurants() {
   const [loading, setLoading] = React.useState(true);
@@ -17,7 +18,9 @@ function Restaurants() {
   return (
     <Section title="レストラン">
       {loading ? (
-        <div>Loading...</div>
+        <div className="flex justify-center h-150 items-center">
+          <Loading></Loading>
+        </div>
       ) : (
         <div className="flex">
           {restaurantLists.map((i: any, index: number) => (

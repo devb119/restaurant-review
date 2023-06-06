@@ -1,17 +1,21 @@
+import { useEffect, useState } from "react";
 import { AiOutlineArrowRight } from "react-icons/ai";
 import { FaStar } from "react-icons/fa";
+import { getRestaurantById } from "../services/RestaurantApi";
+import ToolTipOnHover from "./common/ToolTipOnHover";
 
-interface favoriteProps{
+interface favoriteProps {
   foodTitle: string;
   imageUrl: string;
-  rating?: number
+  rating?: number;
+  restaurant_id: string;
 }
 
 function FavoriteCard1(props: favoriteProps): JSX.Element {
-  const { foodTitle, imageUrl } = props;
+  const { foodTitle, imageUrl, restaurant_id } = props;
   return (
     <div className="relative w-80 overflow-hidden rounded-sm">
-      <img src={imageUrl} className="w-full rounded" />
+      <img src={imageUrl} className="w-full rounded w-58 h-44" />
       <button
         className="absolute bottom-6 left-1/2 -translate-x-1/2 px-4 py-1 bg-white rounded w-4/5
                font-bold text-lg flex items-center justify-between hover:bg-mainTint transition-all"
@@ -59,12 +63,19 @@ function FavoriteCard1(props: favoriteProps): JSX.Element {
     // </div>
   );
 }
-  
-export function FavoriteCard2(props: favoriteProps): JSX.Element {
- const { foodTitle, rating, imageUrl } = props;
+
+export function  FavoriteCard2(props: favoriteProps): JSX.Element {
+  const { foodTitle, rating, imageUrl, restaurant_id } = props;
+    const [restaurantName, setRestaurantName] = useState<any>("");
+    useEffect(() => {
+      getRestaurantById(restaurant_id).then((res) => {
+        console.log(res)
+        setRestaurantName(res.name );
+      });
+    }, []);
   return (
     <div className="bg-white p-4 flex flex-col w-64 rounded-sm">
-      <img src={imageUrl}></img>
+      <img src={imageUrl} className="w-54 h-44"></img>
       <div className="flex flex-row justify-between items-center">
         <p className="py-1">{foodTitle} </p>
         <div className="flex items-center">
@@ -73,6 +84,10 @@ export function FavoriteCard2(props: favoriteProps): JSX.Element {
           </span>
           <p className="font-thin text-sm">{rating}</p>
         </div>
+      </div>
+
+      <div className="text-sm font-semibold">
+        <ToolTipOnHover textContent={restaurantName} limit={20}></ToolTipOnHover>
       </div>
     </div>
   );
