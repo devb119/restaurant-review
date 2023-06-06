@@ -24,6 +24,17 @@ export async function getRestaurantsByName(name: string) {
     // docId: item.id,
   }));
 }
+
+export async function getRestaurantById(id: string) {
+  const data = await firestore
+    .collection("restaurants")
+    .where("id", "==", id)
+    .get();
+   return data.docs.map((item) => ({
+     ...item.data(),
+   }))[0];
+}
+
 export async function getRestaurants(page_num: number, num_per_page: number) {
   const data = await firestore
     .collection("restaurants")
@@ -61,7 +72,7 @@ export async function getFoodsByRestaurant(food_list: Array<string>) {
 
 export async function generateDummyRestaurant(n: number) {
    for(let i = 0; i < n; i++) {
-      createRestaurant({name: faker.company.name(), description: faker.company.name(), manager_id: '1', address: faker.location.streetAddress(), email: faker.internet.email(), phone: faker.phone.imei(), image: faker.image.avatar(), is_active: true, created_at: new Date(Date.now()), updated_at: new Date(Date.now()), food_list: [], license_image: '', website: faker.internet.domainName()});
+      createRestaurant({name: faker.company.name(), description: faker.company.name(), manager_id: '1', address: faker.location.streetAddress(), email: faker.internet.email(), phone: faker.phone.imei(), image: faker.image.avatar(), is_active: true, created_at: new Date(Date.now()), updated_at: new Date(Date.now()), food_list: [], license_image: '', website: faker.internet.domainName(), rating: 0});
    }
 }
 

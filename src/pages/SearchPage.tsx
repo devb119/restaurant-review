@@ -32,9 +32,10 @@ const SearchPage = ({query} : {query : string}) => {
 
     return (
         <React.Fragment>
-            {currentRestaurants.map((e) => {
+            { currentRestaurants.map((e) => {
+                console.log(e);
                 return (
-                    <RestaurantSearchCard address={e.address} name={e.name}/>
+                    <RestaurantSearchCard restaurant={e} />
                 ) 
             })}
             <PaginationSearch 
