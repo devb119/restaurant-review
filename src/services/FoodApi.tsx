@@ -29,6 +29,12 @@ export async function createFood(food: Food) {
     return data.data();
   }
 
+  export async function getFavouriteFoodList() {
+    const data = await firestore.collection("Foods").orderBy('rating', 'desc').limit(10).get();
+    return data.docs.map((item) => ({
+      ...item.data(),
+    }));
+  }
 //   export async function generateDummyFood(n: number) {
 //     for(let i = 0; i < n; i++) {
 //        createFood({name: faker.animal.dog(), description: faker.animal.dog(), restaurant_id: '', image: faker.image.avatar(), price: faker.finance.amount(), created_at: new Date(Date.now()), updated_at: new Date(Date.now())});
