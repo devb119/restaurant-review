@@ -5,6 +5,7 @@ import {
   getRestaurantsByName,
   getRestaurantByDocId,
   generateDummyRestaurant,
+  getActiveRestaurants
 } from "./services/RestaurantApi";
 import { Favorite, Header } from "./components";
 import { Restaurants } from "./pages";
