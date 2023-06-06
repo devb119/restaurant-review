@@ -9,6 +9,7 @@ import {
 import { Favorite, Header } from "./components";
 import { Restaurants } from "./pages";
 import JapaneseFavourites from "./pages/restaurant_lists/JapaneseFavourites";
+import SearchPage from "./pages/SearchPage";
 
 function App() {
   //test db
@@ -45,11 +46,12 @@ function App() {
   return (
     <>
       <Header />
-      <div className=" max-w-7xl mx-auto font-montserrat">
+      {/* <div className=" max-w-7xl mx-auto font-montserrat">
         <JapaneseFavourites></JapaneseFavourites>
         <div className="p-4"></div>
         <Restaurants></Restaurants>
-      </div>
+      </div> */}
+      <SearchPage />
     </>
   );
 }

@@ -22,18 +22,22 @@ const SearchPage = () => {
     const indexOfFirstRestaurant = indexOfLastRestaurant - restaurantsPerPage;
     const currentRestaurants = searchData.slice(indexOfFirstRestaurant, indexOfLastRestaurant);
 
-    const paginate = (pageNumber : any) => setCurrentPage(pageNumber)
+    const paginate = (pageNumber : any) => {
+        setCurrentPage(pageNumber);
+        window.scrollTo(0, 0);
+    }
 
     return (
         <React.Fragment>
             {currentRestaurants.map((e) => {
                 return (
-                    <RestaurantSearchCard address={e.address}/>
+                    <RestaurantSearchCard address={e.address} name={e.name}/>
                 ) 
             })}
             <PaginationSearch 
                 restaurantsPerPage ={restaurantsPerPage}
                 totalRestaurants ={searchData.length}
+                currentPage={currentPage}
                 paginate={paginate}
             />
         </React.Fragment>
