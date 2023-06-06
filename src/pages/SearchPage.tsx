@@ -11,8 +11,9 @@ const SearchPage = ({query} : {query : string}) => {
 
     React.useEffect(() => {
         async function getSearchData(name : string) {
-            let data : any =  await getRestaurantsByName(name);
-            setSearchData([...data]);
+            let data : any =  await getRestaurantsByName('');
+            const suitableData = data.filter((e : any) => e.name.toLowerCase().includes(name.trim().toLowerCase()));
+            setSearchData([...suitableData]);
             console.log(data);
         }
         getSearchData(query);
