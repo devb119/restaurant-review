@@ -21,12 +21,13 @@ const Logo = (): JSX.Element => (
   </div>
 );
 
-function Header(): JSX.Element {
+function Header({getQueryData} : {getQueryData : Function}): JSX.Element {
   const [activeLink, setActiveLink] = useState("");
   const [query, setQuery] = useState("");
 
   const handleSubmitSearch = (e: React.FormEvent): void => {
     e.preventDefault();
+    getQueryData(query);
     console.log(query);
   };
 

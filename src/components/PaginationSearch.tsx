@@ -11,7 +11,7 @@ const PaginationSearch = ({ restaurantsPerPage, totalRestaurants, paginate, curr
         <React.Fragment>
             <div className="mx-auto max-w-[75rem]">
                 <nav aria-label="Page navigation example" className="mb-12 flex justify-end">
-                    <ul className="list-style-none flex bg-[#C939191F]  p-3 rounded-full mr-20 justify-center gap-0.5">
+                    <ul className="list-style-none flex bg-[#C939191F]  p-3 rounded-full mr-20 justify-center gap-0.5 min-w-[15%]">
                         {pageNumbers.map(number => (
                             <li key={number} className='page-item'>
                                 {/* <a onClick={() => paginate(number)} href='!#' className='page-link'>
