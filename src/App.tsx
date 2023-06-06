@@ -10,6 +10,9 @@ import { Favorite, Header } from "./components";
 import { Restaurants } from "./pages";
 import JapaneseFavourites from "./pages/restaurant_lists/JapaneseFavourites";
 import SearchPage from "./pages/SearchPage";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Home from "./pages/Home";
+import NotFound from "./pages/NotFound";
 
 function App() {
   //test db
@@ -45,13 +48,21 @@ function App() {
   }, []);
   return (
     <>
-      <Header />
-      {/* <div className=" max-w-7xl mx-auto font-montserrat">
-        <JapaneseFavourites></JapaneseFavourites>
-        <div className="p-4"></div>
-        <Restaurants></Restaurants>
-      </div> */}
-      <SearchPage />
+      <Routes>
+        <Route path="/" element={<Home />}>
+          <Route
+            path=""
+            element={<JapaneseFavourites />}
+          ></Route>
+          <Route
+            path="japanese-favorites"
+            element={<JapaneseFavourites />}
+          ></Route>
+          <Route path="restaurants" element={<Restaurants />}></Route>
+          <Route path="search" element={<SearchPage />}></Route>
+        </Route>
+        <Route path="*" element={<NotFound />}></Route>
+      </Routes>
     </>
   );
 }
