@@ -50,9 +50,10 @@ function App() {
           <Route path="" element={<JapaneseFavourites />}></Route>
           <Route
             path="japanese-favorites"
-            element={<JapaneseFavourites />}
+            element={
+                <JapaneseFavourites />
+            }
           ></Route>
-          <Route path="restaurants" element={<Restaurants />}></Route>
           <Route path="search" element={<SearchPage query={query} />}></Route>
         </Route>
         <Route path="*" element={<NotFound />}></Route>

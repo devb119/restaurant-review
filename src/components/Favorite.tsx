@@ -10,7 +10,7 @@ interface favoriteProps{
 function FavoriteCard1(props: favoriteProps): JSX.Element {
   const { foodTitle, imageUrl } = props;
   return (
-    <div className="relative w-80 overflow-hidden">
+    <div className="relative w-80 overflow-hidden rounded-sm">
       <img src={imageUrl} className="w-full rounded" />
       <button
         className="absolute bottom-6 left-1/2 -translate-x-1/2 px-4 py-1 bg-white rounded w-4/5
@@ -63,7 +63,7 @@ function FavoriteCard1(props: favoriteProps): JSX.Element {
 export function FavoriteCard2(props: favoriteProps): JSX.Element {
  const { foodTitle, rating, imageUrl } = props;
   return (
-    <div className="bg-white p-4 flex flex-col w-64">
+    <div className="bg-white p-4 flex flex-col w-64 rounded-sm">
       <img src={imageUrl}></img>
       <div className="flex flex-row justify-between items-center">
         <p className="py-1">{foodTitle} </p>

@@ -1,56 +1,38 @@
-import React from 'react'
-import { RestaurantCard, Section } from '../../components'
+import React from "react";
+import { RestaurantCard, Section } from "../../components";
+import { getRestaurantsByName } from "../../services/RestaurantApi";
 
-
-let restaurantLists = [
-  {
-    title: "Bo To Quan Moc",
-    rating: 4.5,
-    address: "21 Hoa Lu, Hai Ba Trung",
-    imageUrl: "/img/nhahang.png",
-  },
-  {
-    title: "Bo To Quan Moc",
-    rating: 4.5,
-    address: "21 Hoa Lu, Hai Ba Trung",
-    imageUrl: "/img/nhahang.png",
-  },
-  {
-    title: "Bo To Quan Moc",
-    rating: 4.5,
-    address: "21 Hoa Lu, Hai Ba Trung",
-    imageUrl: "/img/nhahang.png",
-  },
-  {
-    title: "Bo To Quan Moc",
-    rating: 4.5,
-    address: "21 Hoa Lu, Hai Ba Trung",
-    imageUrl: "/img/nhahang.png",
-  },
-  {
-    title: "Bo To Quan Moc",
-    rating: 4.5,
-    address: "21 Hoa Lu, Hai Ba Trung",
-    imageUrl: "/img/nhahang.png",
-  },
-
-];
 function Restaurants() {
-    return (
-      <Section title="レストラン">
+  const [loading, setLoading] = React.useState(true);
+  const [restaurantLists, setRestaurantLists] = React.useState<any>([]);
+  React.useEffect(() => {
+    getRestaurantsByName("")
+      .then((res) => setRestaurantLists(res.slice(0, 5)))
+      .catch((err) => console.log(err))
+      .finally(() => {
+        setLoading(false);
+      });
+  }, []);
+
+  return (
+    <Section title="レストラン">
+      {loading ? (
+        <div>Loading...</div>
+      ) : (
         <div className="flex">
-          {restaurantLists.map((i, index) => (
+          {restaurantLists.map((i: any, index: number) => (
             <RestaurantCard
-              title={i.title}
+              title={i.name}
               rating={i.rating}
               address={i.address}
-              imageUrl={i.imageUrl}
+              imageUrl={i.image}
               key={index}
             ></RestaurantCard>
           ))}
         </div>
-      </Section>
-    );
+      )}
+    </Section>
+  );
 }
 
-export default Restaurants
+export default Restaurants;
