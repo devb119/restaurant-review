@@ -5,6 +5,7 @@ import {
   getRestaurantsByName,
   getRestaurantByDocId,
   generateDummyRestaurant,
+  getActiveRestaurants
 } from "./services/RestaurantApi";
 import { Favorite, Header } from "./components";
 import { Restaurants } from "./pages";
@@ -16,7 +17,7 @@ function App() {
   React.useEffect(() => {
     // async function generateDumyRestaurantData() {
     //   await generateDummyRestaurant(5);
-    // }
+    // }y
     // async function pushData() {
     //   await createRestaurant({
     //     name: "Hoang Anh dep zai 345",
@@ -42,6 +43,9 @@ function App() {
     // getData();
     // getDataByDoc();
     // generateDumyRestaurantData();
+    console.log('get data');
+    getActiveRestaurants().then(loz => console.log(loz));
+
   }, []);
   return (
     <>
