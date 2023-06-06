@@ -1,0 +1,36 @@
+import { firestore } from "../config/firebase";
+import Food from "../models/foods";
+// import { faker } from '@faker-js/faker';
+
+//demo api
+export async function createFood(food: Food) {
+    const newData = await firestore.collection("Foods").add(food);
+    return await firestore
+      .collection("Foods")
+      .doc(newData.id)
+      .update({ ...food, id: newData.id }); // update id thanh docId de truy van cho de, create cai gi minh cung nen ntn
+  }
+  
+  export async function getFoodsByName(name: string) {
+    const data = await firestore
+      .collection("Foods")
+      .where("name", ">=", name)
+      .where("name", "<=", name + "\uf8ff")
+      .get();
+    return data.docs.map((item) => ({
+      ...item.data(),
+      // docId: item.id,
+    }));
+  }
+  
+  //get by doc id cho no unique
+  export async function getFoodByDocId(docId: string) {
+    const data = await firestore.collection("Foods").doc(docId).get();
+    return data.data();
+  }
+
+//   export async function generateDummyFood(n: number) {
+//     for(let i = 0; i < n; i++) {
+//        createFood({name: faker.animal.dog(), description: faker.animal.dog(), restaurant_id: '', image: faker.image.avatar(), price: faker.finance.amount(), created_at: new Date(Date.now()), updated_at: new Date(Date.now())});
+//     }
+//  }

@@ -2,9 +2,10 @@ import React from "react";
 import "./App.css";
 import {
   createRestaurant,
-  getRestaurantsByName,
   getRestaurantByDocId,
   generateDummyRestaurant,
+  addMenuToRestaurant,
+  getRestaurants,
 } from "./services/RestaurantApi";
 import { Favorite, Header } from "./components";
 
@@ -17,7 +18,7 @@ function App() {
   //test db
   React.useEffect(() => {
     async function generateDumyRestaurantData() {
-      await generateDummyRestaurant(5);
+      await generateDummyRestaurant(10);
     }
     async function pushData() {
       await createRestaurant({
@@ -34,15 +35,21 @@ function App() {
       });
     }
     async function getData() {
-      console.log(await getRestaurantsByName("Hoang Ah"));
+      console.log(await getRestaurants(1, 5));
     }
     // pushData();
     async function getDataByDoc() {
       console.log(await getRestaurantByDocId("0hR0mV6IS0R82FlwzmVs"));
     }
-    // getData();
+    
+    async function addMenu() {
+      console.log(await addMenuToRestaurant("0CzvkWMGowuSA9syrqUu", ["HMUWDm8jTikjmksOzKd9"], ["HMUWDm8jTikjmksOzKd9", "wgmpXMZu9p3Ky9u8tmAU"]));
+    }
+    getData();
     // getDataByDoc();
-    generateDumyRestaurantData();
+    // generateDumyRestaurantData();
+    // generateDumyFoodData();
+    // addMenu();
   }, []);
   return (
     <>

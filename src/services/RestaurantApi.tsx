@@ -1,12 +1,13 @@
 import { firestore } from "../config/firebase";
-import Restaurant, { restaurant_validation } from "../models/restaurants";
+// import Food from "../models/foods";
+import Restaurant from "../models/restaurants";
 import { faker } from '@faker-js/faker';
 
 //demo api
 export async function createRestaurant(restaurant: Restaurant) {
-  const newData = await firestore.collection("restaurant").add(restaurant);
+  const newData = await firestore.collection("restaurants").add(restaurant);
   return await firestore
-    .collection("restaurant")
+    .collection("restaurants")
     .doc(newData.id)
     .update({ ...restaurant, id: newData.id }); // update id thanh docId de truy van cho de, create cai gi minh cung nen ntn
 }
@@ -14,7 +15,7 @@ export async function createRestaurant(restaurant: Restaurant) {
 //get all by 1 ca1 gi do ko unique
 export async function getRestaurantsByName(name: string) {
   const data = await firestore
-    .collection("restaurant")
+    .collection("restaurants")
     .where("name", ">=", name)
     .where("name", "<=", name + "\uf8ff")
     .get();
@@ -23,16 +24,25 @@ export async function getRestaurantsByName(name: string) {
     // docId: item.id,
   }));
 }
+export async function getRestaurants(page_num: number, num_per_page: number) {
+  const data = await firestore
+    .collection("restaurants").orderBy('name').limit((page_num + 1) * num_per_page).get();
+  const allData = data.docs.map((item) => ({
+    ...item.data(),
+    // docId: item.id,
+  }));
+  return allData.splice(page_num * num_per_page, (page_num + 1) * num_per_page);
+}
 
 //get by doc id cho no unique
 export async function getRestaurantByDocId(docId: string) {
-  const data = await firestore.collection("restaurant").doc(docId).get();
+  const data = await firestore.collection("restaurants").doc(docId).get();
   return data.data();
 }
 
 export async function getFoodsByRestaurant(food_list: Array<string>) {
   const data = await firestore
-    .collection("restaurant")
+    .collection("Foods")
     .where("id", "in", food_list)
     .get();
   return data.docs.map((item) => ({
@@ -44,4 +54,17 @@ export async function generateDummyRestaurant(n: number) {
    for(let i = 0; i < n; i++) {
       createRestaurant({name: faker.company.name(), description: faker.company.name(), manager_id: '1', address: faker.location.streetAddress(), email: faker.internet.email(), phone: faker.phone.imei(), image: faker.image.avatar(), is_active: false, created_at: new Date(Date.now()), updated_at: new Date(Date.now()), food_list: [], license_image: '', website: faker.internet.domainName()});
    }
+}
+
+export async function addMenuToRestaurant(restaurant_id: string, restaurant_food_list: string[], food_ids: string[]) {
+  for(let i = 0; i < food_ids.length; i++) {
+    if(!restaurant_food_list.includes(food_ids[i])){
+      restaurant_food_list.push(food_ids[i]);
+    }
+  }
+  return await firestore.collection("restaurants").doc(restaurant_id).update({ food_list: restaurant_food_list });
+}
+
+export async function updateRestaurant(restaurant: Restaurant) {
+  return await firestore.collection("restaurants").doc(restaurant.id).update(restaurant);
 }
