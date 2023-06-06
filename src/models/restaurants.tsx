@@ -15,6 +15,7 @@ export default interface Restaurant {
   is_active: boolean;
   created_at?: Date;
   updated_at?: Date;
+  rating: number;
 }
 
 // viet ham validation cho data o day, duoi day t demo thoi
