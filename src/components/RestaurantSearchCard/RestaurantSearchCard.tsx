@@ -1,15 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 import "./RestaurantSearchCard.css"
 
-const RestaurantSearch = () => {
+const RestaurantSearch = ({address, name} : {address : string, name : string}) => {
     return (
         <React.Fragment>
-            <div className="restaurant-search-container">
-                <p className="restaurant-search-name">レストラン名</p>
+            <div className="mb-8">
+                <p className="text-2xl font-semibold mb-4 flex ">レストラン名：{name}</p>
                 <div className="restaurant-search-info">
                     <div className="restaurant-search-image" style={{backgroundImage: 'url("../../../public/img/mock-restaurant.jpg")'}}></div>
                     <div className="restaurant-search-description-wrapper">
-                        <p className="restaurant-search-address">アドレス</p>
+                        <p className="restaurant-search-address">アドレス： {address}</p>
                         <div className="restaurant-search-rating">
                             <p>評価：</p>
                             <div className="flex items-center gap-2">
@@ -45,11 +45,7 @@ const RestaurantSearch = () => {
                         </div>
                     </div>
                 </div>
-            </div>
-
-            
-
-           
+            </div>          
         </React.Fragment>
     )
 }
