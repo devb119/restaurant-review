@@ -26,12 +26,21 @@ export async function getRestaurantsByName(name: string) {
 }
 export async function getRestaurants(page_num: number, num_per_page: number) {
   const data = await firestore
-    .collection("restaurants").orderBy('name').limit((page_num + 1) * num_per_page).where("is_active","!=", false).get();
+    .collection("restaurants")
+    .where("is_active","!=", false)
+    .orderBy('is_active')
+    .orderBy('name')
+    .limit((page_num + 1) * num_per_page)
+    .get();
   const allData = data.docs.map((item) => ({
     ...item.data(),
     // docId: item.id,
   }));
-  return allData.splice(page_num * num_per_page, (page_num + 1) * num_per_page);
+  if (allData.length < num_per_page) {
+    return allData
+  } else {
+    return allData.splice(page_num * num_per_page, num_per_page);
+  }
 }
 
 //get by doc id cho no unique
