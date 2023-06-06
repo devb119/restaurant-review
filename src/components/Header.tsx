@@ -35,19 +35,33 @@ function Header({getQueryData} : {getQueryData : Function}): JSX.Element {
     <div className="flex justify-between items-center pr-4 mb-16 text-lg">
       <Logo />
       <ul className="flex gap-6 items-center">
-        {navOptions.map((nav) => (
-          <li
-            onClick={() => setActiveLink(nav.id)}
-            className={
-              nav.id === activeLink
-                ? "border-b-4 border-main font-semibold transition-all"
-                : "border-b-4 border-transparent hover:border-main hover:font-semibold transition-all"
-            }
-            key={nav.id}
-          >
-            <NavLink to={`${nav.id}`}>{nav.title}</NavLink>
-          </li>
-        ))}
+        {navOptions.map((nav) =>
+          nav.id !== "restaurants" ? (
+            <li
+              onClick={() => setActiveLink(nav.id)}
+              className={
+                nav.id === activeLink
+                  ? "border-b-4 border-main font-semibold transition-all"
+                  : "border-b-4 border-transparent hover:border-main hover:font-semibold transition-all"
+              }
+              key={nav.id}
+            >
+              <NavLink to={`${nav.id}`}>{nav.title}</NavLink>
+            </li>
+          ) : (
+            <li
+              onClick={() => setActiveLink(nav.id)}
+              className={
+                nav.id === activeLink
+                  ? "border-b-4 border-main font-semibold transition-all"
+                  : "border-b-4 border-transparent hover:border-main hover:font-semibold transition-all"
+              }
+              key={nav.id}
+            >
+              <a href={`#${nav.id}`}>{nav.title}</a>
+            </li>
+          )
+        )}
       </ul>
       <form className="relative w-1/4" onSubmit={handleSubmitSearch}>
         <input

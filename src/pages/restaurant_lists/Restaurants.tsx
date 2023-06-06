@@ -1,54 +1,33 @@
 import React from 'react'
 import { RestaurantCard, Section } from '../../components'
+import {getRestaurantsByName } from '../../services/RestaurantApi';
 
 
-let restaurantLists = [
-  {
-    title: "Bo To Quan Moc",
-    rating: 4.5,
-    address: "21 Hoa Lu, Hai Ba Trung",
-    imageUrl: "/img/nhahang.png",
-  },
-  {
-    title: "Bo To Quan Moc",
-    rating: 4.5,
-    address: "21 Hoa Lu, Hai Ba Trung",
-    imageUrl: "/img/nhahang.png",
-  },
-  {
-    title: "Bo To Quan Moc",
-    rating: 4.5,
-    address: "21 Hoa Lu, Hai Ba Trung",
-    imageUrl: "/img/nhahang.png",
-  },
-  {
-    title: "Bo To Quan Moc",
-    rating: 4.5,
-    address: "21 Hoa Lu, Hai Ba Trung",
-    imageUrl: "/img/nhahang.png",
-  },
-  {
-    title: "Bo To Quan Moc",
-    rating: 4.5,
-    address: "21 Hoa Lu, Hai Ba Trung",
-    imageUrl: "/img/nhahang.png",
-  },
-
-];
 function Restaurants() {
+  const [loading, setLoading] = React.useState(true);
+  const [restaurantLists, setRestaurantLists] = React.useState<any>([]);
+  React.useEffect(() => {
+    getRestaurantsByName("").then((res) => setRestaurantLists(res.slice(0,5))).catch((err)=> console.log(err)).then(()=>{setLoading(false)});
+  
+  },[])
+
     return (
       <Section title="レストラン">
-        <div className="flex">
-          {restaurantLists.map((i, index) => (
-            <RestaurantCard
-              title={i.title}
-              rating={i.rating}
-              address={i.address}
-              imageUrl={i.imageUrl}
-              key={index}
-            ></RestaurantCard>
-          ))}
-        </div>
+        {loading ? (
+          <div>Loading...</div>
+        ) : (
+          <div className="flex">
+            {restaurantLists.map((i: any, index: number) => (
+              <RestaurantCard
+                title={i.name}
+                rating={i.rating}
+                address={i.address}
+                imageUrl={i.image}
+                key={index}
+              ></RestaurantCard>
+            ))}
+          </div>
+        )}
       </Section>
     );
 }
