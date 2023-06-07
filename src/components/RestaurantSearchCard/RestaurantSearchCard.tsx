@@ -15,7 +15,7 @@ const RestaurantSearch = ({ restaurant }: { restaurant: Restaurant }) => {
     getFoodsByRestaurantId(id)
       .then((res) => {
         console.log(res);
-        setTop2(res.slice(0, 2));
+        setTop2(res.sort((r1,r2)=>r2.rating-r1.rating).slice(0, 2));
       })
       .catch((err) => {
         console.log(err);
