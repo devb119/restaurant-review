@@ -64,18 +64,17 @@ function FavoriteCard1(props: favoriteProps): JSX.Element {
   );
 }
 
-export function  FavoriteCard2(props: favoriteProps): JSX.Element {
+export function FavoriteCard2(props: favoriteProps): JSX.Element {
   const { foodTitle, rating, imageUrl, restaurant_id } = props;
-    const [restaurantName, setRestaurantName] = useState<any>("");
-    useEffect(() => {
-      getRestaurantById(restaurant_id).then((res) => {
-        console.log(res)
-        setRestaurantName(res.name );
-      });
-    }, []);
+  const [restaurantName, setRestaurantName] = useState<any>("");
+  useEffect(() => {
+    getRestaurantById(restaurant_id).then((res) => {
+      setRestaurantName(res.name);
+    });
+  }, []);
   return (
     <div className="bg-white p-4 flex flex-col w-64 rounded-sm">
-      <img src={imageUrl} className="w-54 h-44"></img>
+      <img src={imageUrl} className="w-54 h-44 rounded" />
       <div className="flex flex-row justify-between items-center">
         <p className="py-1">{foodTitle} </p>
         <div className="flex items-center">
@@ -87,7 +86,10 @@ export function  FavoriteCard2(props: favoriteProps): JSX.Element {
       </div>
 
       <div className="text-sm font-semibold">
-        <ToolTipOnHover textContent={restaurantName} limit={20}></ToolTipOnHover>
+        <ToolTipOnHover
+          textContent={restaurantName}
+          limit={20}
+        ></ToolTipOnHover>
       </div>
     </div>
   );

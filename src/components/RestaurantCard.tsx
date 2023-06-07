@@ -1,5 +1,5 @@
 import { HiOutlineLocationMarker } from "react-icons/hi";
-import {FaStar} from "react-icons/fa"
+import { FaStar } from "react-icons/fa";
 import ToolTipOnHover from "./common/ToolTipOnHover";
 interface restaurantCardProps {
   title: string;
@@ -12,7 +12,7 @@ function RestaurantCard(props: restaurantCardProps) {
   const { title, address, rating, imageUrl } = props;
   return (
     <div className="bg-white p-8 flex flex-col w-64">
-      <img src={imageUrl}></img>
+      <img src={imageUrl} className="rounded" />
       <div className="flex flex-row justify-between items-center">
         <div className="py-1">
           <ToolTipOnHover textContent={title} limit={12}></ToolTipOnHover>

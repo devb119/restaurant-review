@@ -30,7 +30,7 @@ function Restaurants() {
               address={i.address}
               imageUrl={i.image}
               key={index}
-            ></RestaurantCard>
+            />
           ))}
         </div>
       )}
