@@ -1,19 +1,18 @@
 import React from "react";
 import "./RestaurantSearchCard.css";
 import Restaurant from "../../models/restaurants";
-import { getFoodsByRestaurantId } from "../../services/FoodApi";
 import { FaStar } from "react-icons/fa";
 import Loading from "../common/Loading";
+import { getFoodsByRestaurant } from "../../services/RestaurantApi";
 
 const RestaurantSearch = ({ restaurant }: { restaurant: Restaurant }) => {
   const { id, name, address, image, rating } = restaurant;
   const [loading, setLoading] = React.useState<boolean>(true);
   const [top2, setTop2] = React.useState<any>([]);
-  if (!id) return <></>;
 
   React.useEffect(() => {
     setLoading(true);
-    getFoodsByRestaurantId(id)
+    getFoodsByRestaurant(restaurant.food_list)
       .then((res) => {
         console.log(res);
         setTop2(res.sort((r1, r2) => r2.rating - r1.rating).slice(0, 2));
@@ -24,8 +23,9 @@ const RestaurantSearch = ({ restaurant }: { restaurant: Restaurant }) => {
       .finally(() => {
         setLoading(false);
       });
-  }, []);
+  }, [restaurant]);
 
+  if (!id) return <></>;
   return (
     <React.Fragment>
       {loading ? (
