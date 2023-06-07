@@ -50,9 +50,8 @@ let favorites = [
   },
 ];
 
-
 function JapaneseFavourites() {
-    const [loading, setLoading] = React.useState<boolean>(true);
+  const [loading, setLoading] = React.useState<boolean>(true);
   const [favorites, setFavorites] = React.useState<any>([]);
   // const [hasPrev, setHasPrev] = React.useState(false);
   // const [hasNext, setHasNext] = React.useState(true);
@@ -67,11 +66,15 @@ function JapaneseFavourites() {
   //   disableStyle =
   //     "text-4xl text-red-400 m-2 cursor-not-allowed";
   useEffect(() => {
-        setLoading(true);
+    setLoading(true);
 
-    getFavouriteFoodList().then(res => setFavorites(res)).catch((err) => console.log(err)).finally(() => { setLoading(false) })
-    
-  },[])
+    getFavouriteFoodList()
+      .then((res) => setFavorites(res))
+      .catch((err) => console.log(err))
+      .finally(() => {
+        setLoading(false);
+      });
+  }, []);
   return (
     <Section title="日本人好み料理">
       {loading ? (
@@ -80,15 +83,23 @@ function JapaneseFavourites() {
         </div>
       ) : (
         <div>
-          <div className="w-3/5 flex gap-4">
-            {favorites.slice(0, 3).map((i: any, index: number) => (
-              <Favorite
-                foodTitle={i.name}
-                imageUrl={i.image}
-                key={index}
-                restaurant_id=""
-              ></Favorite>
-            ))}
+          <div className="flex relative">
+            <div className="w-3/5 flex gap-4">
+              {favorites.slice(0, 3).map((i: any, index: number) => (
+                <Favorite
+                  foodTitle={i.name}
+                  imageUrl={i.image}
+                  key={index}
+                  restaurant_id=""
+                />
+              ))}
+            </div>
+            <div className="w-2/5 absolute -z-10 right-10 -top-20">
+              <div>
+                <img src="/img/lemon.png" className="w-full" />
+                {/* <img src="/img/buncha.jpg" className="absolute" /> */}
+              </div>
+            </div>
           </div>
           {/* <div className="flex justify-around w-3/5">
           <div className="flex flex-row mt-2">

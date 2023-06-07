@@ -6,22 +6,26 @@ import { FaStar } from "react-icons/fa";
 import Loading from "../common/Loading";
 
 const RestaurantSearch = ({ restaurant }: { restaurant: Restaurant }) => {
-    const { id, name, address, image, rating } = restaurant;
-    const[loading,setLoading]=React.useState<boolean>(true)
+  const { id, name, address, image, rating } = restaurant;
+  const [loading, setLoading] = React.useState<boolean>(true);
   const [top2, setTop2] = React.useState<any>([]);
   if (!id) return <></>;
-    React.useEffect(() => {
-        setLoading(true);
+
+  React.useEffect(() => {
+    setLoading(true);
     getFoodsByRestaurantId(id)
       .then((res) => {
         console.log(res);
-        setTop2(res.sort((r1,r2)=>r2.rating-r1.rating).slice(0, 2));
+        setTop2(res.sort((r1, r2) => r2.rating - r1.rating).slice(0, 2));
       })
       .catch((err) => {
         console.log(err);
       })
-      .finally(() => {setLoading(false)});
+      .finally(() => {
+        setLoading(false);
+      });
   }, []);
+
   return (
     <React.Fragment>
       {loading ? (
@@ -33,9 +37,9 @@ const RestaurantSearch = ({ restaurant }: { restaurant: Restaurant }) => {
           <p className="text-2xl font-semibold mb-4 flex ">
             レストラン名：{name}
           </p>
-          <div className="restaurant-search-info">
+          <div className="restaurant-search-info rounded">
             <div
-              className="restaurant-search-image"
+              className="restaurant-search-image rounded"
               style={{ backgroundImage: `url("${image}")` }}
             ></div>
             <div className="restaurant-search-description-wrapper">
@@ -60,7 +64,7 @@ const RestaurantSearch = ({ restaurant }: { restaurant: Restaurant }) => {
                   </svg>
                 </div>
               </div>
-              <div className="flex font-semibold text-red-700 text-2xl mb-4">
+              <div className="flex font-semibold text-red-700 text-2xl">
                 おすすめ:
               </div>
               {top2.map((e: any) => (
@@ -75,7 +79,9 @@ const RestaurantSearch = ({ restaurant }: { restaurant: Restaurant }) => {
                       )
                     </div>
                   </div>
-                  <img className="rounded-md w-54 h-44" src={e.image}></img>
+                  <div className="w-52 h-36 overflow-hidden rounded-md">
+                    <img src={e.image}></img>
+                  </div>
                 </div>
               ))}
               <div className="go-to-review ml-52">
