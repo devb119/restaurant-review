@@ -16,8 +16,9 @@ export async function createRestaurant(restaurant: Restaurant) {
 export async function getRestaurantsByName(name: string) {
   const data = await firestore
     .collection("restaurants")
-    .where("name", ">=", name)
-    .where("name", "<=", name + "\uf8ff")
+    .orderBy("rating", "desc")
+    // .where("name", ">=", name)
+    // .where("name", "<=", name + "\uf8ff")
     .get();
   return data.docs.map((item) => ({
     ...item.data(),
@@ -28,7 +29,7 @@ export async function getRestaurantsByName(name: string) {
 export async function getRestaurantById(id: string) {
   const data = await firestore
     .collection("restaurants")
-    .where("id", "==", id)
+    .where("id", ">=", id)
     .get();
    return data.docs.map((item) => ({
      ...item.data(),
