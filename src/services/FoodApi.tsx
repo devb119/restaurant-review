@@ -27,7 +27,6 @@ export async function createFood(food: Food) {
       const data = await firestore
         .collection("Foods")
         .where("restaurant_id", ">=", id)
-        .orderBy("rating", "desc")
         .get();
       return data.docs.map((item) => ({
         ...item.data(),
