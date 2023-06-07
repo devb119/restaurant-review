@@ -7,7 +7,7 @@ import { getRestaurantsByName } from "../services/RestaurantApi";
 const SearchPage = ({query} : {query : string}) => {
     const [searchData, setSearchData] = useState<Restaurant[]>([]);
     const [currentPage, setCurrentPage] = useState<number>(1);
-    const restaurantsPerPage = 2;
+    const restaurantsPerPage = 5;
 
     React.useEffect(() => {
         async function getSearchData(name : string) {
