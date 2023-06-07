@@ -76,7 +76,7 @@ export function FavoriteCard2(props: favoriteProps): JSX.Element {
     <div className="bg-white p-4 flex flex-col w-64 rounded-sm">
       <img src={imageUrl} className="w-54 h-44 rounded" />
       <div className="flex flex-row justify-between items-center">
-        <p className="py-1">{foodTitle} </p>
+        <p className="py-1 font-semibold">{foodTitle} </p>
         <div className="flex items-center">
           <span className="font-extrathin text-sm text-yellow-500 px-1">
             <FaStar></FaStar>
@@ -85,7 +85,7 @@ export function FavoriteCard2(props: favoriteProps): JSX.Element {
         </div>
       </div>
 
-      <div className="text-sm font-semibold">
+      <div className="text-sm font-thin">
         <ToolTipOnHover
           textContent={restaurantName}
           limit={20}
