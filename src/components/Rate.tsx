@@ -3,7 +3,7 @@ import { useMemo, useState } from "react";
 const Rate = ({ count, rating, color, onRating } : {count: number, rating: number, color: {
     filled: "#FFBA00",
     unfilled: "#FFE8E0",
-  }, onRating: Function }) => {
+  }, onRating: (rate : number) => number }) => {
   const [hoverRating, setHoverRating] = useState(0);
 
   const getColor = (index:number) => {

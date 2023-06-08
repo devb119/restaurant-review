@@ -3,6 +3,7 @@ import RestaurantSearchCard from "../components/RestaurantSearchCard/RestaurantS
 import PaginationSearch from "../components/PaginationSearch";
 import Restaurant from "../models/restaurants"
 import { getRestaurantsByName } from "../services/RestaurantApi";
+import Footer from "../components/Footer";
 
 const SearchPage = ({query} : {query : string}) => {
     const [searchData, setSearchData] = useState<Restaurant[]>([]);
@@ -11,8 +12,8 @@ const SearchPage = ({query} : {query : string}) => {
 
     React.useEffect(() => {
         async function getSearchData(name : string) {
-            let data : any =  await getRestaurantsByName('');
-            const suitableData = data.filter((e : any) => e.name.toLowerCase().includes(name.trim().toLowerCase()));
+            const data : any =  await getRestaurantsByName('');
+            const suitableData = data.filter((e : Restaurant) => e.name.toLowerCase().includes(name.trim().toLowerCase()));
             setSearchData([...suitableData]);
             console.log(data);
         }
@@ -25,25 +26,38 @@ const SearchPage = ({query} : {query : string}) => {
     const currentRestaurants = searchData.length > restaurantsPerPage ? searchData.slice(indexOfFirstRestaurant, indexOfLastRestaurant)
     : searchData;
 
-    const paginate = (pageNumber : any) => {
+    const paginate = (pageNumber : number) => {
         setCurrentPage(pageNumber);
         window.scrollTo(0, 0);
     }
 
     return (
         <React.Fragment>
-            { currentRestaurants.map((e) => {
-                console.log(e);
-                return (
-                    <RestaurantSearchCard restaurant={e} />
-                ) 
-            })}
-            <PaginationSearch 
-                restaurantsPerPage ={restaurantsPerPage}
-                totalRestaurants ={searchData.length}
-                currentPage={currentPage}
-                paginate={paginate}
-            />
+            {(searchData.length > 0) ?
+                <div>
+                    {query.trim() === "" ? <h1 className="mb-8 text-2xl font-semibold flex">全部で {searchData.length}レストランがある </h1> : 
+                    <h1 className="mb-8 text-2xl font-semibold flex">{searchData.length} 結果が見つけた： "{query}"</h1>
+                    }
+                     
+                    {currentRestaurants.map((e) => {
+                        console.log(e);
+                        return (
+                            <RestaurantSearchCard restaurant={e} />
+                        ) 
+                    })}
+                    <PaginationSearch 
+                        restaurantsPerPage ={restaurantsPerPage}
+                        totalRestaurants ={searchData.length}
+                        currentPage={currentPage}
+                        paginate={paginate}
+                    />
+                </div>
+                : <div className="mx-auto max-w-[75rem] h-[25rem]">
+                    <h1 className="mb-8 text-2xl font-semibold flex">適切なレコードが見つけない："{query}"</h1>
+                </div>
+            }
+            <Footer />
+            
         </React.Fragment>
     )
 }

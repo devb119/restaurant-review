@@ -36,9 +36,9 @@ const RestaurantSearch = ({ restaurant }: { restaurant: Restaurant }) => {
       ) : (
         <div className="mb-8">
           <div className="bg-white rounded-md p-8 flex flex-row">
-            <div className="flex flex-row">
+            <div className="flex flex-row w-full">
               <div className="w-2/5">
-                <img className="rounded h-full w-full" src={image}></img>
+                <img className="rounded w-full aspect-[4/3.14]" src={image}></img>
               </div>
               <div className="ml-8 w-3/5">
                 <div className="flex justify-between items-center">

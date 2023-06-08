@@ -1,6 +1,8 @@
 import React from "react";
 
-const PaginationSearch = ({ restaurantsPerPage, totalRestaurants, paginate, currentPage } : {restaurantsPerPage : number, totalRestaurants : number, paginate : Function, currentPage : number}) => {
+type paginateFunction = (pageNumber : number) => void;
+
+const PaginationSearch = ({ restaurantsPerPage, totalRestaurants, paginate, currentPage } : {restaurantsPerPage : number, totalRestaurants : number, paginate : paginateFunction, currentPage : number}) => {
     const pageNumbers = [];
 
     for (let i = 1; i <= Math.ceil(totalRestaurants / restaurantsPerPage); i++) {
@@ -19,18 +21,18 @@ const PaginationSearch = ({ restaurantsPerPage, totalRestaurants, paginate, curr
                                 </a> */}
                                 <li>
                                     <a
-                                        className={number === currentPage ? "relative block rounded-full bg-primary-100 px-3 py-1.5 text-sm font-medium text-primary-700 transition-all duration-300 bg-[#C9391969] text-white hover:bg-[#C9391969]" 
-                                        : "relative block rounded-full bg-primary-100 px-3 py-1.5 text-sm font-medium text-primary-700 transition-all duration-300 focus:bg-[#C9391969] hover:bg-[#C9391969]"}
+                                        className={number === currentPage ? " relative block rounded-full bg-primary-100 px-3 py-1.5 text-sm font-medium text-primary-700 transition-all duration-300 bg-[#C9391969] text-white hover:bg-[#C9391969]" 
+                                        : " relative block rounded-full bg-primary-100 px-3 py-1.5 text-sm font-medium text-primary-700 transition-all duration-300 focus:bg-[#C9391969] hover:bg-[#C9391969]"}
                                         href="#!"
                                         onClick={() => paginate(number)}
-                                    >{number}</a>
+                                    ><div className="w-2 flex items-center justify-center">{number}</div></a>
                                 </li>
                             </li>
                         ))}
                        
                         <li className="flex items-center justify-center">
                             <a
-                                className="relative block rounded-full bg-primary-100 px-3 py-1.5 text-sm font-medium text-primary-700 transition-all duration-300 hover:bg-[#C9391969] hover:text-white hover:bg-[#C9391969] hover:text-white"
+                                className="relative block rounded-full bg-primary-100 px-3 py-1.5 text-sm font-medium text-primary-700 transition-all duration-300 hover:bg-[#C9391969] hover:text-white"
                                 href="#" 
                                 
                                 onClick={() => paginate(currentPage + 1 < pageNumbers.length ? currentPage + 1 : pageNumbers.length)}
