@@ -41,9 +41,8 @@ function Header({
     getQueryData(query);
     navigate("/search");
     console.log(query);
-
     setActiveLink("search");
-    setQuery('');
+    setQuery("");
   };
 
   return (
@@ -83,7 +82,7 @@ function Header({
           type="text"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          className="rounded-full py-3 pl-4 pr-32 w-full border-none shadow-lg focus:outline-none"
+          className="rounded-full py-3 pl-4 pr-32 w-full shadow-lg focus:outline-none"
           placeholder="料理、レストランの名前を入力"
         />
 
