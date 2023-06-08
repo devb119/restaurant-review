@@ -2,10 +2,10 @@ import React from "react";
 import "./RestaurantSearchCard.css";
 import Restaurant from "../../models/restaurants";
 import { FaStar } from "react-icons/fa";
-import Loading from "../common/Loading";
+import { Loading } from "../common";
 import { getFoodsByRestaurant } from "../../services/RestaurantApi";
 import { HiOutlineLocationMarker } from "react-icons/hi";
-import {TbPlayerTrackNextFilled} from "react-icons/tb"
+import { TbPlayerTrackNextFilled } from "react-icons/tb";
 const RestaurantSearch = ({ restaurant }: { restaurant: Restaurant }) => {
   const { id, name, address, image, rating } = restaurant;
   const [loading, setLoading] = React.useState<boolean>(true);
@@ -31,14 +31,17 @@ const RestaurantSearch = ({ restaurant }: { restaurant: Restaurant }) => {
     <React.Fragment>
       {loading ? (
         <div className="flex justify-center h-screen items-center">
-          <Loading></Loading>
+          <Loading />
         </div>
       ) : (
         <div className="mb-8">
           <div className="bg-white rounded-md p-8 flex flex-row">
             <div className="flex flex-row w-full">
               <div className="w-2/5">
-                <img className="rounded w-full aspect-[4/3.14]" src={image}></img>
+                <img
+                  className="rounded w-full aspect-[4/3.14]"
+                  src={image}
+                ></img>
               </div>
               <div className="ml-8 w-3/5">
                 <div className="flex justify-between items-center">
@@ -107,7 +110,7 @@ const RestaurantSearch = ({ restaurant }: { restaurant: Restaurant }) => {
     </React.Fragment>
   );
 };
- 
+
 function ReviewButton() {
   return (
     <div className="flex justify-end bg-main cursor-pointer rounded-full text-white">

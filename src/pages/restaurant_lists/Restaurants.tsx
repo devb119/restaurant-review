@@ -1,7 +1,7 @@
 import React from "react";
 import { RestaurantCard, Section } from "../../components";
 import { getRestaurantsByName } from "../../services/RestaurantApi";
-import Loading from "../../components/common/Loading";
+import { Loading } from "../../components/common";
 
 function Restaurants() {
   const [loading, setLoading] = React.useState(true);
@@ -19,7 +19,7 @@ function Restaurants() {
     <Section title="レストラン">
       {loading ? (
         <div className="flex justify-center h-150 items-center">
-          <Loading></Loading>
+          <Loading />
         </div>
       ) : (
         <div className="flex">

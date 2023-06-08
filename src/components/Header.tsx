@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { BsCheckLg } from "react-icons/bs";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate, Link } from "react-router-dom";
+import { ButtonPrimary, ButtonSecondary } from "./common";
 
 interface NavOption {
   // id là id của phần nội dung sẽ nhảy tới (HTML id)
@@ -14,16 +15,23 @@ const navOptions: NavOption[] = [
   { id: "search", title: "レストラン情報検索" },
 ];
 
-type getQueryDataFunction = (query : string) => void;
+type getQueryDataFunction = (query: string) => void;
 
-const Logo = (): JSX.Element => (
-  <div className="flex items-center px-6 py-4 gap-2 bg-white cursor-pointer">
+export const Logo = (): JSX.Element => (
+  <Link
+    to="/"
+    className="flex items-center px-6 py-4 gap-2 bg-white cursor-pointer w-52 h-20"
+  >
     <img src="/logo.svg" className="w-12" alt="amumu" />
     <p className="text-3xl font-bold text-mainShade quicksand">amumu</p>
-  </div>
+  </Link>
 );
 
-function Header({getQueryData} : {getQueryData : getQueryDataFunction}): JSX.Element {
+function Header({
+  getQueryData,
+}: {
+  getQueryData: getQueryDataFunction;
+}): JSX.Element {
   const [activeLink, setActiveLink] = useState("");
   const [query, setQuery] = useState("");
   const navigate = useNavigate();
@@ -33,11 +41,10 @@ function Header({getQueryData} : {getQueryData : getQueryDataFunction}): JSX.Ele
     getQueryData(query);
     navigate("/search");
     console.log(query);
-    setQuery('');
+    setQuery("");
   };
 
   return (
-    
     <div className="flex justify-between items-center pr-4 mb-16 text-lg">
       <Logo />
       <ul className="flex gap-6 items-center">
@@ -76,7 +83,8 @@ function Header({getQueryData} : {getQueryData : getQueryDataFunction}): JSX.Ele
           onChange={(e) => setQuery(e.target.value)}
           className="rounded-full py-3 pl-4 pr-32 w-full border-none shadow-lg focus:outline-none"
           placeholder="料理、レストランの名前を入力"
-        ></input>
+        />
+
         <button
           className="absolute right-2 top-1/2 -translate-y-1/2 bg-main text-white 
         flex items-center gap-2 py-1 px-4 rounded-full hover:bg-mainShade transition-all"
@@ -90,12 +98,12 @@ function Header({getQueryData} : {getQueryData : getQueryDataFunction}): JSX.Ele
         </button>
       </form>
       <div className="flex items-center gap-2">
-        <button className="border-2 border-white text-white bg-main hover:bg-mainShade py-2 px-4 rounded-full ">
-          サインアップ
-        </button>
-        <button className="border-2 border-white py-2 px-4 rounded-full hover:bg-mainShade hover:text-white transition-all">
-          ログイン
-        </button>
+        <Link to="/sign-up">
+          <ButtonPrimary title="サインアップ" />
+        </Link>
+        <Link to="/login">
+          <ButtonSecondary title="ログイン" />
+        </Link>
       </div>
     </div>
   );
