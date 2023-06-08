@@ -1,9 +1,8 @@
-
 import { Favorite, FavoriteCard2, Section } from "../../components";
 import React, { useEffect } from "react";
 import Restaurants from "./Restaurants";
 import { getFavouriteFoodList } from "../../services/FoodApi";
-import Loading from "../../components/common/Loading";
+import { Loading } from "../../components/common";
 
 const favorites = [
   {
@@ -74,7 +73,7 @@ function JapaneseFavourites() {
     <Section title="日本人好み料理">
       {loading ? (
         <div className="flex justify-center h-420 items-center">
-          <Loading></Loading>
+          <Loading />
         </div>
       ) : (
         <div>

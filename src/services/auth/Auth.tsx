@@ -34,7 +34,7 @@ export async function getUserByDocId(docId: string) {
   }
 
 // login thanh cong se tra ve user, neu fail thi bao loi 
-export async function Login(email: string, password: string) {
+export async function UserLogin(email: string, password: string) {
     const loggedIn = await firebase.auth().signInWithEmailAndPassword(email, password).then(async (userCredential) => {
         localStorage.setItem("user", JSON.stringify(userCredential.user));
         return await getUserByEmail(userCredential.user?.email);
