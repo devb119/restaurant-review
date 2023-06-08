@@ -41,7 +41,9 @@ function Header({
     getQueryData(query);
     navigate("/search");
     console.log(query);
-    setQuery("");
+
+    setActiveLink("search");
+    setQuery('');
   };
 
   return (
