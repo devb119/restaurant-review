@@ -1,25 +1,60 @@
-// import { firebase } from "../../config/firebase";
+import { firebase, firestore } from "../../config/firebase";
+import { IUserModel } from "../../models";
 
-// const provider = firebase.auth().GoogleAuthProvider()
-// firebase.auth()
-//   .signInWithPopup()
-//   .then((result) => {
-//     /** @type {firebase.auth.OAuthCredential} */
-//     var credential = result.credential;
+export async function createUser(user: IUserModel, password: string) {
+  const newUser = await firebase.auth().createUserWithEmailAndPassword(user.email, password).then(async (userCredential) => {
+    // const credential = userCredential;
+    localStorage.setItem("user", JSON.stringify(userCredential.user));
+    const newData = await firestore.collection('users').add(user);
+    const updateDocId = await firestore
+    .collection("users")
+    .doc(newData.id)
+    .update({ ...user, id: newData.id });
+    return newData.id;
+  }).catch((error) => {
+    return {
+        code: error.code, 
+        messsage: error.message,
+    }
+  })
+  // tra ve docId cua doc chua user
+  return newUser;
+}
 
-//     // This gives you a Google Access Token. You can use it to access the Google API.
-//     var token = credential.accessToken;
-//     // The signed-in user info.
-//     var user = result.user;
-//     // IdP data available in result.additionalUserInfo.profile.
-//       // ...
-//   }).catch((error) => {
-//     // Handle Errors here.
-//     var errorCode = error.code;
-//     var errorMessage = error.message;
-//     // The email of the user's account used.
-//     var email = error.email;
-//     // The firebase.auth.AuthCredential type that was used.
-//     var credential = error.credential;
-//     // ...
-//   });
+export async function getUserByEmail(email: string | null | undefined) {
+    if(email) {
+        const user = await firestore.collection('users').where('email', '==', email).get();
+        return user.docs.map((item) => ({...item.data()}))[0];
+    }
+}
+
+export async function getUserByDocId(docId: string) {
+    const data = await firestore.collection("users").doc(docId).get();
+    return data.data();
+  }
+
+// login thanh cong se tra ve user, neu fail thi bao loi 
+export async function Login(email: string, password: string) {
+    const loggedIn = await firebase.auth().signInWithEmailAndPassword(email, password).then(async (userCredential) => {
+        localStorage.setItem("user", JSON.stringify(userCredential.user));
+        return await getUserByEmail(userCredential.user?.email);
+    }).catch((error)=> {
+        return {
+            code: error.code,
+            message: error.message,
+        }
+    })
+    return loggedIn;
+}
+
+
+export async function Logout() {
+    firebase.auth().signOut().then(() => {
+        // Sign-out successful.
+        localStorage.removeItem("user");
+        //cho nay them code set lai cai context chua user
+      }).catch((error) => {
+        // An error happened.
+        console.error(error);
+      });
+}
