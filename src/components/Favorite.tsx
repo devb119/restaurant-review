@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { AiOutlineArrowRight } from "react-icons/ai";
 import { FaStar } from "react-icons/fa";
 import { getRestaurantById } from "../services/RestaurantApi";
-import ToolTipOnHover from "./common/ToolTipOnHover";
+import { ToolTipOnHover } from "./common";
 
 interface favoriteProps {
   foodTitle: string;
@@ -86,10 +86,7 @@ export function FavoriteCard2(props: favoriteProps): JSX.Element {
       </div>
 
       <div className="text-sm font-thin">
-        <ToolTipOnHover
-          textContent={restaurantName}
-          limit={20}
-        ></ToolTipOnHover>
+        <ToolTipOnHover textContent={restaurantName} limit={20} />
       </div>
     </div>
   );

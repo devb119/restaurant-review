@@ -6,6 +6,7 @@ import { Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
 import { getFavouriteFoodList } from "./services/FoodApi";
+import { Login } from "./pages";
 
 function App() {
   //test db
@@ -22,14 +23,10 @@ function App() {
   return (
     <>
       <Routes>
+        <Route path="login" element={<Login />} />
         <Route path="/" element={<Home getQuery={getQueryDataHandler} />}>
           <Route path="" element={<JapaneseFavourites />}></Route>
-          <Route
-            path="japanese-favorites"
-            element={
-                <JapaneseFavourites />
-            }
-          ></Route>
+          <Route path="japanese-favorites" element={<JapaneseFavourites />} />
           <Route path="search" element={<SearchPage query={query} />}></Route>
         </Route>
         <Route path="*" element={<NotFound />}></Route>
