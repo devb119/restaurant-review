@@ -1,16 +1,11 @@
-import {
-  BsFillArrowLeftCircleFill,
-  BsFillArrowRightCircleFill,
-} from "react-icons/bs";
+
 import { Favorite, FavoriteCard2, Section } from "../../components";
 import React, { useEffect } from "react";
 import Restaurants from "./Restaurants";
-import Food from "../../models/foods";
 import { getFavouriteFoodList } from "../../services/FoodApi";
-import { getRestaurantById } from "../../services/RestaurantApi";
 import Loading from "../../components/common/Loading";
 
-let favorites = [
+const favorites = [
   {
     title: "Bun cha",
     imageURL: "/img/buncha.jpg",
