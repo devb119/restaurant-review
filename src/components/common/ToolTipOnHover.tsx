@@ -8,7 +8,7 @@ export default function ToolTipOnHover({
   limit: number;
 }) {
   const [show, setShow] = React.useState(false);
-  let hasToolTip = textContent.length > limit;
+  const hasToolTip = textContent.length > limit;
   return (
     <div className="relative">
       <button
