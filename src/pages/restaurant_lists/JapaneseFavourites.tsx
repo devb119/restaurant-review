@@ -94,8 +94,8 @@ function JapaneseFavourites() {
                 />
               ))}
             </div>
-            <div className="w-2/5 absolute -z-10 right-10 -top-20">
-              <div>
+            <div className="w-2/5 relative">
+              <div className="absolute -z-10 right-10 -top-20">
                 <img src="/img/lemon.png" className="w-full" />
                 {/* <img src="/img/buncha.jpg" className="absolute" /> */}
               </div>
