@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { BsCheckLg } from "react-icons/bs";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 interface NavOption {
   // id là id của phần nội dung sẽ nhảy tới (HTML id)
@@ -14,6 +14,8 @@ const navOptions: NavOption[] = [
   { id: "search", title: "レストラン情報検索" },
 ];
 
+type getQueryDataFunction = (query : string) => void;
+
 const Logo = (): JSX.Element => (
   <div className="flex items-center px-6 py-4 gap-2 bg-white cursor-pointer">
     <img src="/logo.svg" className="w-12" alt="amumu" />
@@ -21,17 +23,21 @@ const Logo = (): JSX.Element => (
   </div>
 );
 
-function Header({getQueryData} : {getQueryData : Function}): JSX.Element {
+function Header({getQueryData} : {getQueryData : getQueryDataFunction}): JSX.Element {
   const [activeLink, setActiveLink] = useState("");
   const [query, setQuery] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmitSearch = (e: React.FormEvent): void => {
     e.preventDefault();
     getQueryData(query);
+    navigate("/search");
     console.log(query);
+    setQuery('');
   };
 
   return (
+    
     <div className="flex justify-between items-center pr-4 mb-16 text-lg">
       <Logo />
       <ul className="flex gap-6 items-center">
