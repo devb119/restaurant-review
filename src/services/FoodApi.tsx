@@ -46,8 +46,3 @@ export async function createFood(food: Food) {
       ...item.data(),
     }));
   }
-//   export async function generateDummyFood(n: number) {
-//     for(let i = 0; i < n; i++) {
-//        createFood({name: faker.animal.dog(), description: faker.animal.dog(), restaurant_id: '', image: faker.image.avatar(), price: faker.finance.amount(), created_at: new Date(Date.now()), updated_at: new Date(Date.now())});
-//     }
-//  }

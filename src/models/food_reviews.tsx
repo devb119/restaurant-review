@@ -1,6 +1,7 @@
 export default interface Food_review {
     id?: string;
-    food_id: string;
+    review_id: string;
+    reviewer_id: string;
     star: number;
     about_price: string;
     about_decoration: string;

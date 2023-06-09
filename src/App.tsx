@@ -13,15 +13,15 @@ import { Login } from "./pages";
 
 function App() {
   const testUser: IUserModel = {
-    email: "hoanganhdepzai123@gmail.com",
-    username: "hoanh dep zai",
-    fullname: "Hoanh dep zai",
+    email: "hoanganhdepzai1234566@gmail.com",
+    username: "hoanh dep zai 2",
+    fullname: "Hoanh dep zai 2",
     gender: UserGender.Male,
-    phone: "01234567891",
-    nationality: "Duc Quoc Xa",
-    point: "cho nay sao lai la string nhi",
+    phone: "01234567892",
+    nationality: "Duc Quoc Xa 2",
+    point: "cho nay sao lai la string nhi 2",
     image: "https://seeklogo.com/images/L/liverpool-fc-logo-027452BE2B-seeklogo.com.png?v=638133601200000000",
-    role: UserRole.Guest,
+    role: UserRole.Reviewer,
     is_active: true,
     created_at: new Date(Date.now()),
   }
@@ -34,7 +34,7 @@ function App() {
     async function createMockUser() {
       console.log(await createUser(testUser, "12345678"));
     }
-    // createMockUser();
+    createMockUser();
     async function LoginTest() {  
       console.log(await UserLogin("hoanganhdepzai123@gmail.com", "12345678"));
     }

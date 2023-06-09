@@ -10,7 +10,7 @@ export async function createUser(user: IUserModel, password: string) {
     .collection("users")
     .doc(newData.id)
     .update({ ...user, id: newData.id });
-    return newData.id;
+    return {...user, id: newData.id};
   }).catch((error) => {
     return {
         code: error.code, 
