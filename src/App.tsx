@@ -7,6 +7,10 @@ import { Login, Signup } from "./components";
 import { getFavouriteFoodList } from "./services/FoodApi";
 import { UserLogin, createUser } from "./services/auth/Auth";
 import { IUserModel } from "./models";
+import { createNewReview, getReviewsByRestaurantId, deleteReview } from "./services/ReviewApi";
+import { createNewFoodReview, getFoodReviewsById, deleteFoodReview} from "./services/FoodReviewApi";
+import Review from "./models/reviews";
+import Food_review from "./models/food_reviews";
 import { UserGender, UserRole } from "./models/enum";
 
 function App() {
@@ -24,19 +28,62 @@ function App() {
     is_active: true,
     created_at: new Date(Date.now()),
   };
+
+  const testReview : Review = {
+    id: "22",
+    restaurant_id: "2",
+    user_id: "30",
+    about_space: "ban",
+    about_quality: "ban vcl deo chiu duoc",
+    other_review: "ban vai l",
+    star: 1.0,
+    is_active: true,
+    created_at: new Date(Date.now()),
+    updated_at: new Date(Date.now())
+  }
+
+  const testFoodReview : Food_review = {
+    id: "2",
+    food_id: "1",
+    star: 5.0,
+    about_price: " not good bro",
+    about_decoration: "bad vcl bro",
+    other: "good bro"
+  }
   //test db
   React.useEffect(() => {
-    async function getFavouriteFood() {
-      console.log(await getFavouriteFoodList());
-    }
-    getFavouriteFood();
-    async function createMockUser() {
-      console.log(await createUser(testUser, "12345678"));
-    }
-    // createMockUser();
-    async function LoginTest() {
-      console.log(await UserLogin("hoanganhdepzai123@gmail.com", "12345678"));
-    }
+    /* 
+                          dung xoa de namduong test nha :D
+
+    */
+
+    // async function getFavouriteFood() {
+    //   console.log(await getFavouriteFoodList());
+    // }
+    // getFavouriteFood();
+    // async function createMockUser() {
+    //   console.log(await createUser(testUser, "12345678"));
+    // }
+    // // createMockUser();
+    // async function LoginTest() {
+    //   console.log(await UserLogin("hoanganhdepzai123@gmail.com", "12345678"));
+    // }
+
+    // async function addReview() {
+    //   console.log(await createNewFoodReview(testFoodReview));
+    // }
+
+    // async function getReview() {
+    //   console.log(await getFoodReviewsById("2"));
+    // }
+
+    // async function deleteReviewById() {
+    //   console.log(await deleteFoodReview("5lMCOnPVJ3MfwBOYkGPM"));
+    // }
+
+    // addReview();
+    // getReview();
+    // deleteReviewById();
     // LoginTest();
   }, []);
   const [query, setQuery] = useState("");
