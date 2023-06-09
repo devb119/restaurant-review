@@ -51,3 +51,39 @@ export async function createFood(food: Food) {
 //        createFood({name: faker.animal.dog(), description: faker.animal.dog(), restaurant_id: '', image: faker.image.avatar(), price: faker.finance.amount(), created_at: new Date(Date.now()), updated_at: new Date(Date.now())});
 //     }
 //  }
+
+//update food information
+export async function updateFood(docId: string, food: Food) {
+  const updatedData = await firestore
+  .collection("Foods")
+  .doc(docId);
+
+  updatedData.update(food).then(() => {
+    console.log("Update successfully!");
+  })
+  .catch((error) => {
+    console.error("Update review failed!", error);
+  })
+}
+
+//remove food
+export async function deleteFood(docId: string) {
+  const removedData = await firestore
+  .collection("Foods")
+  .doc(docId);
+
+  removedData.get().then((doc) => {
+      if (doc.exists) {
+      removedData.delete().then(() => {
+          console.log("Delete successfully!");
+      })
+      .catch((error) => {
+          console.error("Update review failed!", error);
+      });
+      } else {
+      console.log("Data is not existed!");
+      }
+  }).catch((error) => {
+      console.error("Error: ", error);
+  })    
+}

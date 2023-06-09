@@ -102,11 +102,48 @@ export function deleteAllCollection(path : string) {
 //get active restaurants
 export async function getActiveRestaurants() {
   const data = await firestore
-    .collection("restaurant")
+    .collection("restaurants")
     .where("is_active","!=", false)
+    .orderBy("rating", "desc")
     .get();
   
   return data.docs.map((item) => ({
     ...item.data(),
   }));
+}
+
+//update restaurant info
+export async function updateFoodReview(docId: string, res_info: Restaurant) {
+  const updatedData = await firestore
+  .collection("restaurants")
+  .doc(docId);
+
+  updatedData.update(res_info).then(() => {
+    console.log("Update successfully!");
+  })
+  .catch((error) => {
+    console.error("Update review failed!", error);
+  })
+}
+
+//remove restaurant
+export async function deleteFoodReview(docId: string) {
+  const removedData = await firestore
+  .collection("restaurants")
+  .doc(docId);
+
+  removedData.get().then((doc) => {
+      if (doc.exists) {
+      removedData.delete().then(() => {
+          console.log("Delete successfully!");
+      })
+      .catch((error) => {
+          console.error("Update review failed!", error);
+      });
+      } else {
+      console.log("Data is not existed!");
+      }
+  }).catch((error) => {
+      console.error("Error: ", error);
+  })    
 }
