@@ -25,9 +25,9 @@ const Login = (): JSX.Element => {
           </Link>
         </div>
       </div>
-      <div className=" max-w-7xl mx-auto font-montserrat flex justify-between">
+      <div className=" max-w-7xl mx-auto flex justify-between">
         <img src="/img/lemon.png" className="w-1/2" />
-        <div className="w-1/2 flex justify-center items-center flex-col h-full gap-10 border-white border-dashed border p-8 rounded-md">
+        <div className="w-1/2 flex justify-center items-center flex-col h-full gap-10 border-white border-dashed border-2 p-8 rounded-md">
           <p className="text-xl font-bold">ログイン</p>
           <form className="flex flex-col items-center gap-8 w-full">
             <div className="flex justify-center items-center w-2/3 relative">
