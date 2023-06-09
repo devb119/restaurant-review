@@ -99,10 +99,10 @@ function Header({
         </button>
       </form>
       <div className="flex items-center gap-2">
-        <Link to="/sign-up">
-          <ButtonPrimary title="サインアップ" />
+        <Link to="/auth/sign-up">
+          <ButtonPrimary title="登録する" />
         </Link>
-        <Link to="/login">
+        <Link to="/auth/login">
           <ButtonSecondary title="ログイン" />
         </Link>
       </div>
