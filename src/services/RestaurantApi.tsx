@@ -113,7 +113,7 @@ export async function getActiveRestaurants() {
 }
 
 //update restaurant info
-export async function updateFoodReview(docId: string, restaurantInfo: Restaurant) {
+export async function updateRestaurantInfo(docId: string, restaurantInfo: Restaurant) {
   const updatedData = await firestore
   .collection("restaurants")
   .doc(docId);
@@ -127,7 +127,7 @@ export async function updateFoodReview(docId: string, restaurantInfo: Restaurant
 }
 
 //remove restaurant
-export async function deleteFoodReview(docId: string) {
+export async function deleteRestaurant(docId: string) {
   const removedData = await firestore
   .collection("restaurants")
   .doc(docId);
