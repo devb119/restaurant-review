@@ -9,6 +9,7 @@ export default interface Review {
     is_active: boolean,
     created_at?: Date;
     updated_at?: Date;
+    food_review_list: Array<string>;
 }
 
 //viet ham validation cho data o day

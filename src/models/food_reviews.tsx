@@ -1,4 +1,4 @@
-export default interface Food_review {
+export default interface FoodReview {
     id?: string;
     food_id: string;
     star: number;

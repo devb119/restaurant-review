@@ -10,7 +10,7 @@ import { IUserModel } from "./models";
 import { createNewReview, getReviewsByRestaurantId, deleteReview } from "./services/ReviewApi";
 import { createNewFoodReview, getFoodReviewsById, deleteFoodReview} from "./services/FoodReviewApi";
 import Review from "./models/reviews";
-import Food_review from "./models/food_reviews";
+import FoodReview from "./models/food_reviews";
 import { UserGender, UserRole } from "./models/enum";
 
 function App() {
@@ -39,10 +39,11 @@ function App() {
     star: 1.0,
     is_active: true,
     created_at: new Date(Date.now()),
-    updated_at: new Date(Date.now())
+    updated_at: new Date(Date.now()),
+    food_review_list: [],
   }
 
-  const testFoodReview : Food_review = {
+  const testFoodReview : FoodReview = {
     id: "2",
     food_id: "1",
     star: 5.0,
