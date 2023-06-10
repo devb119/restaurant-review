@@ -36,22 +36,22 @@ export async function getRestaurantById(id: string) {
    }))[0];
 }
 
-export async function getRestaurants(page_num: number, num_per_page: number) {
+export async function getRestaurants(pageNum: number, numPerPage: number) {
   const data = await firestore
     .collection("restaurants")
     .where("is_active","!=", false)
     .orderBy('is_active')
     .orderBy('name')
-    .limit((page_num + 1) * num_per_page)
+    .limit((pageNum + 1) * numPerPage)
     .get();
   const allData = data.docs.map((item) => ({
     ...item.data(),
     // docId: item.id,
   }));
-  if (allData.length < num_per_page) {
+  if (allData.length < numPerPage) {
     return allData
   } else {
-    return allData.splice(page_num * num_per_page, num_per_page);
+    return allData.splice(pageNum * numPerPage, numPerPage);
   }
 }
 
@@ -61,10 +61,10 @@ export async function getRestaurantByDocId(docId: string) {
   return data.data();
 }
 
-export async function getFoodsByRestaurant(food_list: Array<string>) {
+export async function getFoodsByRestaurant(foodList: Array<string>) {
   const data = await firestore
     .collection("Foods")
-    .where("id", "in", food_list)
+    .where("id", "in", foodList)
     .get();
   return data.docs.map((item) => ({
     ...item.data(),
@@ -77,13 +77,13 @@ export async function generateDummyRestaurant(n: number) {
    }
 }
 
-export async function addMenuToRestaurant(restaurant_id: string, restaurant_food_list: string[], food_ids: string[]) {
-  for(let i = 0; i < food_ids.length; i++) {
-    if(!restaurant_food_list.includes(food_ids[i])){
-      restaurant_food_list.push(food_ids[i]);
+export async function addMenuToRestaurant(restaurantId: string, restaurantFoodId: string[], foodIds: string[]) {
+  for(let i = 0; i < foodIds.length; i++) {
+    if(!restaurantFoodId.includes(foodIds[i])){
+      restaurantFoodId.push(foodIds[i]);
     }
   }
-  return await firestore.collection("restaurants").doc(restaurant_id).update({ food_list: restaurant_food_list });
+  return await firestore.collection("restaurants").doc(restaurantId).update({ food_list: restaurantFoodId });
 }
 
 export async function updateRestaurant(restaurant: Restaurant) {
@@ -113,12 +113,12 @@ export async function getActiveRestaurants() {
 }
 
 //update restaurant info
-export async function updateFoodReview(docId: string, res_info: Restaurant) {
+export async function updateFoodReview(docId: string, restaurantInfo: Restaurant) {
   const updatedData = await firestore
   .collection("restaurants")
   .doc(docId);
 
-  updatedData.update(res_info).then(() => {
+  updatedData.update(restaurantInfo).then(() => {
     console.log("Update successfully!");
   })
   .catch((error) => {

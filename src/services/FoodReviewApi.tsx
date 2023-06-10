@@ -11,10 +11,10 @@ export async function createNewFoodReview(review: Food_review) {
 }
 
 //get all review about 1 food
-export async function getFoodReviewsById(food_id: string) {
+export async function getFoodReviewsById(foodId: string) {
     const data = await firestore
       .collection("food_reviews")
-      .where("food_id", "==", food_id)
+      .where("food_id", "==", foodId)
       .orderBy("star", "desc")
       .get();
     return data.docs.map((item) => ({

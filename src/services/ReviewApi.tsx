@@ -11,10 +11,10 @@ export async function createNewReview(review: Review) {
   }
   
   //get all cmt by 1 user
-  export async function getReviewsByUser(user_id: string) {
+  export async function getReviewsByUser(userId: string) {
     const data = await firestore
       .collection("reviews")
-      .where("user_id", "==", user_id)
+      .where("user_id", "==", userId)
       .get();
     return data.docs.map((item) => ({
       ...item.data(),
@@ -29,10 +29,10 @@ export async function createNewReview(review: Review) {
   }
 
   //get all comments by restaurant id
-  export async function getReviewsByRestaurantId(restaurant_id: string) {
+  export async function getReviewsByRestaurantId(restaurantId: string) {
     const data = await firestore
       .collection("reviews")
-      .where("restaurant_id", "==", restaurant_id)
+      .where("restaurant_id", "==", restaurantId)
       .orderBy("star", "desc")
       .get();
     return data.docs.map((item) => ({
