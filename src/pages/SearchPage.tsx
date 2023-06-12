@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import RestaurantSearchCard from "../components/RestaurantSearchCard/RestaurantSearchCard";
 import PaginationSearch from "../components/PaginationSearch";
 import Restaurant from "../models/restaurants"
-import { getRestaurantsByName } from "../services/RestaurantApi";
+import { getRestaurantsByName, getRestaurantsByFoodName, getRestaurantByDocId } from "../services/RestaurantApi";
 import Footer from "../components/Footer";
 
 const SearchPage = ({query, searchOption} : {query : string, searchOption: number}) => {
@@ -15,13 +15,22 @@ const SearchPage = ({query, searchOption} : {query : string, searchOption: numbe
             const data : any =  await getRestaurantsByName('');
             const suitableData = data.filter((e : Restaurant) => e.name.toLowerCase().includes(name.trim().toLowerCase()));
             setSearchData([...suitableData]);
+           
+        }
+        async function getSearchDataByFood(name : string) {
+            const data : any = await getRestaurantsByFoodName(name);
+            const restaurantData : any =  await getRestaurantsByName('');
+            const suitableData = restaurantData.filter((e : Restaurant) => data.includes(e.id?.trim()));
             console.log(data);
+            console.log(restaurantData);
+            console.log(suitableData);
+            setSearchData([...suitableData]);
         }
         if(searchOption === 1) {
             getSearchData(query);
         }
         else {
-            getSearchData(query);
+            getSearchDataByFood(query);
         }
         
         setCurrentPage(1);
@@ -42,11 +51,12 @@ const SearchPage = ({query, searchOption} : {query : string, searchOption: numbe
             {(searchData.length > 0) ?
                 <div>
                     {query.trim() === "" ? <h1 className="mb-8 text-2xl font-semibold flex">全部で {searchData.length}レストランがある </h1> : 
-                    <h1 className="mb-8 text-2xl font-semibold flex">{searchData.length} 結果が見つけた： "{query}"</h1>
-                    }
+                        <h1 className="mb-8 text-2xl font-semibold flex">{searchData.length} 結果が見つけた： "{query}"</h1>
+                    } 
+                    
                      
                     {currentRestaurants.map((e) => {
-                        console.log(e);
+                        // console.log(e);
                         return (
                             <RestaurantSearchCard restaurant={e} />
                         ) 
@@ -59,7 +69,8 @@ const SearchPage = ({query, searchOption} : {query : string, searchOption: numbe
                     />
                 </div>
                 : <div className="mx-auto max-w-[75rem] h-[25rem]">
-                    <h1 className="mb-8 text-2xl font-semibold flex">適切なレコードが見つけない："{query}"</h1>
+                    {searchOption === 2 ? <h1 className="mb-8 text-2xl font-semibold flex">このフード名が見つけない："{query}"</h1>
+                    : <h1 className="mb-8 text-2xl font-semibold flex">適切なレストランが見つけない："{query}"</h1>}
                 </div>
             }
             <Footer />

@@ -15,7 +15,7 @@ const RestaurantSearch = ({ restaurant }: { restaurant: Restaurant }) => {
     setLoading(true);
     getFoodsByRestaurant(restaurant.food_list)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         setTop2(res.sort((r1, r2) => r2.rating - r1.rating).slice(0, 2));
       })
       .catch((err) => {
