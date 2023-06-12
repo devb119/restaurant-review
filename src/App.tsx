@@ -87,8 +87,10 @@ function App() {
     // LoginTest();
   }, []);
   const [query, setQuery] = useState("");
-  const getQueryDataHandler = (query: string) => {
+  const [searchOption, setSearchOption] = useState(1);
+  const getQueryDataHandler = (query: string, option: number) => {
     setQuery(query);
+    setSearchOption(option);
   };
   return (
     <>
@@ -100,7 +102,7 @@ function App() {
         <Route path="/" element={<Home getQuery={getQueryDataHandler} />}>
           <Route path="" element={<JapaneseFavourites />}></Route>
           <Route path="japanese-favorites" element={<JapaneseFavourites />} />
-          <Route path="search" element={<SearchPage query={query} />}></Route>
+          <Route path="search" element={<SearchPage query={query} searchOption={searchOption} />}></Route>
         </Route>
         <Route path="*" element={<NotFound />}></Route>
       </Routes>

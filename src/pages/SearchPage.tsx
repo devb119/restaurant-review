@@ -5,7 +5,7 @@ import Restaurant from "../models/restaurants"
 import { getRestaurantsByName } from "../services/RestaurantApi";
 import Footer from "../components/Footer";
 
-const SearchPage = ({query} : {query : string}) => {
+const SearchPage = ({query, searchOption} : {query : string, searchOption: number}) => {
     const [searchData, setSearchData] = useState<Restaurant[]>([]);
     const [currentPage, setCurrentPage] = useState<number>(1);
     const restaurantsPerPage = 5;
@@ -17,9 +17,15 @@ const SearchPage = ({query} : {query : string}) => {
             setSearchData([...suitableData]);
             console.log(data);
         }
-        getSearchData(query);
+        if(searchOption === 1) {
+            getSearchData(query);
+        }
+        else {
+            getSearchData(query);
+        }
+        
         setCurrentPage(1);
-    }, [query]);
+    }, [query, searchOption]);
 
     const indexOfLastRestaurant = currentPage * restaurantsPerPage;
     const indexOfFirstRestaurant = indexOfLastRestaurant - restaurantsPerPage;
