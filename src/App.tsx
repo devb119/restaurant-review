@@ -12,6 +12,7 @@ import { createNewFoodReview, getFoodReviewsById, deleteFoodReview} from "./serv
 import Review from "./models/reviews";
 import FoodReview from "./models/food_reviews";
 import { UserGender, UserRole } from "./models/enum";
+import RestaurantDetail from "./pages/restaurant_details/RestaurantDetail";
 
 function App() {
   const testUser: IUserModel = {
@@ -102,7 +103,8 @@ function App() {
         </Route>
         <Route path="/" element={<Home getQuery={getQueryDataHandler} />}>
           <Route path="" element={<JapaneseFavourites />}></Route>
-          <Route path="japanese-favorites" element={<JapaneseFavourites />} />
+          <Route path="japanese-favorites" element={ <JapaneseFavourites /> } />
+          <Route path="restaurants/:id" element={<RestaurantDetail></RestaurantDetail>}></Route>
           <Route path="search" element={<SearchPage query={query} searchOption={searchOption} />}></Route>
         </Route>
         <Route path="*" element={<NotFound />}></Route>
