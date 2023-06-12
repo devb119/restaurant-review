@@ -1,21 +1,23 @@
 import { HiOutlineLocationMarker } from "react-icons/hi";
 import { FaStar } from "react-icons/fa";
 import { ToolTipOnHover } from "./common";
-interface restaurantCardProps {
-  title: string;
-  address: string;
-  rating: number;
-  imageUrl: string;
-}
+import { useNavigate } from "react-router";
+import Restaurant from "../models/restaurants";
 
-function RestaurantCard(props: restaurantCardProps) {
-  const { title, address, rating, imageUrl } = props;
+function RestaurantCard({ restaurant }: { restaurant: Restaurant }) {
+  const navigate = useNavigate();
+  const { id, name, address, rating, image } = restaurant;
   return (
-    <div className="bg-white p-8 flex flex-col w-64">
-      <img src={imageUrl} className="rounded" />
+    <div
+      className="bg-white p-8 flex flex-col w-64 cursor-pointer"
+      onClick={() => {
+        navigate(`/restaurants/${id}`);
+      }}
+    >
+      <img src={image} className="rounded" />
       <div className="flex flex-row justify-between items-center">
-        <div className="py-1">
-          <ToolTipOnHover textContent={title} limit={12} />
+        <div className="py-1 font-semibold text-lg">
+          <ToolTipOnHover textContent={name || ""} limit={11} />
         </div>
         <div className="flex items-center">
           <span className="font-extrathin text-sm text-yellow-500 px-1">
