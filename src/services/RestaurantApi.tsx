@@ -1,5 +1,5 @@
 import { firestore } from "../config/firebase";
-// import Food from "../models/foods";
+import Food from "../models/foods";
 import Restaurant from "../models/restaurants";
 import { faker } from '@faker-js/faker';
 
@@ -146,4 +146,42 @@ export async function deleteRestaurant(docId: string) {
   }).catch((error) => {
       console.error("Error: ", error);
   })    
+}
+
+export async function getRestaurantByFoodName(foodName: string) {
+  const foodQuery = await firestore
+  .collection("Foods")
+  .where("name", ">=", foodName)
+  .where("name", "<=", foodName + "\uf8ff");
+
+  foodQuery.get()
+    .then((querySnapshot) => {
+      const restaurantPromises: Promise<void>[] = [];
+
+      querySnapshot.forEach((foodDoc) => {
+        const foodData = foodDoc.data();
+        const restaurantId = foodData.restaurant_id;
+
+        const restaurantRef = firestore
+          .collection("restaurants")
+          .doc(restaurantId);
+
+        const restaurantPromise = restaurantRef.get().then(
+          (restaurantDoc) => {
+            if (restaurantDoc.exists) {
+              const restaurantData = restaurantDoc.data();
+              if (restaurantData) {
+                const restaurantName = restaurantData.name;
+                console.log(`Restaurant: ${restaurantName}`);
+              }
+            }
+          })
+          .catch((error) => {
+            console.log(`Error getting restaurant document:`, error);
+        });
+
+        restaurantPromises.push(restaurantPromise);
+      });
+      return Promise.all(restaurantPromises);
+    });
 }

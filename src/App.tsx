@@ -9,6 +9,7 @@ import { UserLogin, createUser } from "./services/auth/Auth";
 import { IUserModel } from "./models";
 import { createNewReview, getReviewsByRestaurantId, deleteReview } from "./services/ReviewApi";
 import { createNewFoodReview, getFoodReviewsById, deleteFoodReview} from "./services/FoodReviewApi";
+import { getRestaurantByFoodName } from "./services/RestaurantApi";
 import Review from "./models/reviews";
 import FoodReview from "./models/food_reviews";
 import { UserGender, UserRole } from "./models/enum";
@@ -82,10 +83,15 @@ function App() {
     //   console.log(await deleteFoodReview("5lMCOnPVJ3MfwBOYkGPM"));
     // }
 
+    // async function getRestaurantInfoByName() {
+    //   console.log(await getRestaurantByFoodName("Phở"));
+    // }
+
     // addReview();
     // getReview();
     // deleteReviewById();
     // LoginTest();
+    // getRestaurantInfoByName();
   }, []);
   const [query, setQuery] = useState("");
   const [searchOption, setSearchOption] = useState(1);
