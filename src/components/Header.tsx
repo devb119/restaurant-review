@@ -15,7 +15,7 @@ const navOptions: NavOption[] = [
   { id: "search", title: "レストラン情報検索" },
 ];
 
-type getQueryDataFunction = (query: string) => void;
+type getQueryDataFunction = (query: string, option: number) => void;
 
 export const Logo = (): JSX.Element => (
   <Link
@@ -36,9 +36,9 @@ function Header({
   const [query, setQuery] = useState("");
   const navigate = useNavigate();
 
-  const handleSubmitSearch = (e: React.FormEvent): void => {
+  const handleSubmitSearch = (e: React.FormEvent, option: number): void => {
     e.preventDefault();
-    getQueryData(query);
+    getQueryData(query, option);
     navigate("/search");
     console.log(query);
     setActiveLink("search");
@@ -77,27 +77,47 @@ function Header({
           )
         )}
       </ul>
-      <form className="relative w-1/4" onSubmit={handleSubmitSearch}>
-        <input
-          type="text"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          className="rounded-full py-3 pl-4 pr-32 w-full shadow-lg focus:outline-none"
-          placeholder="料理、レストランの名前を入力"
-        />
+      <form className="relative w-1/4" onSubmit={(e) => handleSubmitSearch(e, 1)}>
+        <div className="relative rounded-3xl">
+          <input
+            type="text"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            className={query === "" ? "rounded-3xl py-3 pl-4 pr-32 w-full shadow-lg focus:outline-none" : "rounded-t-3xl py-3 pl-4 pr-32 w-full shadow-lg focus:outline-none"}
+            placeholder="料理、レストランの名前を入力"
+          />
+
+          <div id="dropdown" className="absolute z-10 bg-white  divide-y divide-gray-100 rounded-b-3xl shadow w-full dark:bg-gray-700">
+            <ul className={query === "" ? "hidden" : "py-2 text-sm text-gray-700 dark:text-gray-200"} aria-labelledby="dropdownDefaultButton">
+              <li>
+                <a onClick={(e) => handleSubmitSearch(e, 1)} href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-slate-950">レストランによって検索 (default)："{query}"</a>
+              </li>
+              <li>
+                <a onClick={(e) => handleSubmitSearch(e, 2)} href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-slate-950">料理によって検索する："{query}"</a>
+              </li>
+            </ul>
+          </div>
+        </div>
 
         <button
           className="absolute right-2 top-1/2 -translate-y-1/2 bg-main text-white 
         flex items-center gap-2 py-1 px-4 rounded-full hover:bg-mainShade transition-all"
           type="submit"
-          onSubmit={handleSubmitSearch}
+          onSubmit={(e) => handleSubmitSearch(e, 1)}
         >
           <div className="text-xl">
             <BsCheckLg />
           </div>
-          <p>検索</p>
+          
+          
+            <p>検索</p>
+            
+        
         </button>
+
+        
       </form>
+      
       <div className="flex items-center gap-2">
         <Link to="/auth/sign-up">
           <ButtonPrimary title="登録する" />
