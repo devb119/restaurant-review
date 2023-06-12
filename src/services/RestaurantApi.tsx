@@ -1,8 +1,6 @@
 import { firestore } from "../config/firebase";
-// import Food from "../models/foods";
 import Restaurant from "../models/restaurants";
 import { faker } from '@faker-js/faker';
-import Food from "../models/foods";
 
 //demo api
 export async function createRestaurant(restaurant: Restaurant) {
@@ -150,19 +148,21 @@ export async function deleteRestaurant(docId: string) {
 }
 
 
-export async function getRestaurantsByFoodName(name : string) {
+export async function getRestaurantIdsByFoodName(name : string) {
   const data = await firestore 
     .collection('Foods')
     .orderBy('rating', 'desc')
     .get()
 
-  // const foodData = data.docs.filter((item) => item.data.name.toLowerCase().includes(name.trim().toLowerCase()));
   const foodData = data.docs.map((item) => ({
     ...item.data(),
     // docId: item.id,
   }));
   const filterFoodData = foodData.filter((item) => item.name.toLowerCase().includes(name.trim().toLowerCase()));
-  return filterFoodData.map((e) => {
+
+  const restaurantIdList =  filterFoodData.map((e) => {
     return e.restaurant_id.trim();
   })
+
+  return restaurantIdList;
 }

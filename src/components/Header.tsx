@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { BsCheckLg } from "react-icons/bs";
 import { NavLink, useNavigate, Link } from "react-router-dom";
 import { ButtonPrimary, ButtonSecondary } from "./common";
+import { searchOption } from "../models/enum/searchOption";
 
 interface NavOption {
   // id là id của phần nội dung sẽ nhảy tới (HTML id)
@@ -77,7 +78,7 @@ function Header({
           )
         )}
       </ul>
-      <form className="relative w-1/4" onSubmit={(e) => handleSubmitSearch(e, 1)}>
+      <form className="relative w-1/4" onSubmit={(e) => handleSubmitSearch(e,  searchOption.RestaurantSearch)}>
         <div className="relative rounded-3xl">
           <input
             type="text"
@@ -90,10 +91,10 @@ function Header({
           <div id="dropdown" className="absolute z-10 bg-white  divide-y divide-gray-100 rounded-b-3xl shadow w-full dark:bg-gray-700">
             <ul className={query === "" ? "hidden" : "py-2 text-sm text-gray-700 dark:text-gray-200"} aria-labelledby="dropdownDefaultButton">
               <li>
-                <a onClick={(e) => handleSubmitSearch(e, 1)} href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-slate-950">レストランによって検索 (default)："{query}"</a>
+                <a onClick={(e) => handleSubmitSearch(e, searchOption.RestaurantSearch)} href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-slate-950"><strong>レストラン</strong>によって検索 (default)："{query}"</a>
               </li>
               <li>
-                <a onClick={(e) => handleSubmitSearch(e, 2)} href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-slate-950">料理によって検索する："{query}"</a>
+                <a onClick={(e) => handleSubmitSearch(e, searchOption.FoodSearch)} href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-slate-950"><strong>料理</strong>によって検索："{query}"</a>
               </li>
             </ul>
           </div>
@@ -103,19 +104,13 @@ function Header({
           className="absolute right-2 top-1/2 -translate-y-1/2 bg-main text-white 
         flex items-center gap-2 py-1 px-4 rounded-full hover:bg-mainShade transition-all"
           type="submit"
-          onSubmit={(e) => handleSubmitSearch(e, 1)}
+          onSubmit={(e) => handleSubmitSearch(e, searchOption.RestaurantSearch)}
         >
           <div className="text-xl">
             <BsCheckLg />
           </div>
-          
-          
             <p>検索</p>
-            
-        
-        </button>
-
-        
+        </button> 
       </form>
       
       <div className="flex items-center gap-2">

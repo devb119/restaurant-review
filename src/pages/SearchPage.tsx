@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import RestaurantSearchCard from "../components/RestaurantSearchCard/RestaurantSearchCard";
 import PaginationSearch from "../components/PaginationSearch";
 import Restaurant from "../models/restaurants"
-import { getRestaurantsByName, getRestaurantsByFoodName, getRestaurantByDocId } from "../services/RestaurantApi";
+import { getRestaurantsByName, getRestaurantIdsByFoodName } from "../services/RestaurantApi";
+import { searchOption as Option}  from "../models/enum/searchOption";
 import Footer from "../components/Footer";
 
 const SearchPage = ({query, searchOption} : {query : string, searchOption: number}) => {
@@ -18,7 +19,7 @@ const SearchPage = ({query, searchOption} : {query : string, searchOption: numbe
            
         }
         async function getSearchDataByFood(name : string) {
-            const data : any = await getRestaurantsByFoodName(name);
+            const data : any = await getRestaurantIdsByFoodName(name);
             const restaurantData : any =  await getRestaurantsByName('');
             const suitableData = restaurantData.filter((e : Restaurant) => data.includes(e.id?.trim()));
             console.log(data);
@@ -26,10 +27,10 @@ const SearchPage = ({query, searchOption} : {query : string, searchOption: numbe
             console.log(suitableData);
             setSearchData([...suitableData]);
         }
-        if(searchOption === 1) {
+        if(searchOption === Option.RestaurantSearch) {
             getSearchData(query);
         }
-        else {
+        else if(searchOption === Option.FoodSearch) {
             getSearchDataByFood(query);
         }
         
