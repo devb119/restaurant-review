@@ -6,6 +6,7 @@ import { Loading } from "../common";
 import { getFoodsByRestaurant } from "../../services/RestaurantApi";
 import { HiOutlineLocationMarker } from "react-icons/hi";
 import { TbPlayerTrackNextFilled } from "react-icons/tb";
+import { useNavigate } from "react-router-dom";
 const RestaurantSearch = ({ restaurant }: { restaurant: Restaurant }) => {
   const { id, name, address, image, rating } = restaurant;
   const [loading, setLoading] = React.useState<boolean>(true);
@@ -25,7 +26,7 @@ const RestaurantSearch = ({ restaurant }: { restaurant: Restaurant }) => {
         setLoading(false);
       });
   }, [restaurant]);
-
+  const navigate = useNavigate();
   if (!id) return <></>;
   return (
     <React.Fragment>
@@ -34,7 +35,12 @@ const RestaurantSearch = ({ restaurant }: { restaurant: Restaurant }) => {
           <Loading />
         </div>
       ) : (
-        <div className="mb-8">
+        <div
+          className="mb-8 cursor-pointer"
+          onClick={() => {
+            navigate(`/restaurants/${id}`);
+          }}
+        >
           <div className="bg-white rounded-md p-8 flex flex-row">
             <div className="flex flex-row w-full">
               <div className="w-2/5">

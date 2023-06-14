@@ -57,7 +57,7 @@ export async function getRestaurants(pageNum: number, numPerPage: number) {
 //get by doc id cho no unique
 export async function getRestaurantByDocId(docId: string) {
   const data = await firestore.collection("restaurants").doc(docId).get();
-  return data.data();
+  return data.data() as Restaurant;
 }
 
 export async function getFoodsByRestaurant(foodList: Array<string>) {
