@@ -12,6 +12,9 @@ import { createNewFoodReview, getFoodReviewsById, deleteFoodReview} from "./serv
 import Review from "./models/reviews";
 import FoodReview from "./models/food_reviews";
 import { UserGender, UserRole } from "./models/enum";
+import RestaurantDetail from "./pages/restaurant_details/RestaurantDetail";
+import Coupons from "./models/coupons";
+import { createNewCoupon } from "./services/CouponApi";
 
 function App() {
   const testUser: IUserModel = {
@@ -29,20 +32,6 @@ function App() {
     created_at: new Date(Date.now()),
   };
 
-  const testReview : Review = {
-    id: "22",
-    restaurant_id: "2",
-    user_id: "30",
-    about_space: "ban",
-    about_quality: "ban vcl deo chiu duoc",
-    other_review: "ban vai l",
-    star: 1.0,
-    is_active: true,
-    created_at: new Date(Date.now()),
-    updated_at: new Date(Date.now()),
-    food_review_list: [],
-  }
-
   const testFoodReview : FoodReview = {
     id: "2",
     food_id: "1",
@@ -51,11 +40,25 @@ function App() {
     about_decoration: "bad vcl bro",
     other: "good bro"
   }
+
+  const testCoupon : Coupons = {
+    id: "1",
+    restaurant_id: "U0JWRsWq2wAn4xmaOV8y",
+    name: "mua 2 tang 1",
+    description: "onlyfans",
+    sale: 20,
+    point: 50,
+    quantity: 5,
+    expired_at: new Date(Date.now()),
+    status: 1,
+    image: "abc",
+    created_at: new Date(Date.now()),
+    updated_at: new Date(Date.now())
+  }
   //test db
   React.useEffect(() => {
     /* 
                           dung xoa de namduong test nha :D
-
     */
 
     // async function getFavouriteFood() {
@@ -70,9 +73,9 @@ function App() {
     //   console.log(await UserLogin("hoanganhdepzai123@gmail.com", "12345678"));
     // }
 
-    // async function addReview() {
-    //   console.log(await createNewFoodReview(testFoodReview));
-    // }
+    async function addCoupon() {
+      console.log(await createNewCoupon(testCoupon));
+    }
 
     // async function getReview() {
     //   console.log(await getFoodReviewsById("2"));
@@ -82,7 +85,7 @@ function App() {
     //   console.log(await deleteFoodReview("5lMCOnPVJ3MfwBOYkGPM"));
     // }
 
-    // addReview();
+    addCoupon();
     // getReview();
     // deleteReviewById();
     // LoginTest();
@@ -102,7 +105,8 @@ function App() {
         </Route>
         <Route path="/" element={<Home getQuery={getQueryDataHandler} />}>
           <Route path="" element={<JapaneseFavourites />}></Route>
-          <Route path="japanese-favorites" element={<JapaneseFavourites />} />
+          <Route path="japanese-favorites" element={ <JapaneseFavourites /> } />
+          <Route path="restaurants/:id" element={<RestaurantDetail></RestaurantDetail>}></Route>
           <Route path="search" element={<SearchPage query={query} searchOption={searchOption} />}></Route>
         </Route>
         <Route path="*" element={<NotFound />}></Route>

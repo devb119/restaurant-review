@@ -25,11 +25,8 @@ function Restaurants() {
         <div className="flex">
           {restaurantLists.map((i: any, index: number) => (
             <RestaurantCard
-              title={i.name}
-              rating={i.rating}
-              address={i.address}
-              imageUrl={i.image}
               key={index}
+             restaurant={i}
             />
           ))}
         </div>
