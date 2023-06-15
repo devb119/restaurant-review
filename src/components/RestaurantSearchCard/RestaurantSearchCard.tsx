@@ -71,7 +71,9 @@ const RestaurantSearch = ({ restaurant }: { restaurant: Restaurant }) => {
                       </svg>
                     </div>
                   </div>
-                  <div>
+                    <div onClick={ (e) => {
+                      e.stopPropagation();
+                  }}>
                     <ReviewButton></ReviewButton>
                   </div>
                 </div>
@@ -88,7 +90,7 @@ const RestaurantSearch = ({ restaurant }: { restaurant: Restaurant }) => {
                   </div>
                   <div className="flex gap-8 items-end">
                     {top2.map((e: any) => (
-                      <div className="">
+                      <div className="" onClick={(e)=>{e.stopPropagation()}}>
                         <div className="flex flex-row items-center">
                           <p className="py-1 font-semibold text-md">{e.name}</p>
                           <div className="flex items-center ml-4">

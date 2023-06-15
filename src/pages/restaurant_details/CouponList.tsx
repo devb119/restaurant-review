@@ -24,13 +24,13 @@ function CouponList({ couponLists }: { couponLists: Coupon[] }) {
         <span className="text-2xl text-main font-semibold cursor-pointer">
           <TbPlayerTrackPrev></TbPlayerTrackPrev>
         </span>
-        <div className="bg-white rounded-md p-4 flex justify-start flex-wrap w-4/5">
+        <div className="bg-white rounded-md p-4 flex justify-start flex-wrap w-3/5">
           <div className="w-52 h-52 mr-6 ml-2">
             <img className="w-52 h-52 rounded-md" src={image} />
           </div>
           <div className="font-semibold text-lg flex flex-1 flex-col justify-center gap-8">
-            <div className="">割合:{sale}%</div>
-            <div>引き換えポイント:{point}</div>
+            <div className="">割合: {sale}%</div>
+            <div>引き換えポイント: {point}</div>
           </div>
           <div className="text-base text-mainShade flex-1 cursor-pointer w-3/5 flex justify-end items-end">
             <div className="">交換ポイント</div>
