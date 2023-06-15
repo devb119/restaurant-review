@@ -1,6 +1,6 @@
 import { CouponStatus } from "./enum";
 
-export default interface Coupon {
+export default interface Coupons {
     id?: string;
     restaurant_id: string;
     name: string;
