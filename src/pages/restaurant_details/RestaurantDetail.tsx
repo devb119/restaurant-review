@@ -6,9 +6,13 @@ import { Loading } from "../../components/common";
 import { HiOutlineLocationMarker } from "react-icons/hi";
 import CouponList from "./CouponList";
 import Coupon from "../../models/coupons";
+import AppealFood from "./AppealFood";
+import Food from "../../models/foods";
+import { getFoodsByRestaurantId } from "../../services/FoodApi";
 function RestaurantDetail() {
   const [restaurant, setRestaurant] = useState<Restaurant>();
   const [loading, setLoading] = useState<boolean>(true);
+  const [appealFood, setAppealFood] = useState<Food[]>();
   const [couponLists, setCouponLists] = useState<Coupon[]>([
     {
       id: "dsfjsdf",
@@ -23,12 +27,16 @@ function RestaurantDetail() {
       image: "../../../public/img/phobo.jpg"
     },
   ]);
+  
   const id = useParams().id;
   console.log(id);
   useEffect(() => {
-    getRestaurantByDocId(id || "")
+    Promise.all([getRestaurantByDocId(id || ""), getFoodsByRestaurantId(id||"")])
       .then((res) => {
-        if (res) setRestaurant(res);
+        if (res) {
+          setRestaurant(res[0]);
+          setAppealFood(res[1] as Food[])
+        }
       })
       .finally(() => {
         setLoading(false);
@@ -81,7 +89,10 @@ function RestaurantDetail() {
           </div>
           <div>
             <CouponList couponLists={couponLists}></CouponList>
-          </div>
+            </div>
+            { appealFood && <div>
+              <AppealFood foodLists={ appealFood }></AppealFood>
+            </div> }
         </div>
       )}
     </div>
