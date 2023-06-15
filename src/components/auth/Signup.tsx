@@ -9,26 +9,51 @@ import {
 } from "react-icons/ai";
 import { LuMapPin } from "react-icons/lu";
 import { UserGender, UserRole } from "../../models/enum";
-import { IUserModel } from "../../models";
+import { IUserModel, validateUser } from "../../models";
+import { createUser } from "../../services/auth/Auth";
+import { useDispatch, useSelector } from "react-redux";
+import { setCurrentUser } from "../../redux/user.reducer";
+import { RootState } from "../../redux/store";
+
+const initialUser: IUserModel = {
+  email: "",
+  fullname: "",
+  gender: UserGender.Male,
+  nationality: "",
+  phone: "",
+  username: "",
+  point: 0,
+  role: UserRole.Guest,
+  image: "/img/default-avt.png",
+};
 
 const Signup = (): JSX.Element => {
-  const [newUserData, setNewUserData] = useState<IUserModel>({
-    email: "",
-    fullname: "",
-    gender: UserGender.Male,
-    nationality: "",
-    phone: "",
-    username: "",
-    point: 0,
-    role: UserRole.Guest,
-    image: "/img/default-avt.png",
-  });
+  const [newUserData, setNewUserData] = useState<IUserModel>(initialUser);
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
+  const [err, setErr] = useState<Error | null>(null);
+  const dispatch = useDispatch();
+  const { user } = useSelector((state: RootState) => state.user);
+
   const handleSubmit = (e: React.FormEvent): void => {
     e.preventDefault();
-    console.log(newUserData, password, passwordConfirm);
+    try {
+      if (validateUser(newUserData, password, passwordConfirm)) {
+        createUser(newUserData, password)
+          .then((newUser) => {
+            dispatch(setCurrentUser({ ...initialUser, id: "xyz" }));
+            console.log("Hello?");
+          })
+          .catch((err) => setErr(err));
+      }
+    } catch (err) {
+      if (err instanceof Error) {
+        setErr(err);
+      }
+    }
   };
+
+  console.log(user);
 
   return (
     <div className="w-1/2 flex justify-center items-center flex-col h-full gap-10 border-white border-dashed border-2 p-8 rounded-md">
@@ -139,6 +164,7 @@ const Signup = (): JSX.Element => {
                 value={UserGender.Male}
                 id="male"
                 name="gender"
+                defaultChecked
                 onChange={() =>
                   setNewUserData({ ...newUserData, gender: UserGender.Male })
                 }

@@ -7,8 +7,16 @@ import { Login, Signup } from "./components";
 import { getFavouriteFoodList } from "./services/FoodApi";
 import { UserLogin, createUser } from "./services/auth/Auth";
 import { IUserModel } from "./models";
-import { createNewReview, getReviewsByRestaurantId, deleteReview } from "./services/ReviewApi";
-import { createNewFoodReview, getFoodReviewsById, deleteFoodReview} from "./services/FoodReviewApi";
+import {
+  createNewReview,
+  getReviewsByRestaurantId,
+  deleteReview,
+} from "./services/ReviewApi";
+import {
+  createNewFoodReview,
+  getFoodReviewsById,
+  deleteFoodReview,
+} from "./services/FoodReviewApi";
 import Review from "./models/reviews";
 import FoodReview from "./models/food_reviews";
 import { UserGender, UserRole } from "./models/enum";
@@ -32,16 +40,16 @@ function App() {
     created_at: new Date(Date.now()),
   };
 
-  const testFoodReview : FoodReview = {
+  const testFoodReview: FoodReview = {
     id: "2",
     food_id: "1",
     star: 5.0,
     about_price: " not good bro",
     about_decoration: "bad vcl bro",
-    other: "good bro"
-  }
+    other: "good bro",
+  };
 
-  const testCoupon : Coupons = {
+  const testCoupon: Coupons = {
     id: "1",
     restaurant_id: "U0JWRsWq2wAn4xmaOV8y",
     name: "mua 2 tang 1",
@@ -53,8 +61,8 @@ function App() {
     status: 1,
     image: "abc",
     created_at: new Date(Date.now()),
-    updated_at: new Date(Date.now())
-  }
+    updated_at: new Date(Date.now()),
+  };
   //test db
   React.useEffect(() => {
     /* 
@@ -85,7 +93,7 @@ function App() {
     //   console.log(await deleteFoodReview("5lMCOnPVJ3MfwBOYkGPM"));
     // }
 
-    addCoupon();
+    // addCoupon();
     // getReview();
     // deleteReviewById();
     // LoginTest();
@@ -105,9 +113,15 @@ function App() {
         </Route>
         <Route path="/" element={<Home getQuery={getQueryDataHandler} />}>
           <Route path="" element={<JapaneseFavourites />}></Route>
-          <Route path="japanese-favorites" element={ <JapaneseFavourites /> } />
-          <Route path="restaurants/:id" element={<RestaurantDetail></RestaurantDetail>}></Route>
-          <Route path="search" element={<SearchPage query={query} searchOption={searchOption} />}></Route>
+          <Route path="japanese-favorites" element={<JapaneseFavourites />} />
+          <Route
+            path="restaurants/:id"
+            element={<RestaurantDetail></RestaurantDetail>}
+          ></Route>
+          <Route
+            path="search"
+            element={<SearchPage query={query} searchOption={searchOption} />}
+          ></Route>
         </Route>
         <Route path="*" element={<NotFound />}></Route>
       </Routes>
