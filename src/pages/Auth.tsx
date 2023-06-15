@@ -2,12 +2,6 @@ import { Outlet } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { Logo } from "../components/Header";
 import { ButtonPrimary, ButtonSecondary } from "../components/common";
-import {
-  AiOutlineUser,
-  AiOutlineLock,
-  AiOutlineEyeInvisible,
-  AiOutlineEye,
-} from "react-icons/ai";
 
 const Auth = (): JSX.Element => {
   return (
@@ -23,7 +17,7 @@ const Auth = (): JSX.Element => {
           </Link>
         </div>
       </div>
-      <div className=" max-w-7xl mx-auto flex justify-between items-center">
+      <div className=" max-w-7xl mx-auto flex justify-between items-start">
         <div className="w-1/2">
           <img src="/img/lemon.png" className="w-full" />
         </div>
