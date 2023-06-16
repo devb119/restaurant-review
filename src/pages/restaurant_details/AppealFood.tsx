@@ -4,6 +4,7 @@ import Food from "../../models/foods";
 import { TbPlayerTrackNext, TbPlayerTrackPrev } from "react-icons/tb";
 import Zoom from "@mui/material/Zoom";
 import Grow from "@mui/material/Grow";
+import { FaStar } from "react-icons/fa";
 
 function AppealFood({ foodLists }: { foodLists: Food[] }) {
   const [currentDisplay, setCurrentDisplay] = useState<Food[]>(
@@ -81,7 +82,12 @@ function AppealFood({ foodLists }: { foodLists: Food[] }) {
                     <img className="w-40 h-40 rounded-md" src={e.image} />
                   </div>
                   <div className="font-semibold text-lg flex flex-1 flex-col justify-center gap-8">
-                    <div className="">{e.name}</div>
+                    <div className="flex justify-between items-center">
+                      {e.name} 
+                      <span className="font-normal text-sm text-yellow-500 px-1 flex items-center">
+                        { e.rating } <FaStar></FaStar>
+                      </span>
+                    </div>
                     <div className="text-base">値段: {e.price}</div>
                     <div className="text-base text-mainShade flex-1 flex flex-strech cursor-pointer justify-end items-end">
                       <div className="flex ">

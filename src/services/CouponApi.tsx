@@ -21,7 +21,6 @@ export async function getCouponsByRestaurantId(restaurantId: string) {
   const data = await firestore
     .collection("coupons")
     .where("restaurant_id", "==", restaurantId)
-    .orderBy("star", "desc")
     .get();
   return data.docs.map((item) => ({
     ...item.data(),
