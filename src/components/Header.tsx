@@ -91,10 +91,10 @@ function Header({
           <div id="dropdown" className="absolute z-10 bg-white  divide-y divide-gray-100 rounded-b-3xl shadow w-full dark:bg-gray-700">
             <ul className={query === "" ? "hidden" : "py-2 text-sm text-gray-700 dark:text-gray-200"} aria-labelledby="dropdownDefaultButton">
               <li>
-                <a onClick={(e) => handleSubmitSearch(e, searchOption.RestaurantSearch)} href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-slate-950"><strong>レストラン</strong>によって検索 (default)："{query}"</a>
+                <a onClick={(e) => handleSubmitSearch(e, searchOption.RestaurantSearch)} href="#" className="text-[#BC1F1F] block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-slate-950"><strong>レストラン</strong>によって検索 (default)："{query}"</a>
               </li>
               <li>
-                <a onClick={(e) => handleSubmitSearch(e, searchOption.FoodSearch)} href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-slate-950"><strong>料理</strong>によって検索："{query}"</a>
+                <a onClick={(e) => handleSubmitSearch(e, searchOption.FoodSearch)} href="#" className="text-[#BC1F1F] block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-slate-950"><strong>料理</strong>によって検索："{query}"</a>
               </li>
             </ul>
           </div>

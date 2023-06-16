@@ -49,7 +49,7 @@ const RestaurantSearch = ({ restaurant, searchOption, searchKeyword }: { restaur
       .finally(() => {
         setLoading(false);
       });
-  }, [restaurant, searchKeyword, searchOption]);
+  }, [restaurant, searchOption, searchKeyword]);
   const navigate = useNavigate();
   if (!id) return <></>;
   return (

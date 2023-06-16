@@ -9,19 +9,26 @@ import Footer from "../components/Footer";
 const SearchPage = ({query, searchOption} : {query : string, searchOption: number}) => {
     const [searchData, setSearchData] = useState<Restaurant[]>([]);
     const [currentPage, setCurrentPage] = useState<number>(1);
+    const [allFood, setAllFood] = useState<any>([]);
     const restaurantsPerPage = 5;
 
     React.useEffect(() => {
+        async function getAllFood() {
+            const data : any = await getRestaurantsByName('');
+            setAllFood(data);
+        }
+        getAllFood();
+    }, [])
+
+    React.useEffect(() => {
         async function getSearchData(name : string) {
-            const data : any =  await getRestaurantsByName('');
-            const suitableData = data.filter((e : Restaurant) => e.name.toLowerCase().includes(name.trim().toLowerCase()));
+            const suitableData = allFood.filter((e : Restaurant) => e.name.toLowerCase().includes(name.trim().toLowerCase()));
             setSearchData([...suitableData]);
            
         }
         async function getSearchDataByFood(name : string) {
             const data : any = await getRestaurantIdsByFoodName(name);
-            const restaurantData : any =  await getRestaurantsByName('');
-            const suitableData = restaurantData.filter((e : Restaurant) => data.includes(e.id?.trim()));
+            const suitableData = allFood.filter((e : Restaurant) => data.includes(e.id?.trim()));
             console.log(data);
             // console.log(restaurantData);
             // console.log(suitableData);
@@ -35,7 +42,7 @@ const SearchPage = ({query, searchOption} : {query : string, searchOption: numbe
         }
         
         setCurrentPage(1);
-    }, [query, searchOption]);
+    }, [query, searchOption, allFood]);
 
     const indexOfLastRestaurant = currentPage * restaurantsPerPage;
     const indexOfFirstRestaurant = indexOfLastRestaurant - restaurantsPerPage;
