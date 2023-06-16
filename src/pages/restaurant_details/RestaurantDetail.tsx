@@ -9,60 +9,12 @@ import Coupon from "../../models/coupons";
 import AppealFood from "./AppealFood";
 import Food from "../../models/foods";
 import { getFoodsByRestaurantId } from "../../services/FoodApi";
+import { getCouponsByRestaurantId } from "../../services/CouponApi";
 function RestaurantDetail() {
   const [restaurant, setRestaurant] = useState<Restaurant>();
   const [loading, setLoading] = useState<boolean>(true);
   const [appealFood, setAppealFood] = useState<Food[]>();
-  const [couponLists, setCouponLists] = useState<Coupon[]>([
-    {
-      id: "dsfjsdf",
-      restaurant_id: "hdsfjsdjk",
-      name: "SIEUTIEC50",
-      description: "Use thisjksdkf",
-      sale: 10000,
-      point: 200,
-      quantity: 6,
-      expired_at: new Date("1995-12-17T03:24:00"),
-      status: 2,
-      image: "../../../public/img/phobo.jpg",
-    },
-    {
-      id: "dsfjsdf",
-      restaurant_id: "hdsfjsdjk",
-      name: "SIEUTIEC50",
-      description: "Use thisjksdkf",
-      sale: 20000,
-      point: 200,
-      quantity: 6,
-      expired_at: new Date("1995-12-17T03:24:00"),
-      status: 2,
-      image: "../../../public/img/phobo.jpg",
-    },
-    {
-      id: "dsfjsdf",
-      restaurant_id: "hdsfjsdjk",
-      name: "SIEUTIEC50",
-      description: "Use thisjksdkf",
-      sale: 30000,
-      point: 200,
-      quantity: 6,
-      expired_at: new Date("1995-12-17T03:24:00"),
-      status: 2,
-      image: "../../../public/img/phobo.jpg",
-    },
-    {
-      id: "dsfjsdf",
-      restaurant_id: "hdsfjsdjk",
-      name: "SIEUTIEC50",
-      description: "Use thisjksdkf",
-      sale: 40000,
-      point: 200,
-      quantity: 6,
-      expired_at: new Date("1995-12-17T03:24:00"),
-      status: 2,
-      image: "../../../public/img/phobo.jpg",
-    },
-  ]);
+  const [couponLists, setCouponLists] = useState<Coupon[]>();
 
   const id = useParams().id;
   console.log(id);
@@ -70,13 +22,16 @@ function RestaurantDetail() {
     Promise.all([
       getRestaurantByDocId(id || ""),
       getFoodsByRestaurantId(id || ""),
+      getCouponsByRestaurantId(id|| "")
     ])
       .then((res) => {
         if (res) {
           setRestaurant(res[0]);
           setAppealFood(res[1] as Food[]);
+          setCouponLists(res[2] as Coupon[])
         }
       })
+      .catch(err=>{console.log(err)})
       .finally(() => {
         setLoading(false);
       });
@@ -126,10 +81,13 @@ function RestaurantDetail() {
           <div className="mx-4 bg-white rounded-md">
             <p className="m-8 p-4"> {description}</p>
           </div>
-          <div>
-            <CouponList couponLists={couponLists}></CouponList>
-          </div>
-          {appealFood && (
+          {couponLists && couponLists.length != 0 && (
+            <div>
+              <CouponList couponLists={couponLists}></CouponList>
+            </div>
+          )}
+
+          {appealFood && appealFood.length!=0 && (
             <div>
               <AppealFood foodLists={appealFood}></AppealFood>
             </div>
