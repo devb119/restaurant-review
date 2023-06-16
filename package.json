@@ -12,6 +12,10 @@
     "prettier:fix": "prettier --write \"src/**/(*.tsx|*.ts|*.css|*.scss)\""
   },
   "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@mui/material": "^5.13.5",
+    "@mui/styled-engine": "^5.13.2",
     "@reduxjs/toolkit": "^1.9.5",
     "email-validator": "^2.0.4",
     "faker-js": "^1.0.0",

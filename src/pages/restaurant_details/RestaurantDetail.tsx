@@ -19,23 +19,62 @@ function RestaurantDetail() {
       restaurant_id: "hdsfjsdjk",
       name: "SIEUTIEC50",
       description: "Use thisjksdkf",
+      sale: 10000,
+      point: 200,
+      quantity: 6,
+      expired_at: new Date("1995-12-17T03:24:00"),
+      status: 2,
+      image: "../../../public/img/phobo.jpg",
+    },
+    {
+      id: "dsfjsdf",
+      restaurant_id: "hdsfjsdjk",
+      name: "SIEUTIEC50",
+      description: "Use thisjksdkf",
+      sale: 20000,
+      point: 200,
+      quantity: 6,
+      expired_at: new Date("1995-12-17T03:24:00"),
+      status: 2,
+      image: "../../../public/img/phobo.jpg",
+    },
+    {
+      id: "dsfjsdf",
+      restaurant_id: "hdsfjsdjk",
+      name: "SIEUTIEC50",
+      description: "Use thisjksdkf",
       sale: 30000,
       point: 200,
       quantity: 6,
       expired_at: new Date("1995-12-17T03:24:00"),
       status: 2,
-      image: "../../../public/img/phobo.jpg"
+      image: "../../../public/img/phobo.jpg",
+    },
+    {
+      id: "dsfjsdf",
+      restaurant_id: "hdsfjsdjk",
+      name: "SIEUTIEC50",
+      description: "Use thisjksdkf",
+      sale: 40000,
+      point: 200,
+      quantity: 6,
+      expired_at: new Date("1995-12-17T03:24:00"),
+      status: 2,
+      image: "../../../public/img/phobo.jpg",
     },
   ]);
-  
+
   const id = useParams().id;
   console.log(id);
   useEffect(() => {
-    Promise.all([getRestaurantByDocId(id || ""), getFoodsByRestaurantId(id||"")])
+    Promise.all([
+      getRestaurantByDocId(id || ""),
+      getFoodsByRestaurantId(id || ""),
+    ])
       .then((res) => {
         if (res) {
           setRestaurant(res[0]);
-          setAppealFood(res[1] as Food[])
+          setAppealFood(res[1] as Food[]);
         }
       })
       .finally(() => {
@@ -89,10 +128,12 @@ function RestaurantDetail() {
           </div>
           <div>
             <CouponList couponLists={couponLists}></CouponList>
+          </div>
+          {appealFood && (
+            <div>
+              <AppealFood foodLists={appealFood}></AppealFood>
             </div>
-            { appealFood && <div>
-              <AppealFood foodLists={ appealFood }></AppealFood>
-            </div> }
+          )}
         </div>
       )}
     </div>
