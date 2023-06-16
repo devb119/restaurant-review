@@ -99,3 +99,13 @@
 .add-left-space {
     width: 60%;
 }
+
+.animation-on-hovering-image {
+    display: block;
+    transition: all 0.4s;
+}
+
+.animation-on-hovering-image:hover {
+    transform: scale(1.1);
+}
+

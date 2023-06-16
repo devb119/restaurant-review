@@ -23,8 +23,8 @@ const SearchPage = ({query, searchOption} : {query : string, searchOption: numbe
             const restaurantData : any =  await getRestaurantsByName('');
             const suitableData = restaurantData.filter((e : Restaurant) => data.includes(e.id?.trim()));
             console.log(data);
-            console.log(restaurantData);
-            console.log(suitableData);
+            // console.log(restaurantData);
+            // console.log(suitableData);
             setSearchData([...suitableData]);
         }
         if(searchOption === Option.RestaurantSearch) {
@@ -59,7 +59,7 @@ const SearchPage = ({query, searchOption} : {query : string, searchOption: numbe
                     {currentRestaurants.map((e) => {
                         // console.log(e);
                         return (
-                            <RestaurantSearchCard restaurant={e} />
+                            <RestaurantSearchCard restaurant={e} searchOption={searchOption} searchKeyword={query}/>
                         ) 
                     })}
                     <PaginationSearch 
@@ -70,7 +70,7 @@ const SearchPage = ({query, searchOption} : {query : string, searchOption: numbe
                     />
                 </div>
                 : <div className="mx-auto max-w-[75rem] h-[25rem]">
-                    {searchOption === 2 ? <h1 className="mb-8 text-2xl font-semibold flex">このフード名が見つけない："{query}"</h1>
+                    {searchOption === Option.FoodSearch ? <h1 className="mb-8 text-2xl font-semibold flex">このフード名が見つけない："{query}"</h1>
                     : <h1 className="mb-8 text-2xl font-semibold flex">適切なレストランが見つけない："{query}"</h1>}
                 </div>
             }

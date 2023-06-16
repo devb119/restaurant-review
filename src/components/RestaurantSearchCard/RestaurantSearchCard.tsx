@@ -7,7 +7,9 @@ import { getFoodsByRestaurant } from "../../services/RestaurantApi";
 import { HiOutlineLocationMarker } from "react-icons/hi";
 import { TbPlayerTrackNextFilled } from "react-icons/tb";
 import { useNavigate } from "react-router-dom";
-const RestaurantSearch = ({ restaurant }: { restaurant: Restaurant }) => {
+import { searchOption as Option } from "../../models/enum/searchOption";
+
+const RestaurantSearch = ({ restaurant, searchOption, searchKeyword }: { restaurant: Restaurant, searchOption: number, searchKeyword: string }) => {
   const { id, name, address, image, rating } = restaurant;
   const [loading, setLoading] = React.useState<boolean>(true);
   const [top2, setTop2] = React.useState<any>([]);
@@ -16,8 +18,30 @@ const RestaurantSearch = ({ restaurant }: { restaurant: Restaurant }) => {
     setLoading(true);
     getFoodsByRestaurant(restaurant.food_list)
       .then((res) => {
-        // console.log(res);
-        setTop2(res.sort((r1, r2) => r2.rating - r1.rating).slice(0, 2));
+        console.log(res);
+        if(searchOption === Option.RestaurantSearch) {
+          setTop2(res.sort((r1, r2) => r2.rating - r1.rating).slice(0, 2));
+        }
+        else if(searchOption === Option.FoodSearch) {
+          const suitableFoodList = res.filter((e) => {
+            if(e.name.toLowerCase().includes(searchKeyword.toLowerCase().trim()) === true) {
+            return e;
+          }});
+          // console.log(suitableFoodList);
+          if (suitableFoodList.length < 2) {
+            const displayFood = [];
+            displayFood.push(suitableFoodList[0]);
+            displayFood.push(...res.filter((e) => {
+              if(e.name !== suitableFoodList[0].name) 
+                return e;
+              })
+              .sort((r1, r2) => r2.rating - r1.rating).slice(0, 1));
+            // console.log(displayFood);
+            setTop2(displayFood);
+          } else {
+            setTop2(suitableFoodList.sort((r1, r2) => r2.rating - r1.rating).slice(0, 2));
+          }
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -25,7 +49,7 @@ const RestaurantSearch = ({ restaurant }: { restaurant: Restaurant }) => {
       .finally(() => {
         setLoading(false);
       });
-  }, [restaurant]);
+  }, [restaurant, searchKeyword, searchOption]);
   const navigate = useNavigate();
   if (!id) return <></>;
   return (
@@ -43,9 +67,9 @@ const RestaurantSearch = ({ restaurant }: { restaurant: Restaurant }) => {
         >
           <div className="bg-white rounded-md p-8 flex flex-row">
             <div className="flex flex-row w-full">
-              <div className="w-2/5">
+              <div className="w-2/5 overflow-hidden">
                 <img
-                  className="rounded w-full aspect-[4/3.14]"
+                  className="animation-on-hovering-image rounded w-full aspect-[4/3.14]"
                   src={image}
                 ></img>
               </div>
@@ -103,7 +127,7 @@ const RestaurantSearch = ({ restaurant }: { restaurant: Restaurant }) => {
                         </div>
                         <div className="h-1/2 rounded-md">
                           <div className="w-80 h-52 overflow-hidden">
-                            <img src={e.image} className="w-80 h-52"></img>
+                            <img src={e.image} className="animation-on-hovering-image w-80 h-52"></img>
                           </div>
                         </div>
                       </div>
