@@ -2,7 +2,7 @@ import { UserGender, UserRole } from "./enum";
 import { validate } from "email-validator";
 
 export interface IUserModel {
-  id?: string;
+  id: string;
   username: string;
   fullname: string;
   gender: UserGender;
@@ -19,7 +19,7 @@ export interface IUserModel {
 
 // Validate function: return true if every thing is fine else return an error
 export function validateUser(
-  user: IUserModel,
+  user: Omit<IUserModel, "id">,
   password: string,
   passwordConfirm: string
 ): Error | boolean {
@@ -30,21 +30,23 @@ export function validateUser(
     user.nationality.length === 0 ||
     user.username.length === 0
   ) {
-    throw new Error("Fields must not be empty");
+    throw new Error("フィールドは空であってはなりません");
   }
   if (!/^\d+$/.test(user.phone)) {
-    throw new Error("Phone number must contain only numbers");
+    throw new Error("電話番号には数字のみを含める必要があります");
   }
   if (!validate(user.email)) {
-    throw new Error("Email is not valid. Please use another email");
+    throw new Error(
+      "電子メールが無効です。 別のメールアドレスを使用してください"
+    );
   }
   if (password.length > maxLength || password.length < minLength) {
     throw new Error(
-      "Password length is not valid. Password should be 6-16 characters"
+      "パスワードの長さが無効です。 パスワードは6～16文字にしてください"
     );
   }
   if (password !== passwordConfirm) {
-    throw new Error("Password doesn't match! Please input again");
+    throw new Error("パスワードが一致しません! 再度確認してください");
   }
   return true;
 }

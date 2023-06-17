@@ -14,7 +14,6 @@ export const setCurrentUser = createAction<IUserModel>("setUser");
 const userReducer = createReducer(initialState, (builder) =>
   builder.addCase(setCurrentUser, (state, action) => {
     // immerjs giup mutate 1 state object 1 cach an toan
-    console.log(action.payload);
     state.user = action.payload;
   })
 );

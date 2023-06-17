@@ -25,21 +25,6 @@ import Coupons from "./models/coupons";
 import { createNewCoupon } from "./services/CouponApi";
 
 function App() {
-  const testUser: IUserModel = {
-    email: "hoanganhdepzai123@gmail.com",
-    username: "hoanh dep zai",
-    fullname: "Hoanh dep zai",
-    gender: UserGender.Male,
-    phone: "01234567891",
-    nationality: "Duc Quoc Xa",
-    point: 0,
-    image:
-      "https://seeklogo.com/images/L/liverpool-fc-logo-027452BE2B-seeklogo.com.png?v=638133601200000000",
-    role: UserRole.Guest,
-    is_active: true,
-    created_at: new Date(Date.now()),
-  };
-
   const testFoodReview: FoodReview = {
     id: "2",
     food_id: "1",
