@@ -3,6 +3,9 @@ import { BsCheckLg } from "react-icons/bs";
 import { NavLink, useNavigate, Link } from "react-router-dom";
 import { ButtonPrimary, ButtonSecondary } from "./common";
 import { searchOption } from "../models/enum/searchOption";
+import { useSelector } from "react-redux";
+import { RootState } from "../redux/store";
+import AccountMenu from "./AccountMenu";
 
 interface NavOption {
   // id là id của phần nội dung sẽ nhảy tới (HTML id)
@@ -36,6 +39,7 @@ function Header({
   const [activeLink, setActiveLink] = useState("");
   const [query, setQuery] = useState("");
   const navigate = useNavigate();
+  const user = useSelector((state: RootState) => state.user.user);
 
   const handleSubmitSearch = (e: React.FormEvent, option: number): void => {
     e.preventDefault();
@@ -78,23 +82,56 @@ function Header({
           )
         )}
       </ul>
-      <form className="relative w-1/4" onSubmit={(e) => handleSubmitSearch(e,  searchOption.RestaurantSearch)}>
+      <form
+        className="relative w-1/4"
+        onSubmit={(e) => handleSubmitSearch(e, searchOption.RestaurantSearch)}
+      >
         <div className="relative rounded-3xl">
           <input
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            className={query === "" ? "rounded-3xl py-3 pl-4 pr-32 w-full shadow-lg focus:outline-none" : "rounded-t-3xl py-3 pl-4 pr-32 w-full shadow-lg focus:outline-none"}
+            className={
+              query === ""
+                ? "rounded-3xl py-3 pl-4 pr-32 w-full shadow-lg focus:outline-none"
+                : "rounded-t-3xl py-3 pl-4 pr-32 w-full shadow-lg focus:outline-none"
+            }
             placeholder="料理、レストランの名前を入力"
           />
 
-          <div id="dropdown" className="absolute z-10 bg-white  divide-y divide-gray-100 rounded-b-3xl shadow w-full dark:bg-gray-700">
-            <ul className={query === "" ? "hidden" : "py-2 text-sm text-gray-700 dark:text-gray-200"} aria-labelledby="dropdownDefaultButton">
+          <div
+            id="dropdown"
+            className="absolute z-10 bg-white  divide-y divide-gray-100 rounded-b-3xl shadow w-full dark:bg-gray-700"
+          >
+            <ul
+              className={
+                query === ""
+                  ? "hidden"
+                  : "py-2 text-sm text-gray-700 dark:text-gray-200"
+              }
+              aria-labelledby="dropdownDefaultButton"
+            >
               <li>
-                <a onClick={(e) => handleSubmitSearch(e, searchOption.RestaurantSearch)} href="#" className="text-[#BC1F1F] block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-slate-950"><strong>レストラン</strong>によって検索 (default)："{query}"</a>
+                <a
+                  onClick={(e) =>
+                    handleSubmitSearch(e, searchOption.RestaurantSearch)
+                  }
+                  href="#"
+                  className="text-[#BC1F1F] block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-slate-950"
+                >
+                  <strong>レストラン</strong>によって検索 (default)："{query}"
+                </a>
               </li>
               <li>
-                <a onClick={(e) => handleSubmitSearch(e, searchOption.FoodSearch)} href="#" className="text-[#BC1F1F] block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-slate-950"><strong>料理</strong>によって検索："{query}"</a>
+                <a
+                  onClick={(e) =>
+                    handleSubmitSearch(e, searchOption.FoodSearch)
+                  }
+                  href="#"
+                  className="text-[#BC1F1F] block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-slate-950"
+                >
+                  <strong>料理</strong>によって検索："{query}"
+                </a>
               </li>
             </ul>
           </div>
@@ -109,17 +146,23 @@ function Header({
           <div className="text-xl">
             <BsCheckLg />
           </div>
-            <p>検索</p>
-        </button> 
+          <p>検索</p>
+        </button>
       </form>
-      
+
       <div className="flex items-center gap-2">
-        <Link to="/auth/sign-up">
-          <ButtonPrimary title="登録する" />
-        </Link>
-        <Link to="/auth/login">
-          <ButtonSecondary title="ログイン" />
-        </Link>
+        {user ? (
+          <AccountMenu />
+        ) : (
+          <>
+            <Link to="/auth/sign-up">
+              <ButtonPrimary title="登録する" />
+            </Link>
+            <Link to="/auth/login">
+              <ButtonSecondary title="ログイン" />
+            </Link>
+          </>
+        )}
       </div>
     </div>
   );
