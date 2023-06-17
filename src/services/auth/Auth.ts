@@ -1,7 +1,10 @@
 import { firebase, firestore } from "../../config/firebase";
 import { IUserModel } from "../../models";
 
-export async function createUser(user: IUserModel, password: string) {
+export async function createUser(
+  user: Omit<IUserModel, "id">,
+  password: string
+) {
   const newUser = await firebase
     .auth()
     .createUserWithEmailAndPassword(user.email, password)
@@ -19,7 +22,7 @@ export async function createUser(user: IUserModel, password: string) {
       throw new Error(error.message);
     });
   // tra ve docId cua doc chua user
-  return newUser;
+  return newUser.data() as IUserModel;
 }
 
 export async function getUserByEmail(email: string | null | undefined) {
