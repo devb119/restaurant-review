@@ -5,11 +5,14 @@ export async function createUser(
   user: Omit<IUserModel, "id">,
   password: string
 ) {
+  const usernameValidate = await getUserByUsername(user.username);
+  if(usernameValidate) {
+    throw new Error("Username is exist! please create another one!");
+  }
   const newUser = await firebase
     .auth()
     .createUserWithEmailAndPassword(user.email, password)
     .then(async (userCredential) => {
-      // const credential = userCredential;
       localStorage.setItem("user", JSON.stringify(userCredential.user));
       const newData = await firestore.collection("users").add(user);
       const updateDocId = await firestore
@@ -30,6 +33,15 @@ export async function getUserByEmail(email: string | null | undefined) {
     const user = await firestore
       .collection("users")
       .where("email", "==", email)
+      .get();
+    return user.docs.map((item) => ({ ...item.data() }))[0];
+  }
+}
+export async function getUserByUsername(username: string | null | undefined) {
+  if (username) {
+    const user = await firestore
+      .collection("users")
+      .where("username", "==", username)
       .get();
     return user.docs.map((item) => ({ ...item.data() }))[0];
   }
