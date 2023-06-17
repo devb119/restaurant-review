@@ -9,7 +9,7 @@ const initialState: UserState = {
   user: null,
 };
 
-export const setCurrentUser = createAction<IUserModel>("setUser");
+export const setCurrentUser = createAction<IUserModel | null>("setUser");
 
 const userReducer = createReducer(initialState, (builder) =>
   builder.addCase(setCurrentUser, (state, action) => {

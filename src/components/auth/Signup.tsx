@@ -51,12 +51,12 @@ const Signup = (): JSX.Element => {
             setMessage("アカウント作成できました");
             setMessageType("success");
             setOpenNoti(true);
-            setTimeout(() => navigate("/", { replace: true }), 3000);
+            setTimeout(() => navigate("/", { replace: true }), 2000);
           })
           .catch((err) => {
             setMessage(err.message);
-            setOpenNoti(true);
             setMessageType("error");
+            setOpenNoti(true);
           })
           .finally(() => setLoading(false));
       }

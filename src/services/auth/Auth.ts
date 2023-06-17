@@ -41,7 +41,7 @@ export async function getUserByDocId(docId: string) {
 }
 
 // login thanh cong se tra ve user, neu fail thi bao loi
-export async function UserLogin(email: string, password: string) {
+export async function login(email: string, password: string) {
   const loggedIn = await firebase
     .auth()
     .signInWithEmailAndPassword(email, password)
@@ -50,12 +50,9 @@ export async function UserLogin(email: string, password: string) {
       return await getUserByEmail(userCredential.user?.email);
     })
     .catch((error) => {
-      return {
-        code: error.code,
-        message: error.message,
-      };
+      throw new Error(error.message);
     });
-  return loggedIn;
+  return loggedIn as IUserModel;
 }
 
 export async function Logout() {
