@@ -21,7 +21,7 @@ const Rate = ({ count, rating, color, onRating } : {count: number, rating: numbe
       .fill(0)
       .map((_, i) => i + 1)
       .map((idx) => (
-        <svg width="40" height="44" viewBox="0 0 60 64" style={{ fill: getColor(idx) }} xmlns="http://www.w3.org/2000/svg" key={idx}
+        <svg width="30" height="34" viewBox="0 0 60 64" style={{ fill: getColor(idx) }} xmlns="http://www.w3.org/2000/svg" key={idx}
             className="cursor-pointer inline"
             onClick={() => onRating(idx)} 
             onMouseEnter={() => setHoverRating(idx)}
