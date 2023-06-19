@@ -5,7 +5,7 @@ import { Route, Routes } from "react-router-dom";
 import { Home, NotFound, SearchPage, Auth } from "./pages";
 import { Login, Signup } from "./components";
 import { getFavouriteFoodList } from "./services/FoodApi";
-import { UserLogin, createUser } from "./services/auth/Auth";
+
 import { IUserModel } from "./models";
 import {
   createNewReview,

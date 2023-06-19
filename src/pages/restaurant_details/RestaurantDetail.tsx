@@ -10,6 +10,7 @@ import AppealFood from "./AppealFood";
 import Food from "../../models/foods";
 import { getFoodsByRestaurantId } from "../../services/FoodApi";
 import { getCouponsByRestaurantId } from "../../services/CouponApi";
+import ReviewSection from "./ReviewSection";
 function RestaurantDetail() {
   const [restaurant, setRestaurant] = useState<Restaurant>();
   const [loading, setLoading] = useState<boolean>(true);
@@ -92,6 +93,8 @@ function RestaurantDetail() {
               <AppealFood foodLists={appealFood}></AppealFood>
             </div>
           )}
+
+          <ReviewSection />
         </div>
       )}
     </div>
