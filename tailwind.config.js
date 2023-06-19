@@ -12,6 +12,8 @@ module.exports = {
       },
 
       width: {
+        15: "15px",
+        60: "60px",
         150: "150px",
         187: "187px",
         190: "190px",
@@ -27,6 +29,7 @@ module.exports = {
         508: "508px",
       },
       height: {
+        60: "60px",
         80: "80px",
         150: "150px",
         187: "187px",
@@ -47,6 +50,10 @@ module.exports = {
         350: "350px",
         620: "620px",
       },
+      minHeight: {
+        500: "500px",
+        685: "685px",
+      },
       screens: {
         sm: "640px",
         md: "768px",
@@ -59,6 +66,7 @@ module.exports = {
         mainTint: "#FFE8E0",
         mainShade: "#FF0101",
         gray: "#9D9693",
+        cream: "#f4efef",
       },
       fontFamily: {
         montserrat: ["Montserrat"],
@@ -68,4 +76,9 @@ module.exports = {
     },
   },
   plugins: [],
+  safelist: [
+    {
+      pattern: /(bg|text|border)-(cream|gray)/,
+    },
+  ],
 };

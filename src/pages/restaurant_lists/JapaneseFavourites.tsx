@@ -81,6 +81,7 @@ function JapaneseFavourites() {
             <div className="w-3/5 flex gap-4">
               {favorites.slice(0, 3).map((i: any, index: number) => (
                 <Favorite
+                  id={i.id}
                   foodTitle={i.name}
                   imageUrl={i.image}
                   key={index}
@@ -114,6 +115,7 @@ function JapaneseFavourites() {
           <div className="flex flex-row mt-4 mb-8">
             {favorites.slice(3, 8).map((i: any, index: number) => (
               <FavoriteCard2
+                id={i.id}
                 foodTitle={i.name}
                 imageUrl={i.image}
                 key={index}
