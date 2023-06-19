@@ -17,9 +17,9 @@ const ReviewSection = () => {
         >
           + 新しいレビュー
         </button>
-        <CommentCard />
+        <CommentCard type="restaurant" />
         <div className="ml-40">
-          <SubCommentCard />
+          <SubCommentCard type="restaurant" />
         </div>
       </div>
       {modalOpen && <ReviewForm setOpenModal={setModalOpen} username="" />}

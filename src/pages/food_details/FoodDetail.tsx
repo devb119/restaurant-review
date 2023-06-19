@@ -7,7 +7,7 @@ import { HiOutlineLocationMarker } from "react-icons/hi";
 import Food from "../../models/foods";
 import { getFoodsByRestaurantId } from "../../services/FoodApi";
 import { getCouponsByRestaurantId } from "../../services/CouponApi";
-import ReviewSection from "../restaurant_details/ReviewSection";
+import FoodReviewSection from "./FoodReviewSection";
 function RestaurantDetail() {
   const [food, setFood] = useState<Food>();
   //   const [restaurant, setRestaurant] = useState<Restaurant>();
@@ -52,7 +52,7 @@ function RestaurantDetail() {
             </div>
           </div>
 
-          <ReviewSection />
+          <FoodReviewSection />
         </div>
       )}
     </div>

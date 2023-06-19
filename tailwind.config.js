@@ -12,6 +12,7 @@ module.exports = {
       },
 
       width: {
+        15: "15px",
         60: "60px",
         150: "150px",
         187: "187px",
@@ -65,6 +66,7 @@ module.exports = {
         mainTint: "#FFE8E0",
         mainShade: "#FF0101",
         gray: "#9D9693",
+        cream: "#f4efef",
       },
       fontFamily: {
         montserrat: ["Montserrat"],
@@ -74,4 +76,9 @@ module.exports = {
     },
   },
   plugins: [],
+  safelist: [
+    {
+      pattern: /(bg|text|border)-(cream|gray)/,
+    },
+  ],
 };
