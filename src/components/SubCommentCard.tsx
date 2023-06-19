@@ -31,11 +31,7 @@ const SubCommentCard = (props: Props) => {
           <BiDotsHorizontalRounded className="absolute right-5 top-5 text-3xl stroke-[#f03e3e] cursor-pointer" />
         </div>
       </div>
-<<<<<<< HEAD
       <div className="flex px-60 justify-around min-w-225 mt-5">
-=======
-      <div className="flex px-60 justify-around min-w-225">
->>>>>>> 7025b92 (add food review section)
         {like === true ? (
           <FaHeart
             className="text-3xl fill-[#f03e3e] cursor-pointer inline"

@@ -20,7 +20,6 @@ function RestaurantDetail() {
   const [couponLists, setCouponLists] = useState<Coupon[]>();
 
   const id = useParams().id;
-  console.log(id);
   useEffect(() => {
     Promise.all([
       getRestaurantByDocId(id || ""),
@@ -98,7 +97,7 @@ function RestaurantDetail() {
             </div>
           )}
 
-          <ReviewSection />
+          <ReviewSection id={id || ""} />
         </div>
       )}
     </div>

@@ -1,37 +1,58 @@
 import React, { useRef, useState } from "react";
 import { FaCamera } from "react-icons/fa";
 import Rate from "../../components/Rate";
+import Review from "../../models/reviews";
+import { createNewReview } from "../../services/ReviewApi";
+import { useNavigate } from "react-router-dom";
+import { Loading } from "../../components/common";
 
 interface Props {
   setOpenModal: (value: boolean | ((prevVar: boolean) => boolean)) => void;
-  username: string;
+  restaurant_id: string;
+  id: string;
 }
 
-const ReviewForm = ({ setOpenModal, username }: Props) => {
+const ReviewForm = ({ setOpenModal, restaurant_id, id }: Props) => {
   const inputFile = useRef<HTMLInputElement>(null);
+  const [loading, setLoading] = useState<boolean>(false);
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
-  const [content, setContent] = useState("");
+  const [content, setContent] = useState<string>("");
   const [rating, setRating] = useState(0);
+  const [message, setMessage] = useState<string>("");
   const ratingArray = Array(5).fill(0);
   const ratingValue = 3;
+
+  const navigate = useNavigate();
   const uploadPicture = () => {
     if (!inputFile.current) return;
     inputFile.current.click();
   };
 
-  // const handleSubmit = () => {
-  //     // console.log(content);
-  //     if (content.length === 0 && selectedImage === null) {
-  //         alert("Please fill all the required area");
-  //     } else {
-  //         const formData = new FormData();
-  //         formData.append("content", content);
-  //         formData.append("image", selectedImage);
-  //         router.post("/addpost", formData);
-  //         setOpenModal(false);
-  //         alert("Added post");
-  //     }
-  // };
+  const handleSubmit = () => {
+    console.log(content);
+    if (content.length === 0 && rating === 0) {
+      setMessage("項目をすべて入力してください");
+      return;
+    } else {
+      setLoading(true);
+      let review: Review = {
+        restaurant_id: restaurant_id,
+        user_id: id,
+        about_space: content,
+        about_quality: content,
+        other_review: content,
+        star: rating,
+        is_active: true,
+        created_at: new Date(),
+        updated_at: new Date(),
+        food_review_list: [],
+      };
+      createNewReview(review);
+      setMessage("追加できました。");
+      setTimeout(() => setLoading(false), 2000);
+      setTimeout(() => setOpenModal(false), 2000);
+    }
+  };
 
   return (
     <div className="w-screen h-screen fixed top-0 left-0 flex justify-center items-center z-10 bg-mainTint">
@@ -52,11 +73,11 @@ const ReviewForm = ({ setOpenModal, username }: Props) => {
         <div className="flex justify-start w-full gap-14 text-2xl mt-28">
           <h4>評価</h4>
           <div className="mb-6">
-              <Rate
-                  rating={rating}
-                  onRating={(rate : number) => setRating(rate)}
-                  count={5}
-              />
+            <Rate
+              rating={rating}
+              onRating={(rate: number) => setRating(rate)}
+              count={5}
+            />
           </div>
         </div>
         <div className="flex flex-col w-full gap-5">
@@ -83,7 +104,6 @@ const ReviewForm = ({ setOpenModal, username }: Props) => {
           onChange={(event) => {
             if (!event.target.files) return;
             setSelectedImage(event.target.files[0]);
-            console.log(selectedImage);
           }}
           accept="image/gif,image/jpeg,image/jpg,image/png"
           name="image"
@@ -99,9 +119,13 @@ const ReviewForm = ({ setOpenModal, username }: Props) => {
             <button onClick={() => setSelectedImage(null)}>Remove</button>
           </div>
         )}
-        <div className="h-12 m-2 text-black text-center bg-mainTint text-main pt-4 rounded-lg text-xl cursor-pointer w-150 h-60">
-          <button>投稿</button>
-        </div>
+        <div className="text-main">{message}</div>
+        <button
+          className="h-12 m-2 text-black text-center bg-mainTint text-main rounded-lg text-xl cursor-pointer w-150 h-60 hover:bg-gray"
+          onClick={handleSubmit}
+        >
+          {loading ? <Loading /> : "投稿"}
+        </button>
       </div>
     </div>
   );
