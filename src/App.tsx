@@ -21,6 +21,7 @@ import Review from "./models/reviews";
 import FoodReview from "./models/food_reviews";
 import { UserGender, UserRole } from "./models/enum";
 import RestaurantDetail from "./pages/restaurant_details/RestaurantDetail";
+import FoodDetail from "./pages/food_details/FoodDetail";
 import Coupons from "./models/coupons";
 import { createNewCoupon } from "./services/CouponApi";
 
@@ -103,6 +104,7 @@ function App() {
             path="restaurants/:id"
             element={<RestaurantDetail></RestaurantDetail>}
           ></Route>
+          <Route path="food/:id" element={<FoodDetail></FoodDetail>}></Route>
           <Route
             path="search"
             element={<SearchPage query={query} searchOption={searchOption} />}

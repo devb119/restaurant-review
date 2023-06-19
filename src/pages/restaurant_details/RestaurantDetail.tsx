@@ -11,6 +11,8 @@ import Food from "../../models/foods";
 import { getFoodsByRestaurantId } from "../../services/FoodApi";
 import { getCouponsByRestaurantId } from "../../services/CouponApi";
 import ReviewSection from "./ReviewSection";
+import ReviewForm from "./ReviewForm";
+
 function RestaurantDetail() {
   const [restaurant, setRestaurant] = useState<Restaurant>();
   const [loading, setLoading] = useState<boolean>(true);
@@ -23,16 +25,18 @@ function RestaurantDetail() {
     Promise.all([
       getRestaurantByDocId(id || ""),
       getFoodsByRestaurantId(id || ""),
-      getCouponsByRestaurantId(id|| "")
+      getCouponsByRestaurantId(id || ""),
     ])
       .then((res) => {
         if (res) {
           setRestaurant(res[0]);
           setAppealFood(res[1] as Food[]);
-          setCouponLists(res[2] as Coupon[])
+          setCouponLists(res[2] as Coupon[]);
         }
       })
-      .catch(err=>{console.log(err)})
+      .catch((err) => {
+        console.log(err);
+      })
       .finally(() => {
         setLoading(false);
       });
@@ -88,7 +92,7 @@ function RestaurantDetail() {
             </div>
           )}
 
-          {appealFood && appealFood.length!=0 && (
+          {appealFood && appealFood.length != 0 && (
             <div>
               <AppealFood foodLists={appealFood}></AppealFood>
             </div>

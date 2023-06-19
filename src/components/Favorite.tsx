@@ -3,8 +3,10 @@ import { AiOutlineArrowRight } from "react-icons/ai";
 import { FaStar } from "react-icons/fa";
 import { getRestaurantById } from "../services/RestaurantApi";
 import { ToolTipOnHover } from "./common";
+import { useNavigate } from "react-router";
 
 interface favoriteProps {
+  id: string;
   foodTitle: string;
   imageUrl: string;
   rating?: number;
@@ -65,7 +67,8 @@ function FavoriteCard1(props: favoriteProps): JSX.Element {
 }
 
 export function FavoriteCard2(props: favoriteProps): JSX.Element {
-  const { foodTitle, rating, imageUrl, restaurant_id } = props;
+  const navigate = useNavigate();
+  const { id, foodTitle, rating, imageUrl, restaurant_id } = props;
   const [restaurantName, setRestaurantName] = useState<any>("");
   useEffect(() => {
     getRestaurantById(restaurant_id).then((res) => {
@@ -73,7 +76,12 @@ export function FavoriteCard2(props: favoriteProps): JSX.Element {
     });
   }, []);
   return (
-    <div className="bg-white p-4 flex flex-col w-64 rounded-sm">
+    <div
+      className="bg-white p-4 flex flex-col w-64 rounded-sm cursor-pointer"
+      onClick={() => {
+        navigate(`/food/${id}`);
+      }}
+    >
       <img src={imageUrl} className="w-54 h-44 rounded" />
       <div className="flex flex-row justify-between items-center">
         <p className="py-1 font-semibold text-lg">{foodTitle} </p>
