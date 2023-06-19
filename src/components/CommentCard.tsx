@@ -73,10 +73,17 @@ const CommentCard = (props: Props) => {
             labore, at ullam molestiae libero, quos officiis odit sequi nemo aut
             harum beatae exercitationem nisi earum culpa sint nostrum quo nobis?
           </div>
+<<<<<<< HEAD
           <FiHelpCircle className="absolute right-5 top-5 text-3xl stroke-[#f03e3e] cursor-pointer text-mainShade" />
         </div>
       </div>
       <div className="flex px-60 justify-around min-w-225 mt-5">
+=======
+        </div>
+        <FiHelpCircle className="absolute right-5 top-5 text-3xl stroke-[#f03e3e] cursor-pointer text-mainShade" />
+      </div>
+      <div className="flex px-60 justify-around min-w-225">
+>>>>>>> 7025b92 (add food review section)
         {like === true ? (
           <FaHeart
             className="text-3xl fill-[#f03e3e] cursor-pointer inline"
