@@ -5,8 +5,10 @@ import { TbPlayerTrackNext, TbPlayerTrackPrev } from "react-icons/tb";
 import Zoom from "@mui/material/Zoom";
 import Grow from "@mui/material/Grow";
 import { FaStar } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 function AppealFood({ foodLists }: { foodLists: Food[] }) {
+  const navigate = useNavigate();
   const [currentDisplay, setCurrentDisplay] = useState<Food[]>(
     foodLists.slice(0, 2)
   );
@@ -83,15 +85,22 @@ function AppealFood({ foodLists }: { foodLists: Food[] }) {
                   </div>
                   <div className="font-semibold text-lg flex flex-1 flex-col justify-center gap-8">
                     <div className="flex justify-between items-center">
-                      {e.name} 
+                      {e.name}
                       <span className="font-normal text-sm text-yellow-500 px-1 flex items-center">
-                        { e.rating } <FaStar></FaStar>
+                        {e.rating} <FaStar></FaStar>
                       </span>
                     </div>
                     <div className="text-base">値段: {e.price}</div>
                     <div className="text-base text-mainShade flex-1 flex flex-strech cursor-pointer justify-end items-end">
                       <div className="flex ">
-                        <div className="font-thin text-sm">レビュー</div>
+                        <div
+                          className="font-thin text-sm"
+                          onClick={() => {
+                            navigate(`/food/${e.id}`);
+                          }}
+                        >
+                          レビュー
+                        </div>
                         <span className="p-0.5">
                           <TbPlayerTrackNext></TbPlayerTrackNext>
                         </span>

@@ -16,13 +16,14 @@ function RestaurantDetail() {
 
   const id = useParams().id;
   console.log(id);
+
   useEffect(() => {
+    let userDetails = JSON.parse(localStorage.getItem("user") || "");
+    console.log(userDetails);
     Promise.all([getFoodByDocId(id || "")])
       .then((res) => {
         if (res) {
           setFood(res[0] as Food);
-          //   setAppealFood(res[1] as Food[]);
-          //   setCouponLists(res[2] as Coupon[])
         }
       })
       .catch((err) => {
@@ -35,11 +36,11 @@ function RestaurantDetail() {
   if (!food) return <></>;
   const { name, description, image } = food;
   return (
-    <div className="bg-white">
+    <div className="bg-white w-[70%] mx-auto rounded-3xl">
       {loading ? (
         <Loading></Loading>
       ) : (
-        <div className="m-12 p-12">
+        <div className="w-[90%] mx-auto py-20">
           <div className="rounded-3xl shadow-2xl text-center">
             <div className="h-600 w-full flex">
               <img className="rounded-3xl h-600 w-full" src={image}></img>
@@ -52,7 +53,7 @@ function RestaurantDetail() {
             </div>
           </div>
 
-          <FoodReviewSection />
+          <FoodReviewSection id={id} />
         </div>
       )}
     </div>

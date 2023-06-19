@@ -1,15 +1,20 @@
 import { FaHeart, FaRegComment } from "react-icons/fa";
 import { useState } from "react";
 import { FiHeart, FiHelpCircle } from "react-icons/fi";
+import FoodReview from "../models/food_reviews";
+import Review from "../models/reviews";
 
 interface Props {
   type: string;
+  foodReview: FoodReview | null;
+  review: Review | null;
 }
 
 const CommentCard = (props: Props) => {
   const [like, setLike] = useState(false);
   const ratingArray = Array(5).fill(0);
-  const ratingValue = 3;
+  const ratingValue =
+    props.type === "restaurant" ? props.review?.star : props.foodReview?.star;
   return (
     <div className="flex flex-col justify-center mb-10">
       <div className="flex gap-8">
@@ -27,6 +32,7 @@ const CommentCard = (props: Props) => {
         >
           <div className="mb-6">
             {ratingArray.map((e, index) => {
+              if (!ratingValue) return;
               if (index < ratingValue) {
                 return (
                   <svg
@@ -69,9 +75,9 @@ const CommentCard = (props: Props) => {
             <img className="w-32 aspect-[4/3]" src="/img/buncha.jpg" />
           </div>
           <div className="mb-8">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam
-            labore, at ullam molestiae libero, quos officiis odit sequi nemo aut
-            harum beatae exercitationem nisi earum culpa sint nostrum quo nobis?
+            {props.type === "restaurant"
+              ? props.review?.about_quality
+              : props.foodReview?.about_decoration}
           </div>
           <FiHelpCircle className="absolute right-5 top-5 text-3xl stroke-[#f03e3e] cursor-pointer text-mainShade" />
         </div>
