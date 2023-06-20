@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Restaurant from "../../models/restaurants";
 import { useParams } from "react-router-dom";
 import { getRestaurantByDocId } from "../../services/RestaurantApi";
