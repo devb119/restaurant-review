@@ -38,11 +38,17 @@ function RestaurantDetail() {
       ) : (
         <div className="w-[90%] mx-auto py-20">
           <div className="rounded-3xl text-center">
+            <AiOutlineArrowLeft
+              onClick={() => {
+                navigate(`/restaurants/${restaurant_id}`);
+              }}
+              className="text-3xl -mt-12 text-main cursor-pointer hover:text-gray"
+            />
+            <div className="mb-4 w-full">
+              <h2 className="font-bold mt-4 text-2xl">{name}</h2>
+            </div>
             <div className="h-600 w-full flex">
               <img className="rounded-3xl h-600 w-full" src={image}></img>
-            </div>
-            <div className="mt-4 w-full">
-              <h2 className="font-black mt-8 text-3xl">{name}</h2>
             </div>
             <div className="mx-4 bg-white rounded-md">
               <p className="p-4 text-xl"> {description}</p>
@@ -50,12 +56,6 @@ function RestaurantDetail() {
           </div>
 
           <FoodReviewSection id={id} />
-          <AiOutlineArrowLeft
-            onClick={() => {
-              navigate(`/restaurants/${restaurant_id}`);
-            }}
-            className="absolute top-6 left-6 text-5xl text-main cursor-pointer hover:text-gray"
-          />
         </div>
       )}
     </div>

@@ -21,10 +21,10 @@ const ReviewForm = ({ setOpenModal, restaurant_id, id }: Props) => {
   const [rating, setRating] = useState(0);
   const [message, setMessage] = useState<string>("");
   const { reviewList, setReviewList } = useContext(reviewContext);
-  const ratingArray = Array(5).fill(0);
-  const ratingValue = 3;
+  // const ratingArray = Array(5).fill(0);
+  // const ratingValue = 3;
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const uploadPicture = () => {
     if (!inputFile.current) return;
     inputFile.current.click();
@@ -37,7 +37,7 @@ const ReviewForm = ({ setOpenModal, restaurant_id, id }: Props) => {
       return;
     } else {
       setLoading(true);
-      let review: Review = {
+      const review: Review = {
         restaurant_id: restaurant_id,
         user_id: id,
         about_space: content,
@@ -126,7 +126,7 @@ const ReviewForm = ({ setOpenModal, restaurant_id, id }: Props) => {
         </div>
         <div className="text-main">{message}</div>
         <button
-          className="h-12 m-2 text-black text-center bg-mainTint text-main rounded-lg text-xl cursor-pointer w-150 min-h-60 hover:bg-gray"
+          className="h-12 m-2 text-center bg-mainTint text-main rounded-lg text-xl cursor-pointer w-150 min-h-60 hover:bg-gray"
           onClick={handleSubmit}
         >
           {loading ? <Loading /> : "投稿"}
