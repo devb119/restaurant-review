@@ -14,7 +14,7 @@ function RestaurantCard({ restaurant }: { restaurant: Restaurant }) {
         navigate(`/restaurants/${id}`);
       }}
     >
-      <img src={image} className="rounded" />
+      <img src={image} className="rounded w-full aspect-[1.5/1]" />
       <div className="flex flex-row justify-between items-center">
         <div className="py-1 font-semibold text-lg">
           <ToolTipOnHover textContent={name || ""} limit={11} />
