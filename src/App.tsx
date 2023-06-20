@@ -4,53 +4,35 @@ import JapaneseFavourites from "./pages/restaurant_lists/JapaneseFavourites";
 import { Route, Routes } from "react-router-dom";
 import { Home, NotFound, SearchPage, Auth } from "./pages";
 import { Login, Signup } from "./components";
-import { getFavouriteFoodList } from "./services/FoodApi";
-
-import { IUserModel } from "./models";
-import {
-  createNewReview,
-  getReviewsByRestaurantId,
-  deleteReview,
-} from "./services/ReviewApi";
-import {
-  createNewFoodReview,
-  getFoodReviewsById,
-  deleteFoodReview,
-} from "./services/FoodReviewApi";
-import Review from "./models/reviews";
-import FoodReview from "./models/food_reviews";
-import { UserGender, UserRole } from "./models/enum";
 import RestaurantDetail from "./pages/restaurant_details/RestaurantDetail";
 import FoodDetail from "./pages/food_details/FoodDetail";
-import Coupons from "./models/coupons";
-import { createNewCoupon } from "./services/CouponApi";
 import { useAuth } from "./hooks/useAuth";
 
 function App() {
-  const testFoodReview: FoodReview = {
-    id: "2",
-    food_id: "1",
-    star: 5.0,
-    about_price: " not good bro",
-    about_decoration: "bad vcl bro",
-    other: "good bro",
-  };
+  // const testFoodReview: FoodReview = {
+  //   id: "2",
+  //   food_id: "1",
+  //   star: 5.0,
+  //   about_price: " not good bro",
+  //   about_decoration: "bad vcl bro",
+  //   other: "good bro",
+  // };
   const user = useAuth();
   console.log(user);
-  const testCoupon: Coupons = {
-    id: "1",
-    restaurant_id: "U0JWRsWq2wAn4xmaOV8y",
-    name: "mua 2 tang 1",
-    description: "onlyfans",
-    sale: 20,
-    point: 50,
-    quantity: 5,
-    expired_at: new Date(Date.now()),
-    status: 1,
-    image: "abc",
-    created_at: new Date(Date.now()),
-    updated_at: new Date(Date.now()),
-  };
+  // const testCoupon: Coupons = {
+  //   id: "1",
+  //   restaurant_id: "U0JWRsWq2wAn4xmaOV8y",
+  //   name: "mua 2 tang 1",
+  //   description: "onlyfans",
+  //   sale: 20,
+  //   point: 50,
+  //   quantity: 5,
+  //   expired_at: new Date(Date.now()),
+  //   status: 1,
+  //   image: "abc",
+  //   created_at: new Date(Date.now()),
+  //   updated_at: new Date(Date.now()),
+  // };
   //test db
   React.useEffect(() => {
     /* 
@@ -69,9 +51,9 @@ function App() {
     //   console.log(await UserLogin("hoanganhdepzai123@gmail.com", "12345678"));
     // }
 
-    async function addCoupon() {
-      console.log(await createNewCoupon(testCoupon));
-    }
+    // async function addCoupon() {
+    //   console.log(await createNewCoupon(testCoupon));
+    // }
 
     // async function getReview() {
     //   console.log(await getFoodReviewsById("2"));

@@ -20,10 +20,10 @@ const CommentCard = (props: Props) => {
       <div className="flex gap-8">
         <div className="flex flex-col gap-2 mt-8">
           <img
-            className="w-24 rounded-full aspect-square"
+            className="w-20 h-20 rounded-full aspect-square"
             src="/img/default-avt.png"
           />
-          <p className="font-bold">Username</p>
+          <p className="font-bold text-md">Anonymous user</p>
         </div>
         <div
           className={`w-full min-h-[5rem] bg-${
@@ -31,7 +31,7 @@ const CommentCard = (props: Props) => {
           } rounded-2xl px-10 py-5 relative`}
         >
           <div className="mb-6">
-            {ratingArray.map((e, index) => {
+            {ratingArray.map((_, index) => {
               if (!ratingValue) return;
               if (index < ratingValue) {
                 return (
@@ -80,22 +80,28 @@ const CommentCard = (props: Props) => {
               : props.foodReview?.about_decoration}
           </div>
           <FiHelpCircle className="absolute right-5 top-5 text-3xl stroke-[#f03e3e] cursor-pointer text-mainShade" />
+          <div className="w-full">
+            <div className="flex justify-end min-w-225 text-md items-center m-0 mt-5">
+              <span className="text-md font-thin">
+                {like === true ? (
+                  <FaHeart
+                    className="text-xl fill-[#f03e3e] ml-8 cursor-pointer inline"
+                    onClick={() => setLike(!like)}
+                  />
+                ) : (
+                  <FiHeart
+                    className="text-xl stroke-[#5f5f5f] ml-8 cursor-pointer inline"
+                    onClick={() => setLike(!like)}
+                  />
+                )}
+              </span>
+              <FaRegComment className="text-xl  stroke-[#5f5f5f] ml-16 cursor-pointer inline text-mainShade" />
+              <p className="stroke-[#898989] ml-16 text-md font-thin">
+                12/08/2022
+              </p>
+            </div>
+          </div>
         </div>
-      </div>
-      <div className="flex px-60 justify-around min-w-225 mt-5">
-        {like === true ? (
-          <FaHeart
-            className="text-3xl fill-[#f03e3e] cursor-pointer inline"
-            onClick={() => setLike(!like)}
-          />
-        ) : (
-          <FiHeart
-            className="text-3xl stroke-[#f03e3e] cursor-pointer inline"
-            onClick={() => setLike(!like)}
-          />
-        )}
-        <FaRegComment className="text-3xl stroke-[#f03e3e] cursor-pointer inline text-mainShade" />
-        <p className="font-bold text-mainShade text-xl">12/08/2022</p>
       </div>
     </div>
   );
