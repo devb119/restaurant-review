@@ -1,6 +1,5 @@
 import React, { createContext, useEffect, useState } from "react";
 import CommentCard from "../../components/CommentCard";
-import SubCommentCard from "../../components/SubCommentCard";
 import MyComment from "../../components/MyComment";
 import { getFoodReviewsById } from "../../services/FoodReviewApi";
 import FoodReview from "../../models/food_reviews";

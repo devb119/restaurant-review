@@ -8,11 +8,12 @@ import { HiOutlineLocationMarker } from "react-icons/hi";
 import { TbPlayerTrackNextFilled } from "react-icons/tb";
 import { useNavigate } from "react-router-dom";
 import { searchOption as Option } from "../../models/enum/searchOption";
+import Food from "../../models/foods";
 
 const RestaurantSearch = ({ restaurant, searchOption, searchKeyword }: { restaurant: Restaurant, searchOption: number, searchKeyword: string }) => {
   const { id, name, address, image, rating } = restaurant;
   const [loading, setLoading] = React.useState<boolean>(true);
-  const [top2, setTop2] = React.useState<any>([]);
+  const [top2, setTop2] = React.useState<Food[]>([]);
 
   React.useEffect(() => {
     setLoading(true);
@@ -20,7 +21,7 @@ const RestaurantSearch = ({ restaurant, searchOption, searchKeyword }: { restaur
       .then((res) => {
         console.log(res);
         if(searchOption === Option.RestaurantSearch) {
-          setTop2(res.sort((r1, r2) => r2.rating - r1.rating).slice(0, 2));
+          setTop2(res.sort((r1, r2) => r2.rating - r1.rating).slice(0, 2) as Food[]);
         }
         else if(searchOption === Option.FoodSearch) {
           const suitableFoodList = res.filter((e) => {
@@ -37,9 +38,9 @@ const RestaurantSearch = ({ restaurant, searchOption, searchKeyword }: { restaur
               })
               .sort((r1, r2) => r2.rating - r1.rating).slice(0, 1));
             // console.log(displayFood);
-            setTop2(displayFood);
+            setTop2(displayFood as Food[]);
           } else {
-            setTop2(suitableFoodList.sort((r1, r2) => r2.rating - r1.rating).slice(0, 2));
+            setTop2(suitableFoodList.sort((r1, r2) => r2.rating - r1.rating).slice(0, 2) as Food[]);
           }
         }
       })
@@ -113,7 +114,7 @@ const RestaurantSearch = ({ restaurant, searchOption, searchKeyword }: { restaur
                     おすすめ:
                   </div>
                   <div className="flex gap-8 items-end">
-                    {top2.map((e: any) => (
+                    {top2.map((e: Food) => (
                       <div className="" onClick={(e)=>{e.stopPropagation()}}>
                         <div className="flex flex-row items-center">
                           <p className="py-1 font-semibold text-md">{e.name}</p>

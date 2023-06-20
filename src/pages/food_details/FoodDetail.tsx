@@ -10,7 +10,6 @@ function RestaurantDetail() {
   const [food, setFood] = useState<Food>();
   //   const [restaurant, setRestaurant] = useState<Restaurant>();
   const [loading, setLoading] = useState<boolean>(true);
-  const [appealFood, setAppealFood] = useState<Food[]>();
   const navigate = useNavigate();
 
   const id = useParams().id;
@@ -43,10 +42,10 @@ function RestaurantDetail() {
               <img className="rounded-3xl h-600 w-full" src={image}></img>
             </div>
             <div className="mt-4 w-full">
-              <h2 className="font-black text-3xl">{name}</h2>
+              <h2 className="font-black mt-8 text-3xl">{name}</h2>
             </div>
             <div className="mx-4 bg-white rounded-md">
-              <p className="m-8 p-4 text-xl"> {description}</p>
+              <p className="p-4 text-xl"> {description}</p>
             </div>
           </div>
 

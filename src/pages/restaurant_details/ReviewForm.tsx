@@ -1,12 +1,10 @@
-import React, { useContext, useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { FaCamera } from "react-icons/fa";
 import Rate from "../../components/Rate";
 import Review from "../../models/reviews";
 import { createNewReview } from "../../services/ReviewApi";
-import { useNavigate, useOutletContext } from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 import { Loading } from "../../components/common";
-import { OutletContextProps } from "./ReviewSection";
-import ReviewSection from "./ReviewSection";
 import { reviewContext } from "./ReviewSection";
 
 interface Props {
