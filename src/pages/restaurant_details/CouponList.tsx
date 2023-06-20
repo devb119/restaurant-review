@@ -1,21 +1,13 @@
 import React, { useState } from "react";
 import Coupon from "../../models/coupons";
 import { TbPlayerTrackNext, TbPlayerTrackPrev } from "react-icons/tb";
-import Zoom from "@mui/material/Zoom";
-import { Grow, Slide } from "@mui/material";
+import { Grow } from "@mui/material";
 function CouponList({ couponLists }: { couponLists: Coupon[] }) {
   const [currentCoupon, setCurrentCoupon] = useState<Coupon>(couponLists[0]);
   const {
-    id,
-    restaurant_id,
-    name,
-    description,
     sale,
     point,
-    quantity,
-    expired_at,
-    status,
-    image,
+    name
   } = currentCoupon;
   const last = couponLists.length;
   console.log(last);
@@ -69,17 +61,11 @@ function CouponList({ couponLists }: { couponLists: Coupon[] }) {
           <TbPlayerTrackPrev></TbPlayerTrackPrev>
         </span>
         <Grow
-          // direction="up"
           in={loading}
-          // container={ containerRef.current }
-          // timeout={700}
         >
           <div className="bg-white rounded-md p-4 flex justify-start flex-wrap w-3/5 transition ease-linear">
             <div className="w-52 h-52 mr-6 ml-2">
-              <img
-                className="w-52 h-52 rounded-md"
-                src={image || "/img/voucher.webp"}
-              />
+              <div className="bg-orange-400 w-48 h-48 mt-2 rounded-md justify-center items-center text-xl text-white flex"><p className="text-center font-bold">{ name }</p></div>
             </div>
             <div className="font-semibold text-lg flex flex-1 flex-col justify-center gap-8">
               <div className="">割合: {sale}%</div>
