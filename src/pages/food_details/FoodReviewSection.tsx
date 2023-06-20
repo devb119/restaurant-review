@@ -32,6 +32,7 @@ const FoodReviewSection = (props: Props) => {
     if (!props.id) return;
     const data = await getFoodReviewsById(props.id);
     setReviewList(data as FoodReview[]);
+    console.log(reviewList);
     setLoading(false);
   };
   return (
