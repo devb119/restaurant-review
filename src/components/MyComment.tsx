@@ -1,5 +1,5 @@
 import { FaHeart, FaRegComment } from "react-icons/fa";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { SlPaperPlane } from "react-icons/sl";
 import { BiCamera } from "react-icons/bi";
 import Rate from "./Rate";
@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import FoodReview from "../models/food_reviews";
 import { createNewFoodReview } from "../services/FoodReviewApi";
+import { FoodReviewContext } from "../pages/food_details/FoodReviewSection";
 
 interface Props {
   type: string;
@@ -17,6 +18,7 @@ const MyComment = (props: Props) => {
   const [rating, setRating] = useState(0);
   const [content, setContent] = useState<string>("");
   const [message, setMessage] = useState<string>("");
+  const { reviewList, setReviewList } = useContext(FoodReviewContext);
 
   const user = useSelector((state: RootState) => state.user.user);
 
@@ -27,7 +29,8 @@ const MyComment = (props: Props) => {
 
   const handleSubmit = () => {
     console.log(content);
-    if (content.length === 0 && rating === 0) {
+    console.log(rating);
+    if (content.length === 0 || rating === 0) {
       setMessage("項目をすべて入力してください");
       return;
     } else {
@@ -40,6 +43,7 @@ const MyComment = (props: Props) => {
       };
       createNewFoodReview(review);
       setMessage("追加できました。");
+      setReviewList([...reviewList, review]);
     }
   };
 
@@ -73,8 +77,8 @@ const MyComment = (props: Props) => {
               className="pl-5 pt-5 border-2 border-slate-300 rounded-lg bg-transparent border-none w-full pr-16"
               onChange={(e) => setContent(e.target.value)}
             ></textarea>
-            {props.type === "main" ? <BiCamera className="text-5xl" /> : null}
             <div className="text-main">{message}</div>
+            {props.type === "main" ? <BiCamera className="text-5xl" /> : null}
           </div>
           <SlPaperPlane
             onClick={handleSubmit}

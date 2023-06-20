@@ -1,10 +1,13 @@
-import React, { useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { FaCamera } from "react-icons/fa";
 import Rate from "../../components/Rate";
 import Review from "../../models/reviews";
 import { createNewReview } from "../../services/ReviewApi";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useOutletContext } from "react-router-dom";
 import { Loading } from "../../components/common";
+import { OutletContextProps } from "./ReviewSection";
+import ReviewSection from "./ReviewSection";
+import { reviewContext } from "./ReviewSection";
 
 interface Props {
   setOpenModal: (value: boolean | ((prevVar: boolean) => boolean)) => void;
@@ -19,6 +22,7 @@ const ReviewForm = ({ setOpenModal, restaurant_id, id }: Props) => {
   const [content, setContent] = useState<string>("");
   const [rating, setRating] = useState(0);
   const [message, setMessage] = useState<string>("");
+  const { reviewList, setReviewList } = useContext(reviewContext);
   const ratingArray = Array(5).fill(0);
   const ratingValue = 3;
 
@@ -51,6 +55,7 @@ const ReviewForm = ({ setOpenModal, restaurant_id, id }: Props) => {
       setMessage("追加できました。");
       setTimeout(() => setLoading(false), 2000);
       setTimeout(() => setOpenModal(false), 2000);
+      setReviewList([...reviewList, review]);
     }
   };
 

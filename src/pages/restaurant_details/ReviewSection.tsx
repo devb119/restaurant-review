@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext, createContext } from "react";
+import { Outlet } from "react-router-dom";
 import CommentCard from "../../components/CommentCard";
-import SubCommentCard from "../../components/SubCommentCard";
 import ReviewForm from "./ReviewForm";
 import { getReviewsByRestaurantId } from "../../services/ReviewApi";
 import Review from "../../models/reviews";
@@ -11,6 +11,21 @@ import { RootState } from "../../redux/store";
 interface Props {
   id: string;
 }
+
+export interface OutletContextProps {
+  reviewList: Review[];
+  setReviewList: (reviewList: Review[]) => void;
+}
+
+export interface iReviewContext {
+  reviewList: Review[];
+  setReviewList: (reviewList: Review[]) => void;
+}
+
+export const reviewContext = createContext<iReviewContext>({
+  reviewList: [],
+  setReviewList: () => {},
+});
 
 const ReviewSection = (props: Props) => {
   const [reviewList, setReviewList] = useState<Review[]>([]);
@@ -25,7 +40,6 @@ const ReviewSection = (props: Props) => {
     if (!props.id) return;
     const data = await getReviewsByRestaurantId(props.id);
     setReviewList(data as Review[]);
-    console.log(data);
     setLoading(false);
   };
 
@@ -55,13 +69,17 @@ const ReviewSection = (props: Props) => {
           <SubCommentCard type="restaurant" />
         </div> */}
       </div>
+
       {modalOpen && (
-        <ReviewForm
-          setOpenModal={setModalOpen}
-          restaurant_id={props.id}
-          id={user?.id || ""}
-        />
+        <reviewContext.Provider value={{ reviewList, setReviewList }}>
+          <ReviewForm
+            setOpenModal={setModalOpen}
+            restaurant_id={props.id}
+            id={user?.id || ""}
+          />
+        </reviewContext.Provider>
       )}
+      <Outlet context={{ reviewList, setReviewList }} />
     </React.Fragment>
   );
 };

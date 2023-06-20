@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import CommentCard from "../../components/CommentCard";
 import SubCommentCard from "../../components/SubCommentCard";
 import MyComment from "../../components/MyComment";
@@ -9,6 +9,16 @@ import { Loading } from "../../components/common";
 interface Props {
   id: string | undefined;
 }
+
+export interface iFoodReviewContext {
+  reviewList: FoodReview[];
+  setReviewList: (reviewList: FoodReview[]) => void;
+}
+
+export const FoodReviewContext = createContext<iFoodReviewContext>({
+  reviewList: [],
+  setReviewList: () => {},
+});
 
 const FoodReviewSection = (props: Props) => {
   const [loading, setLoading] = useState<boolean>(true);
@@ -42,7 +52,9 @@ const FoodReviewSection = (props: Props) => {
           }
         </div>
       )}
-      <MyComment type="main" id={props.id || ""} />
+      <FoodReviewContext.Provider value={{ reviewList, setReviewList }}>
+        <MyComment type="main" id={props.id || ""} />
+      </FoodReviewContext.Provider>
     </React.Fragment>
   );
 };
