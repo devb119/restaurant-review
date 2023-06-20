@@ -34,7 +34,7 @@ const ReviewForm = ({ setOpenModal, restaurant_id, id }: Props) => {
 
   const handleSubmit = () => {
     console.log(content);
-    if (content.length === 0 && rating === 0) {
+    if (content.length === 0 || rating === 0) {
       setMessage("項目をすべて入力してください");
       return;
     } else {
@@ -60,8 +60,8 @@ const ReviewForm = ({ setOpenModal, restaurant_id, id }: Props) => {
   };
 
   return (
-    <div className="w-screen h-screen fixed top-0 left-0 flex justify-center items-center z-10 bg-mainTint">
-      <div className="bg-white flex flex-col p-6 relative items-center justify-between w-1/2 h-fit min-h-685 shadow-xl rounded-xl px-32">
+    <div className="w-screen h-screen fixed top-0 left-0 z-10 bg-mainTint overflow-scroll">
+      <div className="bg-white flex flex-col p-6 absolute top-28 left-1/2 transform -translate-x-1/2 items-center justify-between w-1/2 min-h-685 shadow-xl rounded-xl px-32">
         <div className="w-8 absolute top-1.5 right-1.5 text-xs">
           <button
             onClick={() => {
@@ -75,7 +75,7 @@ const ReviewForm = ({ setOpenModal, restaurant_id, id }: Props) => {
         <div className="w-full text-center text-3xl font-black">
           <h3>レストラン評価</h3>
         </div>
-        <div className="flex justify-start w-full gap-14 text-2xl mt-28">
+        <div className="flex justify-start w-full gap-14 text-2xl mt-4">
           <h4>評価</h4>
           <div className="mb-6">
             <Rate
