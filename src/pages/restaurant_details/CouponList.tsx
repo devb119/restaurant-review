@@ -51,14 +51,12 @@ function CouponList({ couponLists }: { couponLists: Coupon[] }) {
       setHasPrev(true);
     }
   };
-    const containerRef = React.useRef(null);
+  const containerRef = React.useRef(null);
   console.log(current);
   const [loading, setLoading] = useState<boolean>(true);
   return (
     <div>
-      <div className="font-bold text-xl my-4">
-        クーポンコード一覧
-      </div>
+      <div className="font-bold text-xl my-4">クーポンコード一覧</div>
       <div className="flex justify-around items-center" ref={containerRef}>
         <span
           className={
@@ -78,7 +76,10 @@ function CouponList({ couponLists }: { couponLists: Coupon[] }) {
         >
           <div className="bg-white rounded-md p-4 flex justify-start flex-wrap w-3/5 transition ease-linear">
             <div className="w-52 h-52 mr-6 ml-2">
-              <img className="w-52 h-52 rounded-md" src={image} />
+              <img
+                className="w-52 h-52 rounded-md"
+                src={image || "/img/voucher.webp"}
+              />
             </div>
             <div className="font-semibold text-lg flex flex-1 flex-col justify-center gap-8">
               <div className="">割合: {sale}%</div>
