@@ -11,13 +11,16 @@ import Food from "../../models/foods";
 import { getFoodsByRestaurantId } from "../../services/FoodApi";
 import { getCouponsByRestaurantId } from "../../services/CouponApi";
 import ReviewSection from "./ReviewSection";
-import ReviewForm from "./ReviewForm";
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
 
 function RestaurantDetail() {
   const [restaurant, setRestaurant] = useState<Restaurant>();
   const [loading, setLoading] = useState<boolean>(true);
   const [appealFood, setAppealFood] = useState<Food[]>();
   const [couponLists, setCouponLists] = useState<Coupon[]>();
+  const user = useSelector((state: RootState) => state.user.user);
 
   const id = useParams().id;
   useEffect(() => {
@@ -98,6 +101,14 @@ function RestaurantDetail() {
           )}
 
           <ReviewSection id={id || ""} />
+          {}
+          {user ? null : (
+            <div className="w-full text-center border-t-2 border-slate-300 pt-4">
+              <Link to="/auth/login">
+                レビューを追加するためにログインしてください
+              </Link>
+            </div>
+          )}
         </div>
       )}
     </div>
