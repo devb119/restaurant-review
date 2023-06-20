@@ -43,14 +43,12 @@ function CouponList({ couponLists }: { couponLists: Coupon[] }) {
       setHasPrev(true);
     }
   };
-    const containerRef = React.useRef(null);
+  const containerRef = React.useRef(null);
   console.log(current);
   const [loading, setLoading] = useState<boolean>(true);
   return (
     <div>
-      <div className="font-bold text-xl my-4">
-        クーポンコード一覧
-      </div>
+      <div className="font-bold text-xl my-4">クーポンコード一覧</div>
       <div className="flex justify-around items-center" ref={containerRef}>
         <span
           className={

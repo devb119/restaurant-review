@@ -21,7 +21,7 @@ const CommentCard = (props: Props) => {
         <div className="flex flex-col gap-2 mt-8">
           <img
             className="w-24 rounded-full aspect-square"
-            src="/img/buncha.jpg"
+            src="/img/default-avt.png"
           />
           <p className="font-bold">Username</p>
         </div>

@@ -61,8 +61,8 @@ const ReviewForm = ({ setOpenModal, restaurant_id, id }: Props) => {
 
   return (
     <div className="w-screen h-screen fixed top-0 left-0 flex justify-center items-center z-10 bg-mainTint">
-      <div className="bg-white flex flex-col p-6 relative items-center justify-between w-1/2 h-fit h-685 shadow-xl rounded-xl px-32">
-        <div className="flex flex-col items-center justify-between w-full gap-4 overflow-scroll">
+      <div className="bg-white flex flex-col p-6 relative items-center justify-between w-1/2 h-685 shadow-xl rounded-xl px-32 overflow-scroll">
+        <div className="flex flex-col items-center justify-between w-full gap-4">
           <div className="w-8 absolute top-1.5 right-1.5 text-xs">
             <button
               onClick={() => {
@@ -76,7 +76,7 @@ const ReviewForm = ({ setOpenModal, restaurant_id, id }: Props) => {
           <div className="w-full text-center text-3xl font-black">
             <h3>レストラン評価</h3>
           </div>
-          <div className="flex justify-start w-full gap-14 text-2xl mt-28">
+          <div className="flex justify-start w-full gap-14 text-2xl mt-20">
             <h4>評価</h4>
             <div className="mb-6">
               <Rate
@@ -128,7 +128,7 @@ const ReviewForm = ({ setOpenModal, restaurant_id, id }: Props) => {
         </div>
         <div className="text-main">{message}</div>
         <button
-          className="h-12 m-2 text-black text-center bg-mainTint text-main rounded-lg text-xl cursor-pointer w-150 h-60 hover:bg-gray"
+          className="h-12 m-2 text-black text-center bg-mainTint text-main rounded-lg text-xl cursor-pointer w-150 min-h-60 hover:bg-gray"
           onClick={handleSubmit}
         >
           {loading ? <Loading /> : "投稿"}
