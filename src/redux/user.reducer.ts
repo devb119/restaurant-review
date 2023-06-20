@@ -1,7 +1,7 @@
 import { createAction, createReducer } from "@reduxjs/toolkit";
 import { IUserModel } from "../models";
 
-interface UserState {
+export interface UserState {
   user: IUserModel | null;
 }
 

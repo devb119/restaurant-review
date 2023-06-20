@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { FiLogOut } from "react-icons/fi";
 import { setCurrentUser } from "../redux/user.reducer";
+import { Logout } from "../services/auth/Auth";
 
 export default function AccountMenu() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -24,8 +25,11 @@ export default function AccountMenu() {
   };
 
   const handleLogout = () => {
-    setAnchorEl(null);
-    dispatch(setCurrentUser(null));
+    const logout = Logout();
+    Promise.all([logout]).then(() => {
+      setAnchorEl(null);
+      dispatch(setCurrentUser(null));
+    })
   };
   const user = useSelector((state: RootState) => state.user.user);
 
