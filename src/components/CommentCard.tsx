@@ -26,7 +26,7 @@ const CommentCard = (props: Props) => {
           <p className="font-bold">Username</p>
         </div>
         <div
-          className={`w-full min-h-[20rem] bg-${
+          className={`w-full min-h-[5rem] bg-${
             props.type === "restaurant" ? "white" : "cream"
           } rounded-2xl px-10 py-5 relative`}
         >
@@ -70,10 +70,10 @@ const CommentCard = (props: Props) => {
               }
             })}
           </div>
-          <div className="flex gap-5 mb-6">
+          {/* <div className="flex gap-5 mb-6">
             <img className="w-32 aspect-[4/3]" src="/img/buncha.jpg" />
             <img className="w-32 aspect-[4/3]" src="/img/buncha.jpg" />
-          </div>
+          </div> */}
           <div className="mb-8">
             {props.type === "restaurant"
               ? props.review?.about_quality
