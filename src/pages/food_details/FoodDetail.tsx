@@ -32,7 +32,7 @@ function RestaurantDetail() {
   if (!food) return <></>;
   const { name, description, image, restaurant_id } = food;
   return (
-    <div className="bg-white w-[70%] mx-auto rounded-3xl">
+    <div className="bg-white w-[70%] mx-auto rounded-3xl relative">
       {loading ? (
         <Loading></Loading>
       ) : (
