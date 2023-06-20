@@ -33,7 +33,7 @@ function RestaurantDetail() {
   if (!food) return <></>;
   const { name, description, image, restaurant_id } = food;
   return (
-    <div className="bg-white w-[70%] mx-auto rounded-3xl">
+    <div className="bg-white w-[70%] mx-auto rounded-3xl relative">
       {loading ? (
         <Loading></Loading>
       ) : (
@@ -55,7 +55,7 @@ function RestaurantDetail() {
             onClick={() => {
               navigate(`/restaurants/${restaurant_id}`);
             }}
-            className="fixed top-24 right-10 text-5xl text-main cursor-pointer hover:text-gray"
+            className="absolute top-6 left-6 text-5xl text-main cursor-pointer hover:text-gray"
           />
         </div>
       )}
