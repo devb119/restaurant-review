@@ -18,7 +18,7 @@ function RestaurantDetail() {
   console.log(id);
 
   useEffect(() => {
-    let userDetails = JSON.parse(localStorage.getItem("user") || "");
+    const userDetails = JSON.parse(localStorage.getItem("user") || "{}");
     console.log(userDetails);
     Promise.all([getFoodByDocId(id || "")])
       .then((res) => {

@@ -8,6 +8,7 @@ import { RootState } from "../redux/store";
 import FoodReview from "../models/food_reviews";
 import { createNewFoodReview } from "../services/FoodReviewApi";
 import { FoodReviewContext } from "../pages/food_details/FoodReviewSection";
+import { Link } from "react-router-dom";
 
 interface Props {
   type: string;
@@ -87,7 +88,9 @@ const MyComment = (props: Props) => {
         </div>
       ) : (
         <div className="w-full text-center border-t-2 border-slate-300 pt-4">
-          レビューを追加するためにログインしてください
+          <Link to="/auth/login">
+            レビューを追加するためにログインしてください
+          </Link>
         </div>
       )}
     </>
