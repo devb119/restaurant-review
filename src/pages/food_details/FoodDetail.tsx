@@ -1,25 +1,22 @@
 import React, { useEffect, useState } from "react";
-import Restaurant from "../../models/restaurants";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { getFoodByDocId } from "../../services/FoodApi";
 import { Loading } from "../../components/common";
-import { HiOutlineLocationMarker } from "react-icons/hi";
+import { AiOutlineArrowLeft } from "react-icons/ai";
 import Food from "../../models/foods";
-import { getFoodsByRestaurantId } from "../../services/FoodApi";
-import { getCouponsByRestaurantId } from "../../services/CouponApi";
 import FoodReviewSection from "./FoodReviewSection";
+
 function RestaurantDetail() {
   const [food, setFood] = useState<Food>();
   //   const [restaurant, setRestaurant] = useState<Restaurant>();
   const [loading, setLoading] = useState<boolean>(true);
   const [appealFood, setAppealFood] = useState<Food[]>();
+  const navigate = useNavigate();
 
   const id = useParams().id;
   console.log(id);
 
   useEffect(() => {
-    const userDetails = JSON.parse(localStorage.getItem("user") || "{}");
-    console.log(userDetails);
     Promise.all([getFoodByDocId(id || "")])
       .then((res) => {
         if (res) {
@@ -34,14 +31,14 @@ function RestaurantDetail() {
       });
   }, [id]);
   if (!food) return <></>;
-  const { name, description, image } = food;
+  const { name, description, image, restaurant_id } = food;
   return (
     <div className="bg-white w-[70%] mx-auto rounded-3xl">
       {loading ? (
         <Loading></Loading>
       ) : (
         <div className="w-[90%] mx-auto py-20">
-          <div className="rounded-3xl shadow-2xl text-center">
+          <div className="rounded-3xl text-center">
             <div className="h-600 w-full flex">
               <img className="rounded-3xl h-600 w-full" src={image}></img>
             </div>
@@ -54,6 +51,12 @@ function RestaurantDetail() {
           </div>
 
           <FoodReviewSection id={id} />
+          <AiOutlineArrowLeft
+            onClick={() => {
+              navigate(`/restaurants/${restaurant_id}`);
+            }}
+            className="fixed top-24 right-10 text-5xl text-main cursor-pointer hover:text-gray"
+          />
         </div>
       )}
     </div>
