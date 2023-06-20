@@ -28,14 +28,17 @@ export async function createUser(
   return newUser.data() as IUserModel;
 }
 
-export async function getUserByEmail(email: string | null | undefined) {
+export async function getUserByEmail(email: string | null | undefined): Promise<IUserModel | null> {
   if (email) {
     const user = await firestore
       .collection("users")
       .where("email", "==", email)
       .get();
-    return user.docs.map((item) => ({ ...item.data() }))[0];
+      if(user.docs.map((item) => ({ ...item.data() }))[0]) {
+    return user.docs.map((item) => ({ ...item.data() }))[0] as IUserModel;
+    }
   }
+  return null;
 }
 export async function getUserByUsername(username: string | null | undefined) {
   if (username) {

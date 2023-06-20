@@ -40,6 +40,7 @@ function Header({
   const [query, setQuery] = useState("");
   const navigate = useNavigate();
   const user = useSelector((state: RootState) => state.user.user);
+  console.log(user);
 
   const handleSubmitSearch = (e: React.FormEvent, option: number): void => {
     e.preventDefault();

@@ -24,6 +24,7 @@ import RestaurantDetail from "./pages/restaurant_details/RestaurantDetail";
 import FoodDetail from "./pages/food_details/FoodDetail";
 import Coupons from "./models/coupons";
 import { createNewCoupon } from "./services/CouponApi";
+import { useAuth } from "./hooks/useAuth";
 
 function App() {
   const testFoodReview: FoodReview = {
@@ -34,7 +35,8 @@ function App() {
     about_decoration: "bad vcl bro",
     other: "good bro",
   };
-
+  const user = useAuth();
+  console.log(user);
   const testCoupon: Coupons = {
     id: "1",
     restaurant_id: "U0JWRsWq2wAn4xmaOV8y",
