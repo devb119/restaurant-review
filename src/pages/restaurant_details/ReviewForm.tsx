@@ -3,7 +3,7 @@ import { FaCamera } from "react-icons/fa";
 import Rate from "../../components/Rate";
 import Review from "../../models/reviews";
 import { createNewReview } from "../../services/ReviewApi";
-import { useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Loading } from "../../components/common";
 import { reviewContext } from "./ReviewSection";
 
@@ -58,8 +58,8 @@ const ReviewForm = ({ setOpenModal, restaurant_id, id }: Props) => {
   };
 
   return (
-    <div className="w-screen h-screen fixed top-0 left-0 flex justify-center items-center z-10 bg-mainTint">
-      <div className="bg-white flex flex-col p-6 relative items-center justify-between w-1/2 h-685 shadow-xl rounded-xl px-32 overflow-scroll">
+    <div className="w-screen h-screen fixed top-0 left-0 z-10 bg-mainTint overflow-y-scroll">
+      <div className="bg-white flex flex-col p-6 relative items-center justify-between w-1/2 min-h-685 mx-auto my-32 shadow-xl rounded-xl px-32">
         <div className="flex flex-col items-center justify-between w-full gap-4">
           <div className="w-8 absolute top-1.5 right-1.5 text-xs">
             <button
