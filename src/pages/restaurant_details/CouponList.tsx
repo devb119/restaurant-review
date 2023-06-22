@@ -7,10 +7,10 @@ function CouponList({ couponLists }: { couponLists: Coupon[] }) {
   const {
     sale,
     point,
-    name
+    name,
   } = currentCoupon;
   const last = couponLists.length;
-  console.log(last);
+ 
   const [current, setCurrent] = useState<number>(1);
   const [hasNext, setHasNext] = useState<boolean>(current != last);
   const [hasPrev, setHasPrev] = useState<boolean>(false);
@@ -44,12 +44,12 @@ function CouponList({ couponLists }: { couponLists: Coupon[] }) {
     }
   };
   const containerRef = React.useRef(null);
-  console.log(current);
+  
   const [loading, setLoading] = useState<boolean>(true);
   return (
     <div>
       <div className="font-bold text-xl my-4">クーポンコード一覧</div>
-      <div className="flex justify-around items-center" ref={containerRef}>
+      <div className="flex justify-between items-center" ref={containerRef}>
         <span
           className={
             hasPrev
@@ -63,13 +63,13 @@ function CouponList({ couponLists }: { couponLists: Coupon[] }) {
         <Grow
           in={loading}
         >
-          <div className="bg-white rounded-md p-4 flex justify-start flex-wrap w-3/5 transition ease-linear">
+          <div className="bg-white rounded-md p-4 flex justify-start flex-wrap w-4/5 transition ease-linear">
             <div className="w-52 h-52 mr-6 ml-2">
               <div className="bg-orange-400 w-48 h-48 mt-2 rounded-md justify-center items-center text-xl text-white flex"><p className="text-center font-bold">{ name }</p></div>
             </div>
             <div className="font-semibold text-lg flex flex-1 flex-col justify-center gap-8">
-              <div className="">割合: {sale}%</div>
-              <div>引き換えポイント: {point}</div>
+              <div className="text-xl">割合: {sale}%</div>
+              <div className="text-xl">引き換えポイント: {point}</div>
             </div>
             <div className="text-base text-mainShade flex-1 cursor-pointer w-3/5 flex justify-end items-end">
               <div className="">交換ポイント</div>

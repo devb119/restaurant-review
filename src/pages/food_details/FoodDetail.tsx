@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getFoodByDocId } from "../../services/FoodApi";
 import { Loading } from "../../components/common";
@@ -13,7 +13,6 @@ function RestaurantDetail() {
   const navigate = useNavigate();
 
   const id = useParams().id;
-  console.log(id);
 
   useEffect(() => {
     Promise.all([getFoodByDocId(id || "")])
@@ -42,18 +41,22 @@ function RestaurantDetail() {
               onClick={() => {
                 navigate(`/restaurants/${restaurant_id}`);
               }}
-              className="text-3xl -mt-12 text-main cursor-pointer hover:text-gray"
+              className="text-3xl -mt-12 text-main cursor-pointer hover:fill-[#b32e01]"
             />
             <div className="mb-4 w-full">
-              <h2 className="font-bold mt-4 text-2xl">{name}</h2>
+              <h2 className="mt-4 text-4xl font-bold">{name}</h2>
             </div>
-            <div className="h-600 w-full flex">
+            <div className="h-600 w-full flex mb-10">
               <img className="rounded-3xl h-600 w-full" src={image}></img>
             </div>
-            <div className="mx-4 bg-white rounded-md">
-              <p className="p-4 text-xl"> {description}</p>
+
+            <div className=" text-2xl font-bold text-left mb-4">Food Description:</div>
+            <div className="p-4 bg-slate-200 rounded-3xl mb-10">
+              
+              <p className="text-left"> {description}</p>
             </div>
           </div>
+          <div className=" text-2xl font-bold text-left mb-[-1rem]">Review Section: </div>
 
           <FoodReviewSection id={id} />
         </div>

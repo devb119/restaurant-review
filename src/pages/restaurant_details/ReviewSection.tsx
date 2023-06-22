@@ -24,7 +24,7 @@ export interface iReviewContext {
 
 export const reviewContext = createContext<iReviewContext>({
   reviewList: [],
-  setReviewList: () => {},
+  setReviewList: () => null,
 });
 
 const ReviewSection = (props: Props) => {
@@ -47,7 +47,7 @@ const ReviewSection = (props: Props) => {
   return (
     <React.Fragment>
       <div className="mt-8 relative">
-        <h1 className="text-center font-bold text-xl mb-8">レビューリスト</h1>
+        <h1 className="text-center font-bold text-3xl mb-12">レビューリスト</h1>
         {user && (
           <button
             className="absolute right-0 top-0 bg-main text-white flex items-center gap-2 py-1 px-4 rounded-full hover:bg-mainShade transition-all"
@@ -55,7 +55,7 @@ const ReviewSection = (props: Props) => {
               setModalOpen(true);
             }}
           >
-            + 新しいレビュー
+            <div className="p-1">+ 新しいレビュー</div>
           </button>
         )}
         {loading ? (

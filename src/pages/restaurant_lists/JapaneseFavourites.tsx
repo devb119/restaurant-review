@@ -4,45 +4,45 @@ import Restaurants from "./Restaurants";
 import { getFavouriteFoodList } from "../../services/FoodApi";
 import { Loading } from "../../components/common";
 
-const favorites = [
-  {
-    title: "Bun cha",
-    imageURL: "/img/buncha.jpg",
-  },
-  {
-    title: "Cha ca",
-    imageURL: "/img/chaca.jpg",
-  },
-  {
-    title: "Pho Bo",
-    imageURL: "/img/phobo.jpg",
-  },
-  {
-    title: "Nem",
-    imageURL: "/img/banhmi.png",
-    rating: 4.5,
-  },
-  {
-    title: "Banh Mi",
-    imageURL: "/img/banhmi.png",
-    rating: 4.5,
-  },
-  {
-    title: "Banh Mi",
-    imageURL: "/img/banhmi.png",
-    rating: 4.5,
-  },
-  {
-    title: "Banh Mi",
-    imageURL: "/img/banhmi.png",
-    rating: 4.5,
-  },
-  {
-    title: "Banh Mi",
-    imageURL: "/img/banhmi.png",
-    rating: 4.5,
-  },
-];
+// const favorites = [
+//   {
+//     title: "Bun cha",
+//     imageURL: "/img/buncha.jpg",
+//   },
+//   {
+//     title: "Cha ca",
+//     imageURL: "/img/chaca.jpg",
+//   },
+//   {
+//     title: "Pho Bo",
+//     imageURL: "/img/phobo.jpg",
+//   },
+//   {
+//     title: "Nem",
+//     imageURL: "/img/banhmi.png",
+//     rating: 4.5,
+//   },
+//   {
+//     title: "Banh Mi",
+//     imageURL: "/img/banhmi.png",
+//     rating: 4.5,
+//   },
+//   {
+//     title: "Banh Mi",
+//     imageURL: "/img/banhmi.png",
+//     rating: 4.5,
+//   },
+//   {
+//     title: "Banh Mi",
+//     imageURL: "/img/banhmi.png",
+//     rating: 4.5,
+//   },
+//   {
+//     title: "Banh Mi",
+//     imageURL: "/img/banhmi.png",
+//     rating: 4.5,
+//   },
+// ];
 
 function JapaneseFavourites() {
   const [loading, setLoading] = React.useState<boolean>(true);

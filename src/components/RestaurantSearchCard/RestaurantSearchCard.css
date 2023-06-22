@@ -83,14 +83,12 @@
 }
 
 .go-to-review a:link, a:visited {
-    font-size: 0.9375rem;
     font-weight: 700;
     color: #BC1F1F;
     text-decoration: none;
 }
 
 .go-to-review a:hover, a:active {
-    font-size: 0.9375rem;
     font-weight: 700;
     color: #BC1F1F;
     text-decoration: none;

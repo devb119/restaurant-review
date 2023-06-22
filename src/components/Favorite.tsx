@@ -15,12 +15,17 @@ interface favoriteProps {
 
 function FavoriteCard1(props: favoriteProps): JSX.Element {
   const { foodTitle, imageUrl } = props;
+  const navigate = useNavigate();
+  const moveToSearchHandler = () => {
+    navigate(`/food/${props.id}`);
+  }
   return (
     <div className="relative w-80 overflow-hidden rounded-sm">
       <img src={imageUrl} className="w-full rounded w-58 h-44" />
       <button
         className="absolute bottom-6 left-1/2 -translate-x-1/2 px-4 py-1 bg-white rounded w-4/5
                font-bold text-lg flex items-center justify-between hover:bg-mainTint transition-all"
+        onClick={moveToSearchHandler}
       >
         <p>{foodTitle}</p>
         <span className="text-xl text-mainShade">
