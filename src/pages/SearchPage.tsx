@@ -1,16 +1,17 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import RestaurantSearchCard from "../components/RestaurantSearchCard/RestaurantSearchCard";
 import PaginationSearch from "../components/PaginationSearch";
 import Restaurant from "../models/restaurants"
 import { getRestaurantsByName, getRestaurantIdsByFoodName } from "../services/RestaurantApi";
 import { searchOption as Option}  from "../models/enum/searchOption";
 import Footer from "../components/Footer";
+import { searchContext } from "../App";
 
-const SearchPage = ({query, searchOption} : {query : string, searchOption: number}) => {
+const SearchPage = () => {
     const [searchData, setSearchData] = useState<Restaurant[]>([]);
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [allFood, setAllFood] = useState<any>([]);
-    
+    const {query, searchOption} = useContext(searchContext);
     
     const restaurantsPerPage = 5;
 
@@ -35,17 +36,16 @@ const SearchPage = ({query, searchOption} : {query : string, searchOption: numbe
             setSearchData([...suitableData]);
         }
        
-
         if(searchOption === Option.RestaurantSearch) {
             getSearchData(query);
-            
         }
+
         else if(searchOption === Option.FoodSearch) {
            getSearchDataByFood(query);  
         }
         
         setCurrentPage(1);
-    }, [query, searchOption, allFood]);
+    }, [searchOption, allFood, query]);
 
     const indexOfLastRestaurant = currentPage * restaurantsPerPage;
     const indexOfFirstRestaurant = indexOfLastRestaurant - restaurantsPerPage;

@@ -7,33 +7,14 @@ import { Login, Signup } from "./components";
 import RestaurantDetail from "./pages/restaurant_details/RestaurantDetail";
 import FoodDetail from "./pages/food_details/FoodDetail";
 import { useAuth } from "./hooks/useAuth";
+import { searchOption } from "./models/enum/searchOption";
+
+export const searchContext = React.createContext({query: "", searchOption: searchOption.RestaurantSearch});
 
 function App() {
-  // const testFoodReview: FoodReview = {
-  //   id: "2",
-  //   food_id: "1",
-  //   star: 5.0,
-  //   about_price: " not good bro",
-  //   about_decoration: "bad vcl bro",
-  //   other: "good bro",
-  // };
   const user = useAuth();
-  console.log(user);
-  // const testCoupon: Coupons = {
-  //   id: "1",
-  //   restaurant_id: "U0JWRsWq2wAn4xmaOV8y",
-  //   name: "mua 2 tang 1",
-  //   description: "onlyfans",
-  //   sale: 20,
-  //   point: 50,
-  //   quantity: 5,
-  //   expired_at: new Date(Date.now()),
-  //   status: 1,
-  //   image: "abc",
-  //   created_at: new Date(Date.now()),
-  //   updated_at: new Date(Date.now()),
-  // };
-  //test db
+  // console.log(user);
+ 
   React.useEffect(() => {
     /* 
                           dung xoa de namduong test nha :D
@@ -74,28 +55,33 @@ function App() {
     setQuery(query);
     setSearchOption(option);
   };
+
   return (
     <>
-      <Routes>
-        <Route path="auth" element={<Auth />}>
-          <Route path="login" element={<Login />} />
-          <Route path="sign-up" element={<Signup />} />
-        </Route>
-        <Route path="/" element={<Home getQuery={getQueryDataHandler} />}>
-          <Route path="" element={<JapaneseFavourites />}></Route>
-          <Route path="japanese-favorites" element={<JapaneseFavourites />} />
-          <Route
-            path="restaurants/:id"
-            element={<RestaurantDetail></RestaurantDetail>}
-          ></Route>
-          <Route path="food/:id" element={<FoodDetail></FoodDetail>}></Route>
-          <Route
-            path="search"
-            element={<SearchPage query={query} searchOption={searchOption} />}
-          ></Route>
-        </Route>
-        <Route path="*" element={<NotFound />}></Route>
-      </Routes>
+      <searchContext.Provider value={{query, searchOption}}>
+        <Routes>
+          <Route path="auth" element={<Auth />}>
+            <Route path="login" element={<Login />} />
+            <Route path="sign-up" element={<Signup />} />
+          </Route>
+          
+            <Route path="/" element={<Home getQuery={getQueryDataHandler} />}>
+              <Route path="" element={<JapaneseFavourites />}></Route>
+              <Route path="japanese-favorites" element={<JapaneseFavourites />} />
+              <Route
+                path="restaurants/:id"
+                element={<RestaurantDetail></RestaurantDetail>}
+              ></Route>
+              <Route path="food/:id" element={<FoodDetail></FoodDetail>}></Route>
+              <Route
+                path="search"
+                element={<SearchPage/>}
+              ></Route>
+            </Route>
+          
+          <Route path="*" element={<NotFound />}></Route>
+        </Routes>
+      </searchContext.Provider>
     </>
   );
 }

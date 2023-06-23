@@ -1,9 +1,11 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AiOutlineArrowRight } from "react-icons/ai";
 import { FaStar } from "react-icons/fa";
 import { getRestaurantById } from "../services/RestaurantApi";
 import { ToolTipOnHover } from "./common";
 import { useNavigate } from "react-router";
+import { searchContext } from "../App";
+import { searchOption } from "../models/enum/searchOption";
 
 interface favoriteProps {
   id: string;
@@ -16,8 +18,11 @@ interface favoriteProps {
 function FavoriteCard1(props: favoriteProps): JSX.Element {
   const { foodTitle, imageUrl } = props;
   const navigate = useNavigate();
+  const searchContextData = useContext(searchContext);
   const moveToSearchHandler = () => {
-    navigate(`/food/${props.id}`);
+    searchContextData.query = foodTitle,
+    searchContextData.searchOption = searchOption.FoodSearch;
+    navigate("/search");
   }
   return (
     <div className="relative w-80 overflow-hidden rounded-sm">
