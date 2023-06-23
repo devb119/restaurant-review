@@ -1,4 +1,4 @@
-import { FaHeart, FaRegComment } from "react-icons/fa";
+// import { FaHeart, FaRegComment } from "react-icons/fa";
 import { useContext, useState } from "react";
 import { SlPaperPlane } from "react-icons/sl";
 import { BiCamera } from "react-icons/bi";
@@ -15,7 +15,7 @@ interface Props {
   id: string;
 }
 const MyComment = (props: Props) => {
-  const [like, setLike] = useState(false);
+  // const [like, setLike] = useState(false);
   const [rating, setRating] = useState(0);
   const [content, setContent] = useState<string>("");
   const [message, setMessage] = useState<string>("");
@@ -23,10 +23,10 @@ const MyComment = (props: Props) => {
 
   const user = useSelector((state: RootState) => state.user.user);
 
-  const [userName, setUserName] = useState<string | undefined>(user?.username);
+  // const [userName, setUserName] = useState<string | undefined>(user?.username);
 
-  const ratingArray = Array(5).fill(0);
-  const ratingValue = 3;
+  // const ratingArray = Array(5).fill(0);
+  // const ratingValue = 3;
 
   const handleSubmit = () => {
     console.log(content);
@@ -35,7 +35,7 @@ const MyComment = (props: Props) => {
       setMessage("項目をすべて入力してください");
       return;
     } else {
-      let review: FoodReview = {
+      const review: FoodReview = {
         food_id: props.id,
         star: rating,
         about_price: content,
