@@ -10,19 +10,17 @@ function AppealFood({ foodLists }: { foodLists: Food[] }) {
   const [currentDisplay, setCurrentDisplay] = useState<Food[]>(
     foodLists.slice(0, 2)
   );
-  console.log(foodLists);
+  
   const lastPage =
     foodLists.length % 2 === 0
       ? foodLists.length / 2
       : Math.floor(foodLists.length / 2) + 1;
-  console.log(lastPage);
+ 
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [hasPrev, setHasPrev] = useState<boolean>(false);
   const [hasNext, setHasNext] = useState<boolean>(currentPage != lastPage);
   const [loading, setLoading] = useState<boolean>(true);
 
-  console.log(currentPage);
-  console.log(hasNext);
   const handlePrevClick = () => {
     if (hasPrev) {
       setLoading(false);
@@ -54,8 +52,8 @@ function AppealFood({ foodLists }: { foodLists: Food[] }) {
   return (
     <div>
       <div className=" mt-8">
-        <div className="font-bold text-xl m-4">アピール料理一覧</div>
-        <div className="flex justify-around items-center">
+        <div className="font-bold text-xl mb-4">アピール料理一覧</div>
+        <div className="flex items-center">
           <span
             className={
               hasPrev

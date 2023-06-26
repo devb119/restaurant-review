@@ -29,7 +29,7 @@ export default function AccountMenu() {
     Promise.all([logout]).then(() => {
       setAnchorEl(null);
       dispatch(setCurrentUser(null));
-    })
+    });
   };
   const user = useSelector((state: RootState) => state.user.user);
 
@@ -39,7 +39,7 @@ export default function AccountMenu() {
         <Tooltip title="Account settings">
           <div
             onClick={handleClick}
-            className="cursor-pointer flex items-center gap-2 rounded p-2 hover:bg-main hover:text-white transition-all"
+            className="cursor-pointer flex items-center gap-2 rounded-full py-2 px-4 hover:bg-main hover:text-white transition-all"
           >
             <p>{user?.username}</p>
             <div className="w-9 h-9 rounded-full">

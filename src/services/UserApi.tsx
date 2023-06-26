@@ -1,6 +1,5 @@
 import { firestore } from "../config/firebase";
-import { IUserModel } from "../models";
-import { deleteFoodReview } from "./FoodReviewApi";
+import Review from "../models/reviews";
 
 //create cmt
 export async function createNewReview(review: Review) {

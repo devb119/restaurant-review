@@ -40,13 +40,13 @@ function Header({
   const [query, setQuery] = useState("");
   const navigate = useNavigate();
   const user = useSelector((state: RootState) => state.user.user);
-  console.log(user);
+
 
   const handleSubmitSearch = (e: React.FormEvent, option: number): void => {
     e.preventDefault();
     getQueryData(query, option);
     navigate("/search");
-    console.log(query);
+    // console.log(query);
     setActiveLink("search");
     setQuery("");
   };

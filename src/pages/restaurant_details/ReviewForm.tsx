@@ -3,9 +3,9 @@ import { FaCamera } from "react-icons/fa";
 import Rate from "../../components/Rate";
 import Review from "../../models/reviews";
 import { createNewReview } from "../../services/ReviewApi";
-import { useNavigate } from "react-router-dom";
 import { Loading } from "../../components/common";
 import { reviewContext } from "./ReviewSection";
+import { FiX } from "react-icons/fi";
 
 interface Props {
   setOpenModal: (value: boolean | ((prevVar: boolean) => boolean)) => void;
@@ -31,7 +31,7 @@ const ReviewForm = ({ setOpenModal, restaurant_id, id }: Props) => {
   };
 
   const handleSubmit = () => {
-    console.log(content);
+   
     if (content.length === 0 || rating === 0) {
       setMessage("項目をすべて入力してください");
       return;
@@ -61,14 +61,14 @@ const ReviewForm = ({ setOpenModal, restaurant_id, id }: Props) => {
     <div className="w-screen h-screen fixed top-0 left-0 z-10 bg-mainTint overflow-y-scroll">
       <div className="bg-white flex flex-col p-6 relative items-center justify-between w-1/2 min-h-685 mx-auto my-32 shadow-xl rounded-xl px-32">
         <div className="flex flex-col items-center justify-between w-full gap-4">
-          <div className="w-8 absolute top-1.5 right-1.5 text-xs">
+          <div className="w-8 absolute top-6 right-6 text-xs">
             <button
               onClick={() => {
                 setOpenModal(false);
               }}
-              className="bg-transparent text-xl text-main font-black cursor-pointer border-none"
+              className="text-3xl bg-transparent text-main font-black cursor-pointer border-none"
             >
-              X
+              <FiX/>
             </button>
           </div>
           <div className="w-full text-center text-3xl font-black">
@@ -126,7 +126,7 @@ const ReviewForm = ({ setOpenModal, restaurant_id, id }: Props) => {
         </div>
         <div className="text-main">{message}</div>
         <button
-          className="h-12 m-2 text-center bg-mainTint text-main rounded-lg text-xl cursor-pointer w-150 min-h-60 hover:bg-gray"
+          className="h-12 m-2 text-center bg-mainTint text-main rounded-lg text-xl cursor-pointer w-150 min-h-60 hover:bg-[#ffc6b3]"
           onClick={handleSubmit}
         >
           {loading ? <Loading /> : "投稿"}

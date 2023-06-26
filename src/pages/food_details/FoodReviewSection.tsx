@@ -5,6 +5,7 @@ import { getFoodReviewsById } from "../../services/FoodReviewApi";
 import FoodReview from "../../models/food_reviews";
 import { Loading } from "../../components/common";
 
+
 interface Props {
   id: string | undefined;
 }
@@ -16,7 +17,7 @@ export interface iFoodReviewContext {
 
 export const FoodReviewContext = createContext<iFoodReviewContext>({
   reviewList: [],
-  setReviewList: () => {},
+  setReviewList: () => null,
 });
 
 const FoodReviewSection = (props: Props) => {
@@ -27,11 +28,9 @@ const FoodReviewSection = (props: Props) => {
   }, []);
 
   const fetchData = async () => {
-    console.log(props.id);
     if (!props.id) return;
     const data = await getFoodReviewsById(props.id);
     setReviewList(data as FoodReview[]);
-    console.log(reviewList);
     setLoading(false);
   };
   return (

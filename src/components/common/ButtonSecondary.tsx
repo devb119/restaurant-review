@@ -1,4 +1,3 @@
-import React from "react";
 import { ButtonProps } from "./ButtonPrimary";
 
 const ButtonSecondary = ({ title }: ButtonProps): JSX.Element => {

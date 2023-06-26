@@ -15,10 +15,10 @@ export async function createUser(
     .then(async (userCredential) => {
       localStorage.setItem("user", JSON.stringify(userCredential.user));
       const newData = await firestore.collection("users").add(user);
-      const updateDocId = await firestore
-        .collection("users")
-        .doc(newData.id)
-        .update({ ...user, id: newData.id });
+      // const updateDocId = await firestore
+      //   .collection("users")
+      //   .doc(newData.id)
+      //   .update({ ...user, id: newData.id });
       return newData.get();
     })
     .catch((error) => {

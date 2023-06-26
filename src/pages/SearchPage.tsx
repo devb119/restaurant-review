@@ -10,12 +10,15 @@ const SearchPage = ({query, searchOption} : {query : string, searchOption: numbe
     const [searchData, setSearchData] = useState<Restaurant[]>([]);
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [allFood, setAllFood] = useState<any>([]);
+    
+    
     const restaurantsPerPage = 5;
 
     React.useEffect(() => {
         async function getAllFood() {
             const data : any = await getRestaurantsByName('');
             setAllFood(data);
+            
         }
         getAllFood();
     }, [])
@@ -29,16 +32,16 @@ const SearchPage = ({query, searchOption} : {query : string, searchOption: numbe
         async function getSearchDataByFood(name : string) {
             const data : any = await getRestaurantIdsByFoodName(name);
             const suitableData = allFood.filter((e : Restaurant) => data.includes(e.id?.trim()));
-            console.log(data);
-            // console.log(restaurantData);
-            // console.log(suitableData);
             setSearchData([...suitableData]);
         }
+       
+
         if(searchOption === Option.RestaurantSearch) {
             getSearchData(query);
+            
         }
         else if(searchOption === Option.FoodSearch) {
-            getSearchDataByFood(query);
+           getSearchDataByFood(query);  
         }
         
         setCurrentPage(1);
@@ -66,7 +69,7 @@ const SearchPage = ({query, searchOption} : {query : string, searchOption: numbe
                     {currentRestaurants.map((e) => {
                         // console.log(e);
                         return (
-                            <RestaurantSearchCard restaurant={e} searchOption={searchOption} searchKeyword={query}/>
+                            <RestaurantSearchCard key={e.id} restaurant={e} searchOption={searchOption} searchKeyword={query}/>
                         ) 
                     })}
                     <PaginationSearch 
