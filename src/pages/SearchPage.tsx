@@ -65,7 +65,6 @@ const SearchPage = ({query, searchOption} : {query : string, searchOption: numbe
                         <h1 className="mb-8 text-2xl font-semibold flex">{searchData.length} 結果が見つけた： "{query}"</h1>
                     } 
                     
-                     
                     {currentRestaurants.map((e) => {
                         // console.log(e);
                         return (
