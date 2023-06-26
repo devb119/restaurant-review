@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 import Coupon from "../../models/coupons";
 import { TbPlayerTrackNext, TbPlayerTrackPrev } from "react-icons/tb";
 import { Grow } from "@mui/material";
-function CouponList({ couponLists }: { couponLists: Coupon[] }) {
+const CouponList = memo (({ couponLists }: { couponLists: Coupon[] }) => {
   const [currentCoupon, setCurrentCoupon] = useState<Coupon>(couponLists[0]);
   const {
     sale,
@@ -93,5 +93,6 @@ function CouponList({ couponLists }: { couponLists: Coupon[] }) {
     </div>
   );
 }
+)
 
 export default CouponList;

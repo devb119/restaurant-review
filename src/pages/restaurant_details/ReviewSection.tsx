@@ -34,14 +34,15 @@ const ReviewSection = (props: Props) => {
 
   useEffect(() => {
     fetchData();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const fetchData = async () => {
+  const fetchData = React.useCallback( async () => {
     if (!props.id) return;
     const data = await getReviewsByRestaurantId(props.id);
     setReviewList(data as Review[]);
     setLoading(false);
-  };
+  }, [props.id])
 
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   return (

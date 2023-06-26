@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import Restaurants from "./Restaurants";
 import { getFavouriteFoodList } from "../../services/FoodApi";
 import { Loading } from "../../components/common";
+import Food from "../../models/foods";
 
 // const favorites = [
 //   {
@@ -46,7 +47,7 @@ import { Loading } from "../../components/common";
 
 function JapaneseFavourites() {
   const [loading, setLoading] = React.useState<boolean>(true);
-  const [favorites, setFavorites] = React.useState<any>([]);
+  const [favorites, setFavorites] = React.useState<Food[]>([]);
   // const [hasPrev, setHasPrev] = React.useState(false);
   // const [hasNext, setHasNext] = React.useState(true);
 
@@ -63,7 +64,7 @@ function JapaneseFavourites() {
     setLoading(true);
 
     getFavouriteFoodList()
-      .then((res) => setFavorites(res))
+      .then((res) => setFavorites(res as Food[]))
       .catch((err) => console.log(err))
       .finally(() => {
         setLoading(false);
@@ -79,9 +80,9 @@ function JapaneseFavourites() {
         <div>
           <div className="flex relative">
             <div className="w-3/5 flex gap-4">
-              {favorites.slice(0, 3).map((i: any, index: number) => (
+              {favorites.slice(0, 3).map((i: Food, index: number) => (
                 <Favorite
-                  id={i.id}
+                  id={i.id||""}
                   foodTitle={i.name}
                   imageUrl={i.image}
                   key={index}
@@ -113,9 +114,9 @@ function JapaneseFavourites() {
           </div>
         </div> */}
           <div className="flex flex-row mt-4 mb-8">
-            {favorites.slice(3, 8).map((i: any, index: number) => (
+            {favorites.slice(3, 8).map((i: Food, index: number) => (
               <FavoriteCard2
-                id={i.id}
+                id={i.id||""}
                 foodTitle={i.name}
                 imageUrl={i.image}
                 key={index}

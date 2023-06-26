@@ -25,6 +25,7 @@ const FoodReviewSection = (props: Props) => {
   const [reviewList, setReviewList] = useState<FoodReview[]>([]);
   useEffect(() => {
     fetchData();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const fetchData = async () => {

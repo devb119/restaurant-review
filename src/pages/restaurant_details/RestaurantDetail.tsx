@@ -22,12 +22,12 @@ function RestaurantDetail() {
   const [couponLists, setCouponLists] = useState<Coupon[]>();
   const user = useSelector((state: RootState) => state.user.user);
 
-  const id = useParams().id;
+  const id = useParams().id || "";
   useEffect(() => {
     Promise.all([
-      getRestaurantByDocId(id || ""),
-      getFoodsByRestaurantId(id || ""),
-      getCouponsByRestaurantId(id || ""),
+      getRestaurantByDocId(id ),
+      getFoodsByRestaurantId(id ),
+      getCouponsByRestaurantId(id ),
     ])
       .then((res) => {
         if (res) {
