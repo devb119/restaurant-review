@@ -1,10 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 import userReducer from "./user.reducer";
+import dialogReducer from "./dialog.reducer";
 
 export const store = configureStore({
   reducer: {
     // Ten thuoc tinh duoi day de dat ten cho state store name
     user: userReducer,
+    dialog: dialogReducer
   },
 });
 
