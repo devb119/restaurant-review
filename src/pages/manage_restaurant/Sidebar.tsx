@@ -18,14 +18,13 @@ function Sidebar() {
       variant="permanent"
       anchor="left"
     >
-      {/* <Toolbar /> */}
       <Divider />
       <List>
         <ListItem key={"menu"} disablePadding>
           <NavLink
             to={"/manage-menu"}
             className={(isActive) =>
-              isActive
+              isActive.isActive
                 ? "font-bold bg-orange-100 ml-2 w-48 m-1"
                 : "text-black font-bold ml-2 w-48 m-1"
             }
@@ -41,10 +40,12 @@ function Sidebar() {
         <ListItem key={"coupon"} disablePadding>
           <NavLink
             to={"/manage-coupon"}
-            className={(isActive) =>
-              isActive
+            className={ (isActive) => {
+              console.log( isActive)
+              return isActive.isActive
                 ? "font-bold bg-orange-100 ml-2 w-48 m-1"
-                : "text-black font-bold ml-2 w-48　bg-white m-1"
+                : "text-black font-bold ml-2 w-48 bg-white m-1"
+            }
             }
           >
             <ListItemButton>

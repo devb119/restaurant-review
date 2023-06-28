@@ -4,3 +4,6 @@ export { default as Loading } from "./Loading";
 export { default as ToolTipOnHover } from "./ToolTipOnHover";
 export { default as Notification } from "./Notification";
 export { default as Dialog } from "./Dialog"
+export { default as TablePager } from "./TablePager";
+export { default as SearchBar } from "./SearchBar";
+export { default as Popup } from "./Popup"

@@ -1,4 +1,4 @@
-import { Button, Dialog, DialogActions, DialogContent } from "@mui/material";
+import { Dialog, DialogActions, DialogContent } from "@mui/material";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import { useDispatch, useSelector } from "react-redux";
@@ -19,7 +19,7 @@ export default function AlertDialogSlide() {
         open={dialog.open}
         // TransitionComponent={Transition}
         keepMounted
-        aria-describedby="alert-dialog-slide-description"
+       sx={{padding:8 , borderRadius: 8}}
       >
         <DialogTitle>{dialog.title}</DialogTitle>
         <DialogContent>
@@ -28,14 +28,20 @@ export default function AlertDialogSlide() {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClickOk}>オーケー</Button>
-          <Button
+          <button
+            className="text-white font-semibold bg-main p-2 px-4 rounded-lg"
+            onClick={handleClickOk}
+          >
+            オーケー
+          </button>
+          <button
+            className="text-white font-semibold bg-green-600 p-2 px-4 rounded-lg"
             onClick={() => {
               dispatch(closeDialog());
             }}
           >
             キャンセル
-          </Button>
+          </button>
         </DialogActions>
       </Dialog>
     </div>
