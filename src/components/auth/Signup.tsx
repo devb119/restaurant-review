@@ -247,6 +247,37 @@ const Signup = (): JSX.Element => {
                 onChange={(e) => setPasswordConfirm(e.target.value)}
               />
             </div>
+            <div className="flex gap-8 justify-center items-center relative px-4 col-span-2">
+              <p className="text-lg font-bold">User role:</p>
+              <div className="flex items-center justify-center gap-1">
+                <input
+                  type="radio"
+                  value={UserRole.Reviewer}
+                  id="reviewer"
+                  name="role"
+                  defaultChecked
+                  onChange={() =>
+                    setNewUserData({ ...newUserData, role: UserRole.Reviewer })
+                  }
+                />
+                <label htmlFor="reviewer">レビューアー</label>
+              </div>
+              <div className="flex items-center gap-1">
+                <input
+                  type="radio"
+                  value={UserRole.RestaurantManager}
+                  id="restaurant-manager"
+                  name="role"
+                  onChange={() =>
+                    setNewUserData({
+                      ...newUserData,
+                      role: UserRole.RestaurantManager,
+                    })
+                  }
+                />
+                <label htmlFor="restaurant-manager">レストラン管理者</label>
+              </div>
+            </div>
           </div>
           <button
             type="submit"
