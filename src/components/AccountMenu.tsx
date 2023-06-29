@@ -37,8 +37,8 @@ export default function AccountMenu() {
   };
 
   const navigateToManage = () => {
-    navigate("/manage-menu")
-  }
+    navigate("/manage-menu");
+  };
   const user = useSelector((state: RootState) => state.user.user);
   // console.log(user);
   const isOwner = user?.role === UserRole.RestaurantManager;
@@ -96,17 +96,16 @@ export default function AccountMenu() {
         <MenuItem onClick={handleClose}>
           <Avatar /> <p className="w-32">プロファイル</p>
         </MenuItem>
-        {
-          isOwner &&
-          <MenuItem onClick={ navigateToManage}>
+        {isOwner && (
+          <MenuItem onClick={navigateToManage}>
             <ListItemIcon>
-              <BiRestaurant className="text-xl" />{ " " }
+              <BiRestaurant className="text-xl" />{" "}
             </ListItemIcon>
             <p className="w-32">私のレストラン</p>
           </MenuItem>
-        }
+        )}
         <Divider />
-        <MenuItem onClick={handleLogout} sx={{ width: 55 }}>
+        <MenuItem onClick={handleLogout}>
           <ListItemIcon>
             <p className="text-xl">
               <FiLogOut />
