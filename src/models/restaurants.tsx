@@ -10,8 +10,8 @@ export default interface Restaurant {
   image: string;
   license_image: string;
   food_list: [];
-  open_at?: Date;
-  close_at?: Date;
+  open_at?: string;
+  close_at?: string;
   is_active: boolean;
   created_at?: Date;
   updated_at?: Date;
@@ -20,11 +20,11 @@ export default interface Restaurant {
 
 // viet ham validation cho data o day, duoi day t demo thoi
 export const restaurant_validation: any = (data: Restaurant) => {
-  if(data.name.length > 100) {
+  if (data.name.length > 100) {
     return "ten nha hang dai vl, nhap lai duoi 100 ki tu di bro :v";
   }
-  if(data.address.length > 255) {
+  if (data.address.length > 255) {
     return "dia chi nha hang dai vl, nhap lai duoi 255 ki tu di bro :v";
-  } 
+  }
   return "OK";
-}
+};
