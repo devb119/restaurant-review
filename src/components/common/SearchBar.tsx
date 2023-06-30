@@ -1,4 +1,13 @@
-function SearchBar() {
+import React from "react";
+import { BiX } from "react-icons/bi";
+export interface ISearchBarProps {
+  searchText: string;
+  setSearchText: any;
+}
+
+function SearchBar(props: ISearchBarProps) {
+  const inputRef = React.useRef<HTMLInputElement>(null);
+  const { searchText, setSearchText } = props;
   return (
     <div className="flex w-full items-center">
       <div className="relative w-full">
@@ -17,7 +26,30 @@ function SearchBar() {
             ></path>
           </svg>
         </div>
-        <input className="text-gray-900 text-sm rounded-2xl focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></input>
+        <input
+          // value={searchText}
+          type="text"
+          ref={inputRef}
+          onKeyDown={(event) => {
+            if (event.key === "Enter") {
+              if (inputRef.current) setSearchText(inputRef.current.value);
+              console.log(event);
+            }
+          }}
+          className="text-gray-900 text-sm rounded-2xl block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        />
+        {searchText && searchText !==""&&
+          inputRef.current && (
+            <p
+              onClick={() => {
+                setSearchText("");
+                inputRef.current!.value = "";
+              }}
+              className="absolute z-10 inset-y-0 right-2 flex items-center pl-3 pointer-events-non text-2xl text-gray cursor-pointer"
+            >
+              <BiX></BiX>
+            </p>
+          )}
       </div>
     </div>
   );

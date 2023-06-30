@@ -8,12 +8,14 @@ import { Popup, SearchBar, TablePager } from "../../components/common";
 import { MdOutlineAddCircleOutline } from "react-icons/md";
 import { LuEdit } from "react-icons/lu";
 import AddFood from "./AddFood";
+import { FaStar } from "react-icons/fa";
+import { NavigateFunction, useNavigate } from "react-router-dom";
 interface Data {
   id?: string;
-  name: string;
+  name: JSX.Element;
   image: JSX.Element;
   price: string;
-  rating: number;
+  rating: JSX.Element;
   description: string;
   action?: JSX.Element;
 }
@@ -73,21 +75,34 @@ const DeleteEditAction = ({ food_id }: { food_id: string }) => {
   );
 };
 
-function createData(food: Food): Data {
+function useCreateData(food: Food, navigate: NavigateFunction): Data {
   return {
     id: food.id,
-    name: food.name,
+    name: (
+      <p
+        className=" font-montserrat font-semibold cursor-pointer"
+        onClick={() => {
+          navigate(`./food/${food.id}`);
+        }}
+      >
+        {food.name}
+      </p>
+    ),
     image: <img src={food.image} className="w-32 h-32"></img>,
     price: food.price,
-    rating: food.rating,
+    rating: (
+      <span className=" font-montserrat font-normal text-sm px-1 flex items-center">
+        {food.rating} <FaStar className="text-yellow-500 ml-1 -mt-1"></FaStar>
+      </span>
+    ),
     description: food.description,
     action: <DeleteEditAction food_id={food.id || ""}></DeleteEditAction>,
   };
 }
 
-const mapFoodDataToRowData = (foods: Food[]): Data[] => {
+const mapFoodDataToRowData = (foods: Food[], navigate: NavigateFunction): Data[] => {
   return foods.map((food: Food) => {
-    return createData(food);
+    return useCreateData(food, navigate);
   });
 };
 
@@ -138,31 +153,40 @@ const headCells: readonly HeadCell[] = [
   },
 ];
 
-export default function EnhancedTable() {
+export interface IMenuTableProps {
+  restaurantId: string;
+}
+
+export default function MenuTable(props: IMenuTableProps) {
+  const { restaurantId } = props;
   const [foods, setFoods] = React.useState<Food[]>([]);
+  const [display, setDisplay] = React.useState<Food[]>([]);
   const [order, setOrder] = React.useState<Order>("asc");
   const [orderBy, setOrderBy] = React.useState<keyof Data>("rating");
-  const [selected, setSelected] = React.useState<Data[]>([]);
+  const [selected, setSelected] = React.useState<Food[]>([]);
   const [openCreateFood, setOpenCreateFood] = React.useState<boolean>(false);
+  const searchKey = "name";
+  const [searchText, setSearchText] = React.useState<string>("");
   React.useEffect(() => {
-    getFoodsByRestaurantId("U0JWRsWq2wAn4xmaOV8y").then((res) =>
-      setFoods(res as Food[])
-    );
-  }, []);
-  const rows = React.useMemo(() => mapFoodDataToRowData(foods), [foods]);
+    getFoodsByRestaurantId(restaurantId).then((res) => setFoods(res as Food[]));
+  }, [restaurantId]);
+  // const rows = React.useMemo(() => mapFoodDataToRowData(foods, navigate), [foods, navigate]);
 
-  const handleRequestSort = (
-    event: React.MouseEvent<unknown>,
-    property: keyof Data
-  ) => {
-    const isAsc = orderBy === property && order === "asc";
-    setOrder(isAsc ? "desc" : "asc");
-    setOrderBy(property);
-  };
+  // const [visibleRows, setVisibleRows] = React.useState<Data[]>([]);
+
+  React.useEffect(() => {
+    setDisplay(
+      foods.filter((food) => {
+        return food[searchKey]
+          .toLocaleLowerCase()
+          .includes(searchText.toLocaleLowerCase());
+      })
+    );
+  }, [searchText, foods]);
 
   const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
-      const newSelected = rows;
+      const newSelected = foods;
       setSelected(newSelected);
       return;
     }
@@ -198,7 +222,10 @@ export default function EnhancedTable() {
   const toolbarItems = (
     <div className="flex m-4 justify-between">
       <div className="w-3/4 ">
-        <SearchBar></SearchBar>
+        <SearchBar
+          searchText={searchText}
+          setSearchText={setSearchText}
+        ></SearchBar>
       </div>
       <div className="w-1/4 flex justify-end">
         <AddFoodButton></AddFoodButton>
@@ -207,18 +234,16 @@ export default function EnhancedTable() {
   );
 
   return (
-    <TablePager<Data>
+    <TablePager<Food>
       tableTitle={"メニュー管理"}
       selected={selected}
-      order={order}
       orderBy={orderBy}
       onSelectAllClick={handleSelectAllClick}
-      onRequestSort={handleRequestSort}
-      rowCount={rows.length}
-      rowData={rows}
+      total={foods.length}
+      data={display}
+      mapDataToRowData ={mapFoodDataToRowData}
       headCells={headCells}
       showSearchBar={true}
-      searchKey="name"
       toolbarItems={toolbarItems}
     ></TablePager>
   );
