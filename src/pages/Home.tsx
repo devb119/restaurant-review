@@ -1,7 +1,11 @@
 import { Header } from "../components";
 import { Outlet } from "react-router-dom";
 
-function Home({ getQuery }: { getQuery: (query: string, option: number) => void }) {
+function Home({
+  getQuery,
+}: {
+  getQuery: (query: string, option: number) => void;
+}) {
   return (
     <>
       <Header getQueryData={getQuery} />
