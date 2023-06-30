@@ -33,6 +33,7 @@ export default function AccountMenu() {
     Promise.all([logout]).then(() => {
       setAnchorEl(null);
       dispatch(setCurrentUser(null));
+      navigate("/", { replace: true });
     });
   };
 
