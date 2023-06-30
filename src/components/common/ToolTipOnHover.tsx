@@ -10,7 +10,7 @@ export default function ToolTipOnHover({
   const [show, setShow] = React.useState(false);
   const hasToolTip = textContent.length > limit;
   return (
-    <div className="relative">
+    <div className="relative font-montserrat">
       <button
         className={hasToolTip ?"cursor-pointer" :""}
         onMouseEnter={() => setShow(true)}

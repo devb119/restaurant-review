@@ -11,6 +11,7 @@ import TableSortLabel from "@mui/material/TableSortLabel";
 import Paper from "@mui/material/Paper";
 import { visuallyHidden } from "@mui/utils";
 import { ToolTipOnHover } from ".";
+import { NavigateFunction, useNavigate } from "react-router-dom";
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
   if (b[orderBy] < a[orderBy]) {
@@ -59,47 +60,34 @@ interface HeadCell<T> {
 interface EnhancedTableProps<T> {
   tableTitle: string;
   selected: T[];
-  onRequestSort: (event: React.MouseEvent<unknown>, property: keyof T) => void;
   onSelectAllClick: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  order: Order;
   orderBy: string;
-  rowCount: number;
-  rowData: T[];
+  total: number;
+  data: T[];
   headCells: readonly HeadCell<T>[];
   showSearchBar: boolean;
-  searchKey: string;
   toolbarItems: JSX.Element;
+  onRowClick?: () => void;
+  mapDataToRowData: (data: T[], navigate: NavigateFunction) => any[];
 }
 
-function EnhancedTableHead<T>(props: EnhancedTableProps<T>) {
-  const {
-    // onSelectAllClick,
-    order,
-    orderBy,
-    // selected,
-    // rowCount,
-    onRequestSort,
-    headCells,
-  } = props;
+interface EnhancedTableHeadProps<T> {
+  onRequestSort: (event: React.MouseEvent<unknown>, property: keyof T) => void;
+  orderBy: string;
+  order: Order;
+  headCells: readonly HeadCell<T>[];
+}
+
+function EnhancedTableHead<T>(props: EnhancedTableHeadProps<T>) {
+  const { orderBy, order, onRequestSort, headCells } = props;
   const createSortHandler =
     (property: keyof T) => (event: React.MouseEvent<unknown>) => {
       onRequestSort(event, property);
     };
-  // const numSelected = selected.length;
+
   return (
     <TableHead>
       <TableRow>
-        {/* <TableCell padding="checkbox"> */}
-          {/* <Checkbox
-            color="primary"
-            indeterminate={numSelected > 0 && numSelected < rowCount}
-            checked={rowCount > 0 && numSelected === rowCount}
-            onChange={onSelectAllClick}
-            inputProps={{
-              "aria-label": "select all desserts",
-            }}
-          /> */}
-        {/* </TableCell> */}
         {headCells.map((headCell) => (
           <TableCell
             key={headCell.id as string}
@@ -107,19 +95,19 @@ function EnhancedTableHead<T>(props: EnhancedTableProps<T>) {
             padding={headCell.disablePadding ? "none" : "normal"}
             sortDirection={orderBy === headCell.id ? order : false}
           >
-            <TableSortLabel
-              sx={{fontWeight:700 , paddingTop: 2}}
-              active={orderBy === headCell.id}
-              direction={orderBy === headCell.id ? order : "asc"}
-              onClick={createSortHandler(headCell.id)}
+         <TableSortLabel
+              sx={ { fontWeight: 700, paddingTop: 2 } }
+              active={ orderBy === headCell.id }
+              direction={ orderBy === headCell.id ? order : "asc" }
+              onClick={ createSortHandler(headCell.id) }
             >
-              {headCell.label}
-              {orderBy === headCell.id ? (
-                <Box component="span" sx={visuallyHidden}>
-                  {order === "desc" ? "sorted descending" : "sorted ascending"}
+              { headCell.label }
+              { orderBy === headCell.id ? (
+                <Box component="span" sx={ visuallyHidden }>
+                  { order === "desc" ? "sorted descending" : "sorted ascending" }
                 </Box>
-              ) : null}
-            </TableSortLabel>
+              ) : null }
+            </TableSortLabel> 
           </TableCell>
         ))}
       </TableRow>
@@ -127,48 +115,30 @@ function EnhancedTableHead<T>(props: EnhancedTableProps<T>) {
   );
 }
 
-
-
 export default function EnhancedTable<T extends { id?: string }>(
   props: EnhancedTableProps<T>
 ) {
+  const navigate = useNavigate();
+
   const [order, setOrder] = React.useState<Order>("asc");
   const [selected, setSelected] = React.useState<T[]>([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
-  const { rowData: rows, orderBy, headCells } = props;
+  const { data: rows, orderBy, headCells } = props;
 
   const handleRequestSort = (
-    event: React.MouseEvent<unknown>,
+    _event: React.MouseEvent<unknown>,
     property: keyof T
   ) => {
     const isAsc = orderBy === property && order === "asc";
     setOrder(isAsc ? "desc" : "asc");
+    console.log("change");
+
     // setOrderBy(property);
   };
 
-  const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.checked) {
-      const newSelected = rows;
-      setSelected(newSelected);
-      return;
-    }
-    setSelected([]);
-  };
-
-  const handleClick = (event: React.MouseEvent<unknown>, id: string) => {
-    const selectedItem = selected.filter((item) => item.id === id)[0]
-    let newSelected: T[] = [];
-
-    if (!selectedItem) {
-      newSelected = newSelected.concat(selected,selectedItem);
-    }
-    else newSelected = selected.filter((item) => item.id !== id);
-    setSelected(newSelected);
-  };
-
-  const handleChangePage = (event: unknown, newPage: number) => {
+  const handleChangePage = (_event: unknown, newPage: number) => {
     setPage(newPage);
   };
 
@@ -181,7 +151,7 @@ export default function EnhancedTable<T extends { id?: string }>(
 
   const isSelected = (id: string) => {
     return selected?.filter((item) => item?.id === id)[0];
-  }
+  };
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
@@ -199,44 +169,34 @@ export default function EnhancedTable<T extends { id?: string }>(
   return (
     <Box sx={{ width: "100%" }}>
       <p className="text-xl font-bold m-4">{props.tableTitle}</p>
-     {props.toolbarItems}
+      {props.toolbarItems}
       <Paper sx={{ width: "100%", mb: 2, borderRadius: 8 }}>
         <TableContainer>
-          <Table
-            sx={{ minWidth: 750 }}
-            aria-labelledby="tableTitle"
-          >
+          <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle">
             <EnhancedTableHead<T>
-              tableTitle={props.tableTitle}
-              selected={selected}
               order={order}
               orderBy={orderBy}
-              onSelectAllClick={handleSelectAllClick}
               onRequestSort={handleRequestSort}
-              rowCount={rows.length}
-              rowData={rows}
               headCells={headCells}
-              showSearchBar={props.showSearchBar}
-              searchKey={props.searchKey}
-              toolbarItems={props.toolbarItems}
             />
             <TableBody>
-              {visibleRows.map((row, index) => {
-                const isItemSelected = !!isSelected(row.id as string);
-                // const labelId = `enhanced-table-checkbox-${index}`;
+              {props
+                .mapDataToRowData(visibleRows, navigate)
+                .map((row, index) => {
+                  const isItemSelected = !!isSelected(row.id as string);
+                  // const labelId = `enhanced-table-checkbox-${index}`;
 
-                return (
-                  <TableRow
-                    hover
-                    // onClick={(event) => handleClick(event, row.id as string)}
-                    role="checkbox"
-                    aria-checked={isItemSelected}
-                    tabIndex={-1}
-                    key={index}
-                    selected={isItemSelected}
-                    sx={{ cursor: "pointer" }}
-                  >
-                    {/* <TableCell padding="checkbox">
+                  return (
+                    <TableRow
+                      // onClick={(event) => handleClick(event, row.id as string)}
+                      role="checkbox"
+                      aria-checked={isItemSelected}
+                      tabIndex={-1}
+                      key={index}
+                      selected={isItemSelected}
+                      // sx={{ cursor: "pointer" }}
+                    >
+                      {/* <TableCell padding="checkbox">
                       <Checkbox
                         color="primary"
                         checked={isItemSelected}
@@ -245,28 +205,31 @@ export default function EnhancedTable<T extends { id?: string }>(
                         }}
                       />
                     </TableCell> */}
-                    <>
-                      {Object.keys(row).map((key) => {
-                        // console.log(key);
-                        if (key === "id" || typeof key == "undefined") return;
-                        else
-                          return (
-                            <TableCell className="w-52 h-52" align="center">
-                              <ToolTipOnHover
-                                textContent={row[key]}
-                                limit={20}
-                              ></ToolTipOnHover>
-                            </TableCell>
-                          );
-                      })}
-                    </>
-                  </TableRow>
-                );
-              })}
+                      <>
+                        {Object.keys(row).map((key) => {
+                          // console.log(key);
+                          if (key === "id" || typeof key == "undefined") return;
+                          else
+                            return (
+                              <TableCell
+                                className="w-52 h-52 font-montserrat"
+                                align="center"
+                              >
+                                <ToolTipOnHover
+                                  textContent={row[key]}
+                                  limit={20}
+                                ></ToolTipOnHover>
+                              </TableCell>
+                            );
+                        })}
+                      </>
+                    </TableRow>
+                  );
+                })}
               {emptyRows > 0 && (
                 <TableRow
                   style={{
-                    height:  53 * emptyRows,
+                    height: 53 * emptyRows,
                   }}
                 >
                   <TableCell colSpan={6} />
@@ -276,9 +239,15 @@ export default function EnhancedTable<T extends { id?: string }>(
           </Table>
         </TableContainer>
         <TablePagination
-          rowsPerPageOptions={[5, 10, 25]}
+          labelDisplayedRows={({ from, to, count }) => {
+            return ` ${
+              count !== -1 ? count : `${to}より多い`
+            }レコードの中${from}から - ${to} まで`;
+          }}
+          rowsPerPageOptions={[2, 5, 10, 25]}
+          labelRowsPerPage={<div>ページあたりの行数</div>}
           component="div"
-          count={rows.length}
+          count={props.total}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}
