@@ -19,7 +19,7 @@ export default function AlertDialogSlide() {
         open={dialog.open}
         // TransitionComponent={Transition}
         keepMounted
-       sx={{padding:8 , borderRadius: 8}}
+        sx={{ padding: 8, borderRadius: 8 }}
       >
         <DialogTitle>{dialog.title}</DialogTitle>
         <DialogContent>
