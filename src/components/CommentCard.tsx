@@ -4,6 +4,7 @@ import { FiHeart } from "react-icons/fi";
 import FoodReview from "../models/food_reviews";
 import Review from "../models/reviews";
 import { getUserByDocId } from "../services/auth/Auth";
+import { IUserModel } from "../models";
 
 interface Props {
   type: string;
@@ -13,13 +14,19 @@ interface Props {
 
 const CommentCard = (props: Props) => {
   const [like, setLike] = useState(false);
+  const [commentUser, setCommentUser] = useState<IUserModel | null>(null);
   const ratingArray = Array(5).fill(0);
-  const ratingValue =
-    props.type === "restaurant" ? props.review?.star : props.foodReview?.star;
+  const isRestaurant = props.type === "restaurant";
+  const ratingValue = isRestaurant
+    ? props.review?.star
+    : props.foodReview?.star;
 
   useEffect(() => {
-    if (props.review)
-      getUserByDocId(props.review.user_id).then((user) => console.log(user));
+    if (props.review) {
+      getUserByDocId(props.review.user_id).then((user) => setCommentUser(user));
+    } else if (props.foodReview) {
+      // getUserByDocId(props.foodReview)
+    }
   }, []);
   return (
     <div className="flex flex-col justify-center mb-10 ">
@@ -27,9 +34,15 @@ const CommentCard = (props: Props) => {
         <div className="flex flex-col gap-2 mt-8 items-center">
           <img
             className="w-20 h-20 rounded-full aspect-square"
-            src="/img/default-avt.png"
+            src={commentUser?.image}
           />
-          <p className=" font-bold text-md text-center">Anonymous user</p>
+          <p className=" font-bold text-md text-center w-32">
+            {commentUser
+              ? commentUser.username.length > 15
+                ? `${commentUser.username.slice(0, 13)}...`
+                : commentUser.username
+              : "Anonymous user"}
+          </p>
         </div>
         <div
           className={`w-full min-h-[5rem] bg-${
@@ -85,7 +98,7 @@ const CommentCard = (props: Props) => {
             <img className="w-32 aspect-[4/3]" src="/img/buncha.jpg" />
           </div> */}
           <div className="mb-8">
-            {props.type === "restaurant"
+            {isRestaurant
               ? props.review?.about_quality
               : props.foodReview?.about_decoration}
           </div>
@@ -106,7 +119,7 @@ const CommentCard = (props: Props) => {
               </span>
               <FaRegComment className="text-xl ml-16 cursor-pointer inline fill-[#f03e3e]" />
               <p className="stroke-[#898989] ml-16 text-md font-thin text-main">
-                12/08/2022
+                {isRestaurant ? props.review?.created_at?.toLocaleString() : ""}
               </p>
             </div>
           </div>
