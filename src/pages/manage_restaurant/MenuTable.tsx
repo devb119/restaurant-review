@@ -25,8 +25,8 @@ const DeleteEditAction = ({ food_id }: { food_id: string }) => {
     dispatch(
       setDialog({
         open: true,
-        title: "Confirm delete",
-        text: "If you delete thislskjdfks",
+        title: "削除確認",
+        text: "この料理を削除しています。本気ですか？",
         handleClickYes: () => {
           deleteFood(food_id);
         },
@@ -38,8 +38,8 @@ const DeleteEditAction = ({ food_id }: { food_id: string }) => {
     dispatch(
       setDialog({
         open: true,
-        title: "Confirm delete",
-        text: "If you edit thislskjdfks",
+        title: "変更確認",
+        text: "これらの変更を保存しますか?",
         handleClickYes: () => {
           deleteFood(food_id);
         },
@@ -50,6 +50,7 @@ const DeleteEditAction = ({ food_id }: { food_id: string }) => {
   const deleteFood = (food_id: string) => {
     console.log(food_id);
   };
+
   return (
     <div className="flex items-center">
       <button
@@ -142,7 +143,7 @@ export default function EnhancedTable() {
   const [order, setOrder] = React.useState<Order>("asc");
   const [orderBy, setOrderBy] = React.useState<keyof Data>("rating");
   const [selected, setSelected] = React.useState<Data[]>([]);
- const [openCreateFood, setOpenCreateFood] = React.useState<boolean>(false)
+  const [openCreateFood, setOpenCreateFood] = React.useState<boolean>(false);
   React.useEffect(() => {
     getFoodsByRestaurantId("U0JWRsWq2wAn4xmaOV8y").then((res) =>
       setFoods(res as Food[])
@@ -168,11 +169,11 @@ export default function EnhancedTable() {
     setSelected([]);
   };
   const AddFoodButton = () => {
-    const [newFood, setNewFood] = React.useState<Food>()
-    
-    const addNewFood=()=>{
+    const [newFood, setNewFood] = React.useState<Food>();
+
+    const addNewFood = () => {
       return;
-    }
+    };
     return (
       <>
         <button
@@ -188,8 +189,8 @@ export default function EnhancedTable() {
           title="料理を追加"
           open={openCreateFood}
           setOpen={setOpenCreateFood}
-          handleClickYes={ () => addNewFood() }
-          popupContent={<AddFood/>}
+          handleClickYes={() => addNewFood()}
+          popupContent={<AddFood />}
         ></Popup>
       </>
     );
@@ -201,7 +202,6 @@ export default function EnhancedTable() {
       </div>
       <div className="w-1/4 flex justify-end">
         <AddFoodButton></AddFoodButton>
-       
       </div>
     </div>
   );
