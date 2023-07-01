@@ -28,6 +28,10 @@ body {
   font-family: "Quicksand", sans-serif;
 }
 
+.jp {
+  font-family: "Noto Sans JP", sans-serif;
+}
+
 input[type="radio"] {
   /* Add if not using autoprefixer */
   -webkit-appearance: none;

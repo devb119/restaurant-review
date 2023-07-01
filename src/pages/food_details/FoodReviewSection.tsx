@@ -5,7 +5,6 @@ import { getFoodReviewsById } from "../../services/FoodReviewApi";
 import FoodReview from "../../models/food_reviews";
 import { Loading } from "../../components/common";
 
-
 interface Props {
   id: string | undefined;
 }
@@ -25,7 +24,7 @@ const FoodReviewSection = (props: Props) => {
   const [reviewList, setReviewList] = useState<FoodReview[]>([]);
   useEffect(() => {
     fetchData();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const fetchData = async () => {
@@ -42,7 +41,12 @@ const FoodReviewSection = (props: Props) => {
         <div className="mt-8 relative">
           {
             reviewList.map((review) => (
-              <CommentCard type="food" foodReview={review} review={null} />
+              <CommentCard
+                key={review.id}
+                type="food"
+                foodReview={review}
+                review={null}
+              />
             ))
             /* <div className="ml-40 mb-28">
             <SubCommentCard type="food" />

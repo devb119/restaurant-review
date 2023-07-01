@@ -31,7 +31,6 @@ const ReviewForm = ({ setOpenModal, restaurant_id, id }: Props) => {
   };
 
   const handleSubmit = () => {
-   
     if (content.length === 0 || rating === 0) {
       setMessage("項目をすべて入力してください");
       return;
@@ -49,6 +48,7 @@ const ReviewForm = ({ setOpenModal, restaurant_id, id }: Props) => {
         updated_at: new Date(),
         food_review_list: [],
       };
+      console.log(id);
       createNewReview(review);
       setMessage("追加できました。");
       setTimeout(() => setLoading(false), 2000);
@@ -68,7 +68,7 @@ const ReviewForm = ({ setOpenModal, restaurant_id, id }: Props) => {
               }}
               className="text-3xl bg-transparent text-main font-black cursor-pointer border-none"
             >
-              <FiX/>
+              <FiX />
             </button>
           </div>
           <div className="w-full text-center text-3xl font-black">

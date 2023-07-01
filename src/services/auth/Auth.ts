@@ -6,7 +6,7 @@ export async function createUser(
   password: string
 ) {
   const usernameValidate = await getUserByUsername(user.username);
-  if(usernameValidate) {
+  if (usernameValidate) {
     throw new Error("Username is exist! please create another one!");
   }
   const newUser = await firebase
@@ -15,10 +15,10 @@ export async function createUser(
     .then(async (userCredential) => {
       localStorage.setItem("user", JSON.stringify(userCredential.user));
       const newData = await firestore.collection("users").add(user);
-      // const updateDocId = await firestore
-      //   .collection("users")
-      //   .doc(newData.id)
-      //   .update({ ...user, id: newData.id });
+      const updateDocId = await firestore
+        .collection("users")
+        .doc(newData.id)
+        .update({ ...user, id: newData.id });
       return newData.get();
     })
     .catch((error) => {
@@ -28,14 +28,16 @@ export async function createUser(
   return newUser.data() as IUserModel;
 }
 
-export async function getUserByEmail(email: string | null | undefined): Promise<IUserModel | null> {
+export async function getUserByEmail(
+  email: string | null | undefined
+): Promise<IUserModel | null> {
   if (email) {
     const user = await firestore
       .collection("users")
       .where("email", "==", email)
       .get();
-      if(user.docs.map((item) => ({ ...item.data() }))[0]) {
-    return user.docs.map((item) => ({ ...item.data() }))[0] as IUserModel;
+    if (user.docs.map((item) => ({ ...item.data() }))[0]) {
+      return user.docs.map((item) => ({ ...item.data() }))[0] as IUserModel;
     }
   }
   return null;
@@ -52,7 +54,7 @@ export async function getUserByUsername(username: string | null | undefined) {
 
 export async function getUserByDocId(docId: string) {
   const data = await firestore.collection("users").doc(docId).get();
-  return data.data();
+  return data.data() as IUserModel;
 }
 
 // login thanh cong se tra ve user, neu fail thi bao loi

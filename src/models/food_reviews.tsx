@@ -5,6 +5,7 @@ export default interface FoodReview {
     about_price: string;
     about_decoration: string;
     other: string;
+    image_url: string;
 }
 
 //viet ham validation cho data o day

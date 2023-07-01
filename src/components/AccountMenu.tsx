@@ -10,13 +10,17 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { FiLogOut } from "react-icons/fi";
+import { BiRestaurant } from "react-icons/bi";
 import { setCurrentUser } from "../redux/user.reducer";
 import { Logout } from "../services/auth/Auth";
+import { UserRole } from "../models/enum";
+import { useNavigate } from "react-router-dom";
 
 export default function AccountMenu() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -29,9 +33,16 @@ export default function AccountMenu() {
     Promise.all([logout]).then(() => {
       setAnchorEl(null);
       dispatch(setCurrentUser(null));
+      navigate("/", { replace: true });
     });
   };
+
+  const navigateToManage = () => {
+    navigate("/manage-menu");
+  };
   const user = useSelector((state: RootState) => state.user.user);
+  // console.log(user);
+  const isOwner = user?.role === UserRole.RestaurantManager;
 
   return (
     <React.Fragment>
@@ -84,8 +95,16 @@ export default function AccountMenu() {
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
         <MenuItem onClick={handleClose}>
-          <Avatar /> Profile
+          <Avatar /> <p className="w-32">プロファイル</p>
         </MenuItem>
+        {isOwner && (
+          <MenuItem onClick={navigateToManage}>
+            <ListItemIcon>
+              <BiRestaurant className="text-xl" />{" "}
+            </ListItemIcon>
+            <p className="w-32">私のレストラン</p>
+          </MenuItem>
+        )}
         <Divider />
         <MenuItem onClick={handleLogout}>
           <ListItemIcon>
@@ -93,7 +112,7 @@ export default function AccountMenu() {
               <FiLogOut />
             </p>
           </ListItemIcon>
-          Logout
+          <p className="w-32">ログアウト</p>
         </MenuItem>
       </Menu>
     </React.Fragment>

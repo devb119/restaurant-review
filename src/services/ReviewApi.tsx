@@ -38,6 +38,7 @@ export async function getReviewsByRestaurantId(restaurantId: string) {
     .get();
   return data.docs.map((item) => ({
     ...item.data(),
+    created_at: new Date(item.data().created_at.seconds * 1000),
   }));
 }
 
@@ -66,11 +67,13 @@ export async function deleteReview(
     .get()
     .then(async (doc) => {
       if (doc.exists) {
-      removed = await removedData
+        removed = await removedData
           .delete()
           .then(() => {
             food_review_list.map(async (food_rv_id) => {
-              await deleteFoodReview(food_rv_id).catch((err) => console.error(err));
+              await deleteFoodReview(food_rv_id).catch((err) =>
+                console.error(err)
+              );
             });
           })
           .catch((error) => {
@@ -85,5 +88,5 @@ export async function deleteReview(
     });
   Promise.all([removed]).then(() => {
     console.log("Review deleted !");
-  })
+  });
 }
