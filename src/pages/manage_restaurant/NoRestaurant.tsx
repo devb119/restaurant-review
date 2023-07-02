@@ -7,7 +7,7 @@ import {
 import { Backdrop } from "@mui/material";
 import { BsArrowRight, BsUpload } from "react-icons/bs";
 import { AiOutlineClose } from "react-icons/ai";
-import Restaurant from "../../models/restaurants";
+import Restaurant, { validateRestaurant } from "../../models/restaurants";
 import { imageUploader } from "../../services/ImageUploader";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
@@ -84,34 +84,39 @@ function RestaurantRequestForm({
     };
     // Implement validation here
     if (!restaurantImg || !licenseImg) {
-      setMessage("Please provide restaurant image and license image");
+      setMessage("レストランの画像とライセンスの画像を提供してください");
       return;
     }
     setIsLoading(true);
-    const uploadResImg = imageUploader(
-      user?.email + "/restaurants/",
-      restaurantImg
-    );
-    const uploadLicenseImg = imageUploader(
-      user?.email + "/restaurants/",
-      licenseImg
-    );
-    const [imgUrl, licenseUrl] = await Promise.all([
-      uploadResImg,
-      uploadLicenseImg,
-    ]);
-    if (!user) return;
-    restaurantWithTime = {
-      ...restaurantWithTime,
-      image: imgUrl,
-      license_image: licenseUrl,
-      manager_id: user.id,
-    };
-    const res = await createRestaurant(restaurantWithTime);
-    setIsLoading(false);
-    navigate(0);
-    console.log(res);
-    console.log({ restaurant: restaurantWithTime, restaurantImg, licenseImg });
+    try {
+      if (validateRestaurant(restaurantWithTime)) {
+        const uploadResImg = imageUploader(
+          user?.email + "/restaurants/",
+          restaurantImg
+        );
+        const uploadLicenseImg = imageUploader(
+          user?.email + "/restaurants/",
+          licenseImg
+        );
+        const [imgUrl, licenseUrl] = await Promise.all([
+          uploadResImg,
+          uploadLicenseImg,
+        ]);
+        if (!user) return;
+        restaurantWithTime = {
+          ...restaurantWithTime,
+          image: imgUrl,
+          license_image: licenseUrl,
+          manager_id: user.id,
+        };
+        const res = await createRestaurant(restaurantWithTime);
+        setIsLoading(false);
+        navigate(0);
+      }
+    } catch (err) {
+      if (err instanceof Error) setMessage(err.message);
+      setIsLoading(false);
+    }
   };
 
   useEffect(() => {

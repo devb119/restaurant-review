@@ -1,3 +1,4 @@
+import { validate } from "email-validator";
 export default interface Restaurant {
   id?: string;
   manager_id: string;
@@ -5,7 +6,7 @@ export default interface Restaurant {
   description: string;
   address: string;
   website?: string;
-  email?: string;
+  email: string;
   phone: string;
   image: string;
   license_image: string;
@@ -19,12 +20,24 @@ export default interface Restaurant {
 }
 
 // viet ham validation cho data o day, duoi day t demo thoi
-export const restaurant_validation: any = (data: Restaurant) => {
-  if (data.name.length > 100) {
-    return "ten nha hang dai vl, nhap lai duoi 100 ki tu di bro :v";
+export const validateRestaurant = (restaurant: Restaurant): Error | boolean => {
+  if (
+    restaurant.name.length === 0 ||
+    restaurant.address.length === 0 ||
+    restaurant.description.length === 0 ||
+    restaurant.phone.length === 0
+  ) {
+    throw new Error(
+      "レストラン名、アドレス、電話番号、説明、フィールドは空であってはなりません"
+    );
   }
-  if (data.address.length > 255) {
-    return "dia chi nha hang dai vl, nhap lai duoi 255 ki tu di bro :v";
+  if (!/^\d+$/.test(restaurant.phone)) {
+    throw new Error("電話番号には数字のみを含める必要があります");
   }
-  return "OK";
+  if (!validate(restaurant.email)) {
+    throw new Error(
+      "電子メールが無効です。 別のメールアドレスを使用してください"
+    );
+  }
+  return true;
 };
