@@ -6,6 +6,9 @@ import { createNewReview } from "../../services/ReviewApi";
 import { Loading } from "../../components/common";
 import { reviewContext } from "./ReviewSection";
 import { FiX } from "react-icons/fi";
+import { imageUploader } from "../../services/ImageUploader";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
 
 interface Props {
   setOpenModal: (value: boolean | ((prevVar: boolean) => boolean)) => void;
@@ -21,6 +24,7 @@ const ReviewForm = ({ setOpenModal, restaurant_id, id }: Props) => {
   const [rating, setRating] = useState(0);
   const [message, setMessage] = useState<string>("");
   const { reviewList, setReviewList } = useContext(reviewContext);
+  const user = useSelector((state: RootState) => state.user.user);
   // const ratingArray = Array(5).fill(0);
   // const ratingValue = 3;
 
@@ -35,25 +39,53 @@ const ReviewForm = ({ setOpenModal, restaurant_id, id }: Props) => {
       setMessage("項目をすべて入力してください");
       return;
     } else {
-      setLoading(true);
-      const review: Review = {
-        restaurant_id: restaurant_id,
-        user_id: id,
-        about_space: content,
-        about_quality: content,
-        other_review: content,
-        star: rating,
-        is_active: true,
-        created_at: new Date(),
-        updated_at: new Date(),
-        food_review_list: [],
-      };
-      console.log(id);
-      createNewReview(review);
-      setMessage("追加できました。");
-      setTimeout(() => setLoading(false), 2000);
-      setTimeout(() => setOpenModal(false), 2000);
-      setReviewList([...reviewList, review]);
+      if (selectedImage) {
+        const uploadImg = imageUploader(
+          user?.email + "/reviews/",
+          selectedImage
+        );
+        Promise.all([uploadImg]).then((result) => {
+          setLoading(true);
+          const review: Review = {
+            restaurant_id: restaurant_id,
+            user_id: id,
+            about_space: content,
+            about_quality: content,
+            other_review: content,
+            star: rating,
+            is_active: true,
+            created_at: new Date(),
+            updated_at: new Date(),
+            food_review_list: [],
+            image_url: String(result),
+          };
+          createNewReview(review);
+          setMessage("追加できました。");
+          setTimeout(() => setLoading(false), 2000);
+          setTimeout(() => setOpenModal(false), 2000);
+          setReviewList([...reviewList, review]);
+        });
+      } else {
+        setLoading(true);
+        const review: Review = {
+          restaurant_id: restaurant_id,
+          user_id: id,
+          about_space: content,
+          about_quality: content,
+          other_review: content,
+          star: rating,
+          is_active: true,
+          created_at: new Date(),
+          updated_at: new Date(),
+          food_review_list: [],
+          image_url: "",
+        };
+        createNewReview(review);
+        setMessage("追加できました。");
+        setTimeout(() => setLoading(false), 2000);
+        setTimeout(() => setOpenModal(false), 2000);
+        setReviewList([...reviewList, review]);
+      }
     }
   };
 

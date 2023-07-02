@@ -10,6 +10,7 @@ export default interface Review {
   created_at?: Date;
   updated_at?: Date;
   food_review_list: Array<string>;
+  image_url: string;
 }
 
 //viet ham validation cho data o day
