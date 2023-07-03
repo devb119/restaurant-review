@@ -3,21 +3,24 @@ import { Loading } from "../../components/common";
 import AdminSideBar from "./AdminSideBar";
 import { Unauthorized } from "..";
 import { UserRole } from "../../models/enum";
-import { getRestaurantsByName } from "../../services/RestaurantApi";
+import { getRestaurantsByName, updateRestaurant } from "../../services/RestaurantApi";
 import Restaurant from "../../models/restaurants";
 import { getManagerNameByRestaurantID } from "../../services/UserApi";
-import { MdOutlineCancel } from "react-icons/md";
-import { HiOutlineCheckCircle, HiOutlineEye } from "react-icons/hi";
+import { MdCancel, MdOutlineCancel } from "react-icons/md";
+import { HiCheckCircle, HiOutlineCheckCircle, HiOutlineEye } from "react-icons/hi";
 import AdminPagination from "./AdminPagination";
-import { BsCheckLg } from "react-icons/bs";
 import AdminPageOption from "./AdminPageOption";
 import { FiSearch } from "react-icons/fi";
+import { Link } from "react-router-dom";
+import { Alert, Snackbar } from "@mui/material";
+
 
 export const paginationContext = React.createContext({currentPage: 1})
 
 const Admin = () => {
     const [restaurants, setRestaurants] = useState<any[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
+    const [popUpNoti, setPopUpNoti] = useState<boolean>(false);
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [query, setQuery] = useState("");
     const [searchQuery, setSearchQuery] = useState("");
@@ -62,18 +65,35 @@ const Admin = () => {
         setSearchQuery(query);
     }
 
+    const statusUpdateHandler = (e : Restaurant) => {
+        // e.is_active = !e.is_active;
+        setPopUpNoti(true);
+        updateRestaurant(e);
+        setTimeout(() => location.reload(), 2000);
+    }
+
     const indexOfLastRestaurant = currentPage * restaurantsPerPage;
     const indexOfFirstRestaurant = indexOfLastRestaurant - restaurantsPerPage;
     const currentRestaurants = restaurants.length > restaurantsPerPage ? restaurants.slice(indexOfFirstRestaurant, indexOfLastRestaurant) : restaurants
 
     return(
         <paginationContext.Provider value={{currentPage}}>
+           
+              
+           
             <div className="flex">
                 <div>
                     <AdminSideBar></AdminSideBar>
                 </div>
                 
                     <div className="my-0 mx-0 w-full flex flex-col items-center">
+                        {popUpNoti &&  
+                            <Snackbar open={true} autoHideDuration={6000} >
+                                <Alert variant="filled" severity="success" sx={{ width: '100%' }}>
+                                    リクエストが更新しますた。
+                                </Alert>
+                            </Snackbar>
+                        }
                         <div className="flex items-center  gap-12 flex-start w-full mb-12">
                             <AdminPageOption 
                                 restaurantsPerPage ={restaurantsPerPage}
@@ -129,9 +149,9 @@ const Admin = () => {
                             <Unauthorized />
                             )} */}      
                             
-                            <div className="overflow-hidden shadow-md  mb-10 sm:rounded-lg">
+                            <div className="overflow-hidden shadow-md  mb-10 sm:rounded-lg ">
                                 <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 sm:rounded-lg ">
-                                    <thead className="bg-[#F15F2C] text-white text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                    <thead className="bg-[#F15F2C] text-white text-xl text-gray-700 font-medium uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                         <tr>
                                             <th scope="col" className="px-6 py-3">
                                                 番号
@@ -158,7 +178,7 @@ const Admin = () => {
                                                 
                                                 <td className="px-6 py-3 "></td>
                                             </tbody> 
-                                        : <tbody className="">
+                                        : <tbody className="text-base">
                                         
                                             {currentRestaurants?.map((e, index) => (
                                                 <tr key={e.id} className="odd:bg-white even:bg-slate-200 border-none  border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
@@ -178,9 +198,13 @@ const Admin = () => {
                                                     <td className="px-6 py-4 text-right">
                                                     
                                                         <div className="flex gap-2 text-2xl">
-                                                            <MdOutlineCancel />
-                                                            <HiOutlineCheckCircle/>
-                                                            <HiOutlineEye />
+                                                            <span className="cursor-pointer" onClick={() => {
+                                                                e.is_active = !e.is_active
+                                                                statusUpdateHandler(e)}}>{e.is_active ? <MdOutlineCancel /> : <MdCancel fill="#f03e3e"/>}</span>
+                                                            <span className="cursor-pointer" onClick={() => {
+                                                                e.is_active = !e.is_active
+                                                                statusUpdateHandler(e)}}>{e.is_active ? <HiCheckCircle fill="#51cf66"/> : <HiOutlineCheckCircle/>}</span>
+                                                            <Link to={`../restaurants/${e.id}`}><HiOutlineEye /></Link>
                                                         </div>
                                                         
                                                     </td>
