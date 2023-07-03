@@ -160,13 +160,13 @@ const Admin = () => {
                                             <th scope="col" className="px-6 py-3">
                                                 番号
                                             </th>
-                                            <th scope="col" className="w-1/3 px-6 py-3">
+                                            <th scope="col" className="w-1/4 px-6 py-3">
                                                 レストラン名
                                             </th>
                                             <th scope="col" className="w-1/4 px-6 py-3">
                                                 オーナー名
                                             </th>
-                                            <th scope="col" className="px-6 py-3">
+                                            <th scope="col" className="w-1/4 px-6 py-3">
                                                 リクエスト日時
                                             </th>
                                             <th scope="col" className="px-6 py-3 ">
@@ -176,9 +176,9 @@ const Admin = () => {
                                     </thead>
                                     {loading ? <tbody className=" bg-white p-3 ">
                                                 <td className="px-6 py-3"></td>
-                                                <td className="w-1/3 px-6 py-3"></td>
+                                                <td className="w-1/4 px-6 py-3"></td>
                                                 <td className="w-1/4 px-6 py-3"><Loading/></td>
-                                                <td className="px-6 py-3"></td>
+                                                <td className="w-1/4 py-3"></td>
                                                 
                                                 <td className="px-6 py-3 "></td>
                                             </tbody> 
