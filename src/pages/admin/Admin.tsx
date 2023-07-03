@@ -11,30 +11,22 @@ import { HiOutlineCheckCircle, HiOutlineEye } from "react-icons/hi";
 import AdminPagination from "./AdminPagination";
 import { BsCheckLg } from "react-icons/bs";
 import AdminPageOption from "./AdminPageOption";
-import { FiSearch } from "react-icons/fi";
-
-export const paginationContext = React.createContext({currentPage: 1})
 
 const Admin = () => {
     const [restaurants, setRestaurants] = useState<any[]>([]);
-    const [loading, setLoading] = useState<boolean>(true);
+    const [loading, setLoading] = useState<boolean>(false);
     const [currentPage, setCurrentPage] = useState<number>(1);
-    const [query, setQuery] = useState("");
-    const [searchQuery, setSearchQuery] = useState("");
     const restaurantsPerPage = 5;
     
     React.useEffect(() => {
-        setLoading(true);
-
+        setLoading(false);
         async function getManagerFullName(id : any) {
             const  fullname = await getManagerNameByRestaurantID(id);
             return fullname;
         }
 
-        async function getAllRestaurants(name: string) {
-            let data : any = await getRestaurantsByName('');
-            data = data.filter((e : Restaurant) => e.name.toLowerCase().includes(name.trim().toLowerCase()));
-            setRestaurants([...data]);
+        async function getAllRestaurants() {
+            const data : any = await getRestaurantsByName('');
             for (let i=0; i<data.length; i++) {
                 data[i].managerFullName = await getManagerFullName(data[i].id).then((e) => {
                     // console.log(e);
@@ -46,10 +38,9 @@ const Admin = () => {
             setLoading(false);
         }
 
-        getAllRestaurants(searchQuery);
-        setQuery("");
+        getAllRestaurants();
        
-    }, [searchQuery])
+    }, [])
 
     const paginate = (pageNumber : number) => {
         setCurrentPage(pageNumber);
@@ -57,39 +48,36 @@ const Admin = () => {
         window.scrollTo(0, 0);
     }
 
-    const submitHandler = (e : any) => {
-        e.preventDefault();
-        setSearchQuery(query);
-    }
-
     const indexOfLastRestaurant = currentPage * restaurantsPerPage;
     const indexOfFirstRestaurant = indexOfLastRestaurant - restaurantsPerPage;
     const currentRestaurants = restaurants.length > restaurantsPerPage ? restaurants.slice(indexOfFirstRestaurant, indexOfLastRestaurant) : restaurants
 
     return(
-        <paginationContext.Provider value={{currentPage}}>
+        <React.Fragment>
             <div className="flex">
                 <div>
                     <AdminSideBar></AdminSideBar>
                 </div>
-                
+                {loading ? (
+                <div className="m-auto"> <Loading></Loading> </div>
+                ) : (
                     <div className="my-0 mx-0 w-full flex flex-col items-center">
                         <div className="flex items-center  gap-12 flex-start w-full mb-12">
                             <AdminPageOption 
                                 restaurantsPerPage ={restaurantsPerPage}
                                 totalRestaurants ={restaurants.length}
-                                
+                                currentPage={currentPage}
                                 paginate={paginate}
                             />
                             <form
                                 className="relative w-1/2"
-                                onSubmit={submitHandler}
+                                onSubmit={(e) => (console.log(e))}
                             >
                                 <div className="relative rounded-3xl">
                                 <input
                                 type="text"
-                                value={query}
-                                onChange={(e) => setQuery(e.target.value)}
+                                // value={query}
+                                // onChange={(e) => setQuery(e.target.value)}
                                 // className={
                                 //     query === ""
                                 //     ? "rounded-3xl py-3 pl-4 pr-32 w-full shadow-lg focus:outline-none"
@@ -103,17 +91,17 @@ const Admin = () => {
                                 </div>
 
                                 <button
-                                    className="absolute right-2 top-1/2 -translate-y-1/2  text-slate-600 
-                                    flex items-center gap-2 py-1 px-4 rounded-full  transition-all"
+                                    className="absolute right-2 top-1/2 -translate-y-1/2 bg-main text-white 
+                                    flex items-center gap-2 py-1 px-4 rounded-full hover:bg-mainShade transition-all"
                                     type="submit"
                                     // onSubmit={(e) =>
                                     //   handleSubmitSearch(e, searchOption.RestaurantSearch)
                                     // }
                                 >
-                                    <div className="text-xl py-[3px]">
-                                    <FiSearch />
+                                    <div className="text-xl">
+                                    <BsCheckLg />
                                     </div>
-                                    
+                                    <p>検索</p>
                                 </button>
                             </form>
                         </div> 
@@ -150,48 +138,36 @@ const Admin = () => {
                                             </th>
                                         </tr>
                                     </thead>
-                                    {loading ? <tbody className=" bg-white p-3 ">
-                                                <td className="px-6 py-3"></td>
-                                                <td className="w-1/3 px-6 py-3"></td>
-                                                <td className="w-1/4 px-6 py-3"><Loading/></td>
-                                                <td className="px-6 py-3"></td>
-                                                
-                                                <td className="px-6 py-3 "></td>
-                                            </tbody> 
-                                        : <tbody className="">
-                                        
-                                            {currentRestaurants?.map((e, index) => (
-                                                <tr key={e.id} className="odd:bg-white even:bg-slate-200 border-none  border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                                    <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
-                                                        {(index + 1) + (currentPage - 1) * 5}
-                                                    </th>
+                                    <tbody className="">
+                                        {currentRestaurants?.map((e, index) => (
+                                            <tr key={e.id} className="odd:bg-white even:bg-slate-200 border-none  border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
+                                                    {(index + 1) + (currentPage - 1) * 5}
+                                                </th>
+                                            <td className="px-6 py-4">
+                                                   {e.name}
+                                                </td>
                                                 <td className="px-6 py-4">
-                                                    {e.name}
-                                                    </td>
-                                                    <td className="px-6 py-4">
-                                                        {e.managerFullName}
-                                                    </td>
-                                                    <td className="px-6 py-4">
-                                                        {/* {e.created_at ? e.created_at?.toLocaleString() : ""} */}
-                                                        Test
-                                                    </td>
-                                                    <td className="px-6 py-4 text-right">
+                                                    {e.managerFullName}
+                                                </td>
+                                                <td className="px-6 py-4">
+                                                    {/* {e.created_at ? e.created_at?.toLocaleString() : ""} */}
+                                                    Test
+                                                </td>
+                                                <td className="px-6 py-4 text-right">
+                                                   
+                                                    <div className="flex gap-2 text-2xl">
+                                                        <MdOutlineCancel />
+                                                        <HiOutlineCheckCircle/>
+                                                        <HiOutlineEye />
+                                                    </div>
                                                     
-                                                        <div className="flex gap-2 text-2xl">
-                                                            <MdOutlineCancel />
-                                                            <HiOutlineCheckCircle/>
-                                                            <HiOutlineEye />
-                                                        </div>
-                                                        
-                                                    </td>
-                                                </tr>
-                                            ))}
-                                       
-                                        
-                                       
+                                                </td>
+                                            </tr>
+                                        ))}
                                         
                                         
-                                    </tbody>}
+                                    </tbody>
                                 </table>
                                
                             </div>
@@ -201,16 +177,17 @@ const Admin = () => {
                             <AdminPagination 
                                 restaurantsPerPage ={restaurantsPerPage}
                                 totalRestaurants ={restaurants.length}
+                                currentPage={currentPage}
                                 paginate={paginate}
                             />
                         </div>  
                     </div>  
                     
-               
+                )}
             </div>
             
             
-        </paginationContext.Provider>
+        </React.Fragment>
     )
 }
 
