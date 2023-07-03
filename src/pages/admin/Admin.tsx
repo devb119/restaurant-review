@@ -160,13 +160,13 @@ const Admin = () => {
                                             <th scope="col" className="px-6 py-3">
                                                 番号
                                             </th>
-                                            <th scope="col" className="w-1/3 px-6 py-3">
+                                            <th scope="col" className="w-1/4 px-6 py-3">
                                                 レストラン名
                                             </th>
                                             <th scope="col" className="w-1/4 px-6 py-3">
                                                 オーナー名
                                             </th>
-                                            <th scope="col" className="px-6 py-3">
+                                            <th scope="col" className="w-1/4 px-6 py-3">
                                                 リクエスト日時
                                             </th>
                                             <th scope="col" className="px-6 py-3 ">
