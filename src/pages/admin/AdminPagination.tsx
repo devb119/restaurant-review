@@ -25,7 +25,7 @@ const AdminPagination = ({ restaurantsPerPage, totalRestaurants, paginate } : {r
                     <li>
                     <a
                         onClick={() => paginate(data.currentPage - 1 > 0 ? data.currentPage - 1 : 1)}
-                        className="cursor-pointer relative block rounded bg-transparent px-3 py-1.5 text-sm text-slate-600 transition-all duration-300 hover:bg-neutral-100 dark:hover:bg-[#F15F2C] dark:hover:text-white "
+                        className="cursor-pointer relative block rounded bg-transparent px-3 py-1.5 text-sm text-slate-600 transition-all duration-300 hover:bg-neutral-100 dark:hover:bg-[#f87171] dark:hover:text-white "
                         ><div className="flex w-3 h-5 items-center justify-center "><AiOutlineArrowLeft/></div></a>
                     </li>
                     {pageNumbers.map(number => (
@@ -34,8 +34,8 @@ const AdminPagination = ({ restaurantsPerPage, totalRestaurants, paginate } : {r
                             {number}
                             </a> */}
                                 <a
-                                    className={number === data.currentPage ? "text-white relative block rounded px-3 py-1.5 text-sm  transition-all duration-300 hover:bg-[#F15F2C] bg-[#F15F2C] dark:hover:text-white " : 
-                                    "relative block rounded bg-transparent px-3 py-1.5 text-sm text-slate-600 transition-all duration-300 hover:bg-[#F15F2C] dark:hover:bg-[#F15F2C] dark:hover:text-white"}
+                                    className={number === data.currentPage ? "text-white relative block rounded px-3 py-1.5 text-sm  transition-all duration-300 hover:bg-[#f87171] bg-[#f87171] dark:hover:text-white " : 
+                                    "relative block rounded bg-transparent px-3 py-1.5 text-sm text-slate-600 transition-all duration-300 hover:bg-[#f87171] dark:hover:bg-[#f87171] dark:hover:text-white"}
                                     href="#!"
                                     onClick={() => {paginateHandler(number)}
                                         }
@@ -47,7 +47,7 @@ const AdminPagination = ({ restaurantsPerPage, totalRestaurants, paginate } : {r
                     
                     <li>
                         <a
-                            className="relative block rounded bg-transparent px-3 py-1.5 text-sm text-slate-600 transition-all duration-300 hover:bg-neutral-100  dark:hover:bg-[#F15F2C] dark:hover:text-white"
+                            className="relative block rounded bg-transparent px-3 py-1.5 text-sm text-slate-600 transition-all duration-300 hover:bg-neutral-100  dark:hover:bg-[#f87171] dark:hover:text-white"
                             href="#!"
                             onClick={() => paginate(data.currentPage + 1 < pageNumbers.length ? data.currentPage + 1 : pageNumbers.length)}
                             >

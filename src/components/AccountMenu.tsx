@@ -40,9 +40,14 @@ export default function AccountMenu() {
   const navigateToManage = () => {
     navigate("/manage-menu");
   };
+  
+  const navigateToAdmin = () => {
+    navigate("/admin")
+  }
   const user = useSelector((state: RootState) => state.user.user);
   // console.log(user);
   const isOwner = user?.role === UserRole.RestaurantManager;
+  const isAdmin = user?.role === UserRole.Admin;
 
   return (
     <React.Fragment>
@@ -105,6 +110,15 @@ export default function AccountMenu() {
             <p className="w-32">私のレストラン</p>
           </MenuItem>
         )}
+        {isAdmin && (
+          <MenuItem onClick={navigateToAdmin}>
+            <ListItemIcon>
+              <BiRestaurant className="text-xl" />{" "}
+            </ListItemIcon>
+            <p className="w-32">管理ページ</p>
+          </MenuItem>
+        )}
+
         <Divider />
         <MenuItem onClick={handleLogout}>
           <ListItemIcon>
