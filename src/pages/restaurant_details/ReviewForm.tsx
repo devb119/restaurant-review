@@ -40,6 +40,7 @@ const ReviewForm = ({ setOpenModal, restaurant_id, id }: Props) => {
       return;
     } else {
       if (selectedImage) {
+        console.log(user?.email);
         const uploadImg = imageUploader(
           user?.email + "/reviews/",
           selectedImage
