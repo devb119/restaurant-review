@@ -44,12 +44,16 @@ const Admin = () => {
                     return e;
                 });
             }
-            // console.log(data);
+            for (let i=0; i<data.length; i++) {
+                data[i].created_at = new Date();
+            }
+            console.log(data);
             setRestaurants(data);
             setLoading(false);
         }
 
         getAllRestaurants(searchQuery);
+        setCurrentPage(1);
         setQuery("");
        
     }, [searchQuery])
@@ -151,7 +155,7 @@ const Admin = () => {
                             
                             <div className="overflow-hidden shadow-md  mb-10 sm:rounded-lg ">
                                 <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 sm:rounded-lg ">
-                                    <thead className="bg-[#F15F2C] text-white text-xl text-gray-700 font-medium uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                    <thead className="bg-[#f87171] text-white text-xl text-gray-700 font-medium uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                         <tr>
                                             <th scope="col" className="px-6 py-3">
                                                 番号
@@ -193,7 +197,7 @@ const Admin = () => {
                                                     </td>
                                                     <td className="px-6 py-4">
                                                         {/* {e.created_at ? e.created_at?.toLocaleString() : ""} */}
-                                                        Test
+                                                        {e.created_at ? e.created_at.toLocaleString() : ""}
                                                     </td>
                                                     <td className="px-6 py-4 text-right">
                                                     
