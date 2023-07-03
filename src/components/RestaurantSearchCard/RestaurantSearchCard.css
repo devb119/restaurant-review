@@ -75,7 +75,7 @@
     height: 65%;
 }
 
-.go-to-review {
+/* .go-to-review {
     display: flex;
     align-items: center;
     gap: 0.625rem;
@@ -92,7 +92,7 @@
     font-weight: 700;
     color: #BC1F1F;
     text-decoration: none;
-}
+} */
 
 .add-left-space {
     width: 60%;
