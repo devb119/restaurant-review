@@ -1,20 +1,34 @@
 import { HiCheckCircle, HiOutlineCheckCircle, HiOutlineEye } from "react-icons/hi"
 import { MdCancel, MdOutlineCancel } from "react-icons/md"
 import { Link } from "react-router-dom"
-import { updateRestaurant } from "../../services/RestaurantApi"
+import { updateRestaurantInfo } from "../../services/RestaurantApi"
 import Restaurant from "../../models/restaurants"
 import { useState } from "react"
 import { Alert, Snackbar } from "@mui/material";
+import { useAuth } from "../../hooks/useAuth"
 
 const StatusUpdate = ({restaurant, openDetail} : {restaurant : Restaurant, openDetail : any}) => {
     const [isActive, setIsActive] = useState<boolean>(restaurant.is_active);
     const [popUpNoti, setPopUpNoti] = useState<boolean>(false);
+    const [popUpAlert, setPopUpAlert] = useState<boolean>(false);
+    const user = useAuth();
     const statusUpdateHandler = () => {
+        if(user?.role && restaurant.id) {
         restaurant.is_active = !restaurant.is_active;
-        setIsActive(!isActive);
-        setPopUpNoti(true);
-        updateRestaurant(restaurant);
-        setTimeout(() => setPopUpNoti(false), 1500);
+        const update = updateRestaurantInfo(restaurant.id, restaurant, user?.role).then((res) => {
+            if(res) {
+              setPopUpAlert(true);
+            }
+            else {
+            setIsActive(!isActive);
+            setPopUpNoti(true);
+            }
+        });
+        Promise.all([update]).then(()=> {
+            setTimeout(() => setPopUpNoti(false), 1500);
+            setTimeout(() => setPopUpAlert(false), 1500);
+        })
+        }
     }
 
     const viewDetailHander = () => {
@@ -25,9 +39,16 @@ const StatusUpdate = ({restaurant, openDetail} : {restaurant : Restaurant, openD
     return (
         <>
             {popUpNoti &&  
-                <Snackbar open={true} autoHideDuration={6000} >
+                <Snackbar open={true} autoHideDuration={5000} >
                     <Alert variant="filled" severity="success" sx={{ width: '100%' }}>
                         リクエストが更新しますた。
+                    </Alert>
+                </Snackbar>
+            }
+            {popUpAlert &&  
+                <Snackbar open={true} autoHideDuration={5000} >
+                    <Alert variant="filled" severity="error" sx={{ width: '100%' }}>
+                        Deo doi dc dau m phai la admin moi dc
                     </Alert>
                 </Snackbar>
             }
