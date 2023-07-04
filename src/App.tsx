@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./App.css";
 import JapaneseFavourites from "./pages/restaurant_lists/JapaneseFavourites";
 import { Route, Routes } from "react-router-dom";
-import { Home, NotFound, SearchPage, Auth } from "./pages";
+import { Home, NotFound, SearchPage, Auth, NoRestaurant } from "./pages";
 import { Login, Signup } from "./components";
 import RestaurantDetail from "./pages/restaurant_details/RestaurantDetail";
 import FoodDetail from "./pages/food_details/FoodDetail";
@@ -11,6 +11,7 @@ import { searchOption } from "./models/enum/searchOption";
 import ManageMenu from "./pages/manage_restaurant/ManageMenu";
 import { Dialog } from "./components/common";
 import Admin from "./pages/admin/Admin";
+import AdminViewDetail from "./pages/admin/AdminViewDetail";
 
 export const searchContext = React.createContext({query: "", searchOption: searchOption.RestaurantSearch});
 
