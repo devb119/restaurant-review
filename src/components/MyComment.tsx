@@ -34,17 +34,38 @@ const MyComment = (props: Props) => {
       setMessage("項目をすべて入力してください");
       return;
     } else {
-      if(selectedImage){
-      const uploadImg = imageUploader(user?.email + '/reviews/', selectedImage);
-      Promise.all([uploadImg]).then((result)=>{
-        // console.log(result);
+      if (selectedImage) {
+        const uploadImg = imageUploader(
+          user?.email + "/reviews/",
+          selectedImage
+        );
+        Promise.all([uploadImg]).then((result) => {
+          // console.log(result);
+          const review: FoodReview = {
+            food_id: props.id,
+            user_id: user?.id || "",
+            star: rating,
+            about_price: content,
+            about_decoration: content,
+            other: content,
+            image_url: String(result),
+          };
+          createNewFoodReview(review);
+          setMessage("追加できました。");
+          setReviewList([...reviewList, review]);
+          setContent("");
+          setSelectedImage(null);
+          setRating(0);
+        });
+      } else {
         const review: FoodReview = {
           food_id: props.id,
+          user_id: user?.id || "",
           star: rating,
           about_price: content,
           about_decoration: content,
           other: content,
-          image_url: String(result),
+          image_url: "",
         };
         createNewFoodReview(review);
         setMessage("追加できました。");
@@ -52,25 +73,8 @@ const MyComment = (props: Props) => {
         setContent("");
         setSelectedImage(null);
         setRating(0);
-      })
+      }
     }
-    else {
-      const review: FoodReview = {
-        food_id: props.id,
-        star: rating,
-        about_price: content,
-        about_decoration: content,
-        other: content,
-        image_url: '',
-      };
-      createNewFoodReview(review);
-      setMessage("追加できました。");
-      setReviewList([...reviewList, review]);
-      setContent("");
-      setSelectedImage(null);
-      setRating(0);
-    }
-  }
   };
 
   return (
@@ -126,7 +130,8 @@ const MyComment = (props: Props) => {
                 />
                 {selectedImage && (
                   <div>
-                    {selectedImage.name}{"  "}
+                    {selectedImage.name}
+                    {"  "}
                     <button onClick={() => setSelectedImage(null)}>削除</button>
                   </div>
                 )}

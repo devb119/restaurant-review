@@ -25,7 +25,9 @@ const CommentCard = (props: Props) => {
     if (props.review) {
       getUserByDocId(props.review.user_id).then((user) => setCommentUser(user));
     } else if (props.foodReview) {
-      // getUserByDocId(props.foodReview)
+      getUserByDocId(props.foodReview.user_id).then((user) =>
+        setCommentUser(user)
+      );
     }
   }, []);
   return (
