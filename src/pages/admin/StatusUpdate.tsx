@@ -6,7 +6,7 @@ import Restaurant from "../../models/restaurants"
 import { useState } from "react"
 import { Alert, Snackbar } from "@mui/material";
 
-const StatusUpdate = ({restaurant} : {restaurant : Restaurant}) => {
+const StatusUpdate = ({restaurant, openDetail} : {restaurant : Restaurant, openDetail : any}) => {
     const [isActive, setIsActive] = useState<boolean>(restaurant.is_active);
     const [popUpNoti, setPopUpNoti] = useState<boolean>(false);
     const statusUpdateHandler = () => {
@@ -16,6 +16,11 @@ const StatusUpdate = ({restaurant} : {restaurant : Restaurant}) => {
         updateRestaurant(restaurant);
         setTimeout(() => setPopUpNoti(false), 1500);
     }
+
+    const viewDetailHander = () => {
+        openDetail(true);
+    }
+
 
     return (
         <>
@@ -29,7 +34,7 @@ const StatusUpdate = ({restaurant} : {restaurant : Restaurant}) => {
             <div className="flex gap-2 text-2xl">
                 <span className="cursor-pointer" onClick={statusUpdateHandler}>{isActive ? <MdOutlineCancel /> : <MdCancel fill="#f03e3e"/>}</span>
                 <span className="cursor-pointer" onClick={statusUpdateHandler}>{isActive ? <HiCheckCircle fill="#51cf66"/> : <HiOutlineCheckCircle/>}</span>
-                <Link to={`../restaurants/${restaurant.id}`}><HiOutlineEye /></Link>
+                <span className="cursor-pointer" onClick={viewDetailHander}><HiOutlineEye /></span>
             </div>
         </>
     )

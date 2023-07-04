@@ -11,6 +11,7 @@ import AdminPageOption from "./AdminPageOption";
 import { FiSearch } from "react-icons/fi";
 
 import StatusUpdate from "./StatusUpdate";
+import AdminViewDetail from "./AdminViewDetail";
 
 
 export const paginationContext = React.createContext({currentPage: 1})
@@ -18,7 +19,7 @@ export const paginationContext = React.createContext({currentPage: 1})
 const Admin = () => {
     const [restaurants, setRestaurants] = useState<any[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
-    const [popUpNoti, setPopUpNoti] = useState<boolean>(false);
+    const [openForm, setOpenForm] = useState<boolean>(false);
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [query, setQuery] = useState("");
     const [searchQuery, setSearchQuery] = useState("");
@@ -65,6 +66,13 @@ const Admin = () => {
         setSearchQuery(query);
     }
 
+    const openDetailHandler = (e : boolean) => {
+        setOpenForm(e);
+    }
+
+    const closeDetailHandler = (e: boolean) => {
+        setOpenForm(e);
+    }
    
 
     const indexOfLastRestaurant = currentPage * restaurantsPerPage;
@@ -73,13 +81,15 @@ const Admin = () => {
 
     return(
         <paginationContext.Provider value={{currentPage}}>
+            
             <div className="flex">
+                
                 <div>
                     <AdminSideBar></AdminSideBar>
                 </div>
                 
+                
                 <div className="my-0 mx-0 w-full flex flex-col items-center">
-                    
                     <div className="flex items-center  gap-12 flex-start w-full mb-12">
                         <AdminPageOption 
                             restaurantsPerPage ={restaurantsPerPage}
@@ -161,11 +171,13 @@ const Admin = () => {
                                     : <tbody className="text-base">
                                     
                                         {currentRestaurants?.map((e, index) => (
+                                            <>
+                                            {openForm && <AdminViewDetail onClose={closeDetailHandler} currentRestaurant={e}/>}
                                             <tr key={e.id} className="odd:bg-white even:bg-slate-200 border-none  border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                                                 <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
                                                     {(index + 1) + (currentPage - 1) * 5}
                                                 </th>
-                                            <td className="px-6 py-4">
+                                                <td className="px-6 py-4">
                                                 {e.name}
                                                 </td>
                                                 <td className="px-6 py-4">
@@ -175,14 +187,11 @@ const Admin = () => {
                                                     {/* {e.created_at ? e.created_at?.toLocaleString() : ""} */}
                                                     {e.custom_created_at ? e.custom_created_at.toLocaleString() : ""}
                                                 </td>
-                                                <td className="px-6 py-4 text-right">
-
-                                                    
-                                                
-                                                   <StatusUpdate restaurant={e}/>
-                                                    
+                                                <td className="px-6 py-4 text-right">                                           
+                                                   <StatusUpdate restaurant={e} openDetail={openDetailHandler}/>                                                 
                                                 </td>
                                             </tr>
+                                            </>
                                         ))}    
                                 </tbody>}
                             </table>
