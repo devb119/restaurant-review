@@ -9,7 +9,6 @@ import { UserRole } from "../../models/enum";
 import { NoRestaurant, Unauthorized } from "..";
 import { Loading } from "../../components/common";
 import AddFoodForm from "./AddFoodForm";
-import { AiOutlinePlusCircle } from "react-icons/ai";
 
 function ManageMenu() {
   const [restaurant, setRestaurant] = useState<Restaurant | undefined>();
@@ -34,7 +33,7 @@ function ManageMenu() {
 
   return (
     <div className="">
-      <div className="flex flex-wrap bg-white relative">
+      <div className="flex flex-wrap ">
         <div>
           <Sidebar></Sidebar>
         </div>
