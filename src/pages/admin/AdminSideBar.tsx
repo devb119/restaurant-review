@@ -1,6 +1,6 @@
 import React from "react"
 import { Divider, Drawer, List, ListItem, ListItemButton } from "@mui/material";
-import { BiFoodMenu } from "react-icons/bi";
+import { BiFoodMenu, BiUser } from "react-icons/bi";
 import { NavLink } from "react-router-dom";
 import { RiCoupon2Line } from "react-icons/ri";
 
@@ -36,7 +36,7 @@ const AdminSideBar = () => {
                     <p className="mr-3">
                         <BiFoodMenu />
                     </p>
-                    レストラン情報管理
+                    リクエスト管理
                     </ListItemButton>
                 </NavLink>
                 </ListItem>
@@ -52,9 +52,9 @@ const AdminSideBar = () => {
                 >
                     <ListItemButton className="jp">
                     <p className="mr-3">
-                        <RiCoupon2Line />
+                        <BiUser />
                     </p>
-                    クーポン管理
+                    ユーザ管理
                     </ListItemButton>
                 </NavLink>
                 </ListItem>

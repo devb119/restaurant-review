@@ -15,12 +15,13 @@ export async function createRestaurant(restaurant: Restaurant) {
 export async function getRestaurantsByName(name: string) {
   const data = await firestore
     .collection("restaurants")
-    .orderBy("rating", "desc")
+    .orderBy("created_at", "desc")
     // .where("name", ">=", name)
     // .where("name", "<=", name + "\uf8ff")
     .get();
   return data.docs.map((item) => ({
     ...item.data(),
+    created_at: new Date(item.data().created_at.seconds * 1000),
     // docId: item.id,
   }));
 }

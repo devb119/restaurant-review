@@ -30,7 +30,7 @@ const AdminPageOption = ({ restaurantsPerPage, totalRestaurants, paginate } : {r
                 </button>
 
                 {dropdownActive ? (<div id="dropdown" className="absolute z-10  bg-white divide-y divide-gray-100 rounded-lg shadow w-[6.7rem] dark:bg-gray-700 ">
-                    <ul className="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
+                    <ul className="h-20 overflow-y-scroll py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
                     {pageNumbers.map(number => (
                         <li className="hover:bg-slate-200">
                             <a href="#" onClick={() => {
