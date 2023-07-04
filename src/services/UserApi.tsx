@@ -28,3 +28,14 @@ export async function getManagerNameByRestaurantID(id: string) {
   // console.log(fullName);
   return fullName;
 }
+
+export async function getAllUsers() {
+  const data = await firestore
+    .collection("users")
+    // .where("role", "==", 1)
+    .get();
+  return data.docs.map((item) => ({
+    ...item.data(),
+    // docId: item.id,
+  }));
+}
