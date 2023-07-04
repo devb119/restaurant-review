@@ -82,7 +82,7 @@ function useCreateData(food: Food, navigate: NavigateFunction): Data {
       <p
         className=" font-montserrat font-semibold cursor-pointer"
         onClick={() => {
-          navigate(`./food/${food.id}`);
+          navigate(`/food/${food.id}`);
         }}
       >
         {food.name}
