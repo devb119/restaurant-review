@@ -10,7 +10,7 @@ function Home({
     <div className="font-montserrat">
       <Header getQueryData={getQuery} />
       <div className=" max-w-7xl mx-auto">
-        <div className="p-4">
+        <div className="p-4 bg-transparent">
           <Outlet></Outlet>
         </div>
       </div>

@@ -69,7 +69,7 @@ const AddFoodForm = ({ setOpenModal }: Props) => {
   };
 
   return (
-    <div className="w-screen h-screen fixed top-0 left-0 bg-gray z-[1300] overflow-scroll">
+    <div className="w-screen h-screen fixed top-0 left-0 bg-opacity-40 bg-neutral-600 z-[1300] overflow-scroll">
       <div className="mx-auto my-12 w-1/2 min-h-[685px] bg-cream relative rounded-xl p-12">
         <div className="w-8 absolute top-6 right-6 text-xs">
           <button

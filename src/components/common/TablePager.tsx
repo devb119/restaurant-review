@@ -50,7 +50,7 @@ function stableSort<T>(array: T[], comparator: (a: T, b: T) => number) {
   return stabilizedThis.map((el) => el[0]);
 }
 
-interface HeadCell<T> {
+export interface HeadCell<T> {
   disablePadding: boolean;
   id: keyof T;
   label: string;
@@ -64,7 +64,8 @@ interface EnhancedTableProps<T> {
   orderBy: string;
   total: number;
   data: T[];
-  headCells: readonly HeadCell<T>[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  headCells: readonly HeadCell<any>[];
   showSearchBar: boolean;
   toolbarItems: JSX.Element;
   onRowClick?: () => void;
@@ -95,19 +96,19 @@ function EnhancedTableHead<T>(props: EnhancedTableHeadProps<T>) {
             padding={headCell.disablePadding ? "none" : "normal"}
             sortDirection={orderBy === headCell.id ? order : false}
           >
-         <TableSortLabel
-              sx={ { fontWeight: 700, paddingTop: 2 } }
-              active={ orderBy === headCell.id }
-              direction={ orderBy === headCell.id ? order : "asc" }
-              onClick={ createSortHandler(headCell.id) }
+            <TableSortLabel
+              sx={{ fontWeight: 700, paddingTop: 2 }}
+              active={orderBy === headCell.id}
+              direction={orderBy === headCell.id ? order : "asc"}
+              onClick={createSortHandler(headCell.id)}
             >
-              { headCell.label }
-              { orderBy === headCell.id ? (
-                <Box component="span" sx={ visuallyHidden }>
-                  { order === "desc" ? "sorted descending" : "sorted ascending" }
+              {headCell.label}
+              {orderBy === headCell.id ? (
+                <Box component="span" sx={visuallyHidden}>
+                  {order === "desc" ? "sorted descending" : "sorted ascending"}
                 </Box>
-              ) : null }
-            </TableSortLabel> 
+              ) : null}
+            </TableSortLabel>
           </TableCell>
         ))}
       </TableRow>
@@ -180,23 +181,24 @@ export default function EnhancedTable<T extends { id?: string }>(
               headCells={headCells}
             />
             <TableBody>
-              {props
-                .mapDataToRowData(visibleRows, navigate)
-                .map((row, index) => {
-                  const isItemSelected = !!isSelected(row.id as string);
-                  // const labelId = `enhanced-table-checkbox-${index}`;
+              {rows.length > 0 ? (
+                props
+                  .mapDataToRowData(visibleRows, navigate)
+                  .map((row, index) => {
+                    const isItemSelected = !!isSelected(row.id as string);
+                    // const labelId = `enhanced-table-checkbox-${index}`;
 
-                  return (
-                    <TableRow
-                      // onClick={(event) => handleClick(event, row.id as string)}
-                      role="checkbox"
-                      aria-checked={isItemSelected}
-                      tabIndex={-1}
-                      key={index}
-                      selected={isItemSelected}
-                      // sx={{ cursor: "pointer" }}
-                    >
-                      {/* <TableCell padding="checkbox">
+                    return (
+                      <TableRow
+                        // onClick={(event) => handleClick(event, row.id as string)}
+                        role="checkbox"
+                        aria-checked={isItemSelected}
+                        tabIndex={-1}
+                        key={index}
+                        selected={isItemSelected}
+                        // sx={{ cursor: "pointer" }}
+                      >
+                        {/* <TableCell padding="checkbox">
                       <Checkbox
                         color="primary"
                         checked={isItemSelected}
@@ -205,27 +207,33 @@ export default function EnhancedTable<T extends { id?: string }>(
                         }}
                       />
                     </TableCell> */}
-                      <>
-                        {Object.keys(row).map((key) => {
-                          // console.log(key);
-                          if (key === "id" || typeof key == "undefined") return;
-                          else
-                            return (
-                              <TableCell
-                                className="w-52 h-52 font-montserrat"
-                                align="center"
-                              >
-                                <ToolTipOnHover
-                                  textContent={row[key]}
-                                  limit={20}
-                                ></ToolTipOnHover>
-                              </TableCell>
-                            );
-                        })}
-                      </>
-                    </TableRow>
-                  );
-                })}
+                        <>
+                          {Object.keys(row).map((key) => {
+                            // console.log(key);
+                            if (key === "id" || typeof key == "undefined")
+                              return;
+                            else
+                              return (
+                                <TableCell
+                                  className="w-52 h-52 font-montserrat"
+                                  align="center"
+                                >
+                                  <ToolTipOnHover
+                                    textContent={row[key]}
+                                    limit={20}
+                                  ></ToolTipOnHover>
+                                </TableCell>
+                              );
+                          })}
+                        </>
+                      </TableRow>
+                    );
+                  })
+              ) : (
+                <TableRow>
+                  <TableCell colSpan={headCells.length} align="center">データがありません</TableCell>
+                </TableRow>
+              )}
               {emptyRows > 0 && (
                 <TableRow
                   style={{
