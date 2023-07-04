@@ -39,7 +39,7 @@ function ManageMenu() {
           <Sidebar></Sidebar>
         </div>
 
-        <div
+        {/* <div
           className="absolute top-0 right-0 text-white w-40 bg-red-500 rounded-full px-2 py-2 cursor-pointer"
           onClick={() => setModalOpen(true)}
         >
@@ -47,7 +47,7 @@ function ManageMenu() {
           <span className="text-2xl font-bold ml-2 inline-block translate-y-1">
             作成
           </span>
-        </div>
+        </div> */}
         {modalOpen && <AddFoodForm setOpenModal={setModalOpen} />}
         {loading ? (
           <div className="m-auto">
@@ -58,7 +58,10 @@ function ManageMenu() {
           <div className="-mt-20 flex-1">
             {user?.role === UserRole.RestaurantManager ? (
               restaurant && restaurant.id ? (
-                <MenuTable restaurantId={restaurant.id} />
+                <MenuTable
+                  restaurantId={restaurant.id}
+                  setOpenModal={setModalOpen}
+                />
               ) : (
                 <NoRestaurant />
               )

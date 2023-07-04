@@ -100,7 +100,10 @@ function useCreateData(food: Food, navigate: NavigateFunction): Data {
   };
 }
 
-const mapFoodDataToRowData = (foods: Food[], navigate: NavigateFunction): Data[] => {
+const mapFoodDataToRowData = (
+  foods: Food[],
+  navigate: NavigateFunction
+): Data[] => {
   return foods.map((food: Food) => {
     return useCreateData(food, navigate);
   });
@@ -155,10 +158,11 @@ const headCells: readonly HeadCell[] = [
 
 export interface IMenuTableProps {
   restaurantId: string;
+  setOpenModal: (value: boolean | ((prevVar: boolean) => boolean)) => void;
 }
 
 export default function MenuTable(props: IMenuTableProps) {
-  const { restaurantId } = props;
+  const { restaurantId, setOpenModal } = props;
   const [foods, setFoods] = React.useState<Food[]>([]);
   const [display, setDisplay] = React.useState<Food[]>([]);
   const [order, setOrder] = React.useState<Order>("asc");
@@ -201,9 +205,7 @@ export default function MenuTable(props: IMenuTableProps) {
     return (
       <>
         <button
-          onClick={() => {
-            setOpenCreateFood(true);
-          }}
+          onClick={() => setOpenModal(true)}
           className="bg-main p-2 px-4 cursor-pointer rounded-2xl text-white font-bold flex items-center"
         >
           <MdOutlineAddCircleOutline className="text-white text-2xl fill-white mx-2 "></MdOutlineAddCircleOutline>
@@ -241,7 +243,7 @@ export default function MenuTable(props: IMenuTableProps) {
       onSelectAllClick={handleSelectAllClick}
       total={foods.length}
       data={display}
-      mapDataToRowData ={mapFoodDataToRowData}
+      mapDataToRowData={mapFoodDataToRowData}
       headCells={headCells}
       showSearchBar={true}
       toolbarItems={toolbarItems}

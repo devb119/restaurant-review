@@ -41,26 +41,30 @@ const AddFoodForm = ({ setOpenModal }: Props) => {
       return;
     } else {
       const restaurant = getRestaurantByManagerId(user?.id || "");
-      console.log(user?.email);
-      const uploadImg = imageUploader(user?.email + "/reviews/", selectedImage);
+      if (user) {
+        const uploadImg = imageUploader(
+          user?.email + "/reviews/",
+          selectedImage
+        );
 
-      Promise.all([uploadImg, restaurant]).then((result) => {
-        setLoading(true);
-        const food: Food = {
-          restaurant_id: result[1].id || "",
-          name: foodName,
-          rating: 0,
-          description: description,
-          price: price,
-          created_at: new Date(),
-          updated_at: new Date(),
-          image: String(result[0]),
-        };
-        createFood(food);
-        setMessage("追加できました。");
-        setTimeout(() => setLoading(false), 2000);
-        setTimeout(() => setOpenModal(false), 2000);
-      });
+        Promise.all([uploadImg, restaurant]).then((result) => {
+          setLoading(true);
+          const food: Food = {
+            restaurant_id: result[1].id || "",
+            name: foodName,
+            rating: 0,
+            description: description,
+            price: price,
+            created_at: new Date(),
+            updated_at: new Date(),
+            image: String(result[0]),
+          };
+          createFood(food);
+          setMessage("追加できました。");
+          setTimeout(() => setLoading(false), 2000);
+          setTimeout(() => setOpenModal(false), 2000);
+        });
+      }
     }
   };
 
