@@ -6,7 +6,7 @@ import {
 } from "../../components/common";
 import { Backdrop } from "@mui/material";
 import { BsArrowRight, BsUpload } from "react-icons/bs";
-import { AiOutlineClose } from "react-icons/ai";
+import { AiOutlineClose, AiFillInfoCircle } from "react-icons/ai";
 import Restaurant, { validateRestaurant } from "../../models/restaurants";
 import { imageUploader } from "../../services/ImageUploader";
 import { useSelector } from "react-redux";
@@ -34,10 +34,12 @@ const initialRestaurant: Restaurant = {
 interface RestaurantRequestFormProps {
   openForm: boolean;
   onCloseBtnClick: () => void;
+  onSuccess: () => void;
 }
 function RestaurantRequestForm({
   openForm,
   onCloseBtnClick,
+  onSuccess,
 }: RestaurantRequestFormProps): JSX.Element {
   const [restaurant, setRestaurant] = useState<Restaurant>(initialRestaurant);
   const [activeHour, setActiveHour] = useState({
@@ -111,7 +113,9 @@ function RestaurantRequestForm({
         };
         const res = await createRestaurant(restaurantWithTime);
         setIsLoading(false);
-        navigate(0);
+        onCloseBtnClick();
+        onSuccess();
+        setTimeout(() => navigate(0), 1500);
       }
     } catch (err) {
       if (err instanceof Error) setMessage(err.message);
@@ -392,16 +396,34 @@ function RestaurantRequestForm({
 
 function NoRestaurant(): JSX.Element {
   const [openForm, setOpenForm] = useState(false);
+  const [openPopup, setOpenPopup] = useState(false);
 
   const handleOpenForm = () => setOpenForm(true);
   const handleCloseForm = () => setOpenForm(false);
+  const handleOpenPopup = () => setOpenPopup(true);
+  const handleClosePopup = () => setOpenPopup(false);
 
   return (
     <>
       <RestaurantRequestForm
         openForm={openForm}
         onCloseBtnClick={handleCloseForm}
+        onSuccess={handleOpenPopup}
       />
+      {openPopup ? (
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 p-10 bg-white jp border border-main rounded-lg">
+          <p className="text-3xl text-main flex justify-center mb-4">
+            <AiFillInfoCircle />
+          </p>
+          <p className="mb-4 text-xl">
+            あなたのリクエストは送信されました。
+            <br /> 管理者が承認するまで お待ち下さい。
+          </p>
+          <div className="flex items-center justify-center">
+            <ButtonPrimary title="OK" onClick={handleClosePopup} />
+          </div>
+        </div>
+      ) : null}
       <div className="flex h-[calc(100vh-80px)] items-center justify-center p-5">
         <div className="text-center">
           <div className="inline-flex rounded-full bg-yellow-100 p-4">
