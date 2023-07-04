@@ -1,4 +1,5 @@
 import { firestore } from "../config/firebase";
+import { UserRole } from "../models/enum";
 import Restaurant from "../models/restaurants";
 import { faker } from "@faker-js/faker";
 
@@ -149,9 +150,11 @@ export async function getActiveRestaurants() {
 
 //update restaurant info
 export async function updateRestaurantInfo(
-  docId: string,
-  restaurantInfo: Restaurant
+  docId: string | undefined,
+  restaurantInfo: Restaurant,
+  user_role: UserRole
 ) {
+  if(user_role === UserRole.Admin)  {
   const updatedData = await firestore.collection("restaurants").doc(docId);
 
   updatedData
@@ -162,6 +165,8 @@ export async function updateRestaurantInfo(
     .catch((error) => {
       console.error("Update review failed!", error);
     });
+  }
+  else return new Error("Only Admin can update the restaurant's info");
 }
 
 //remove restaurant
