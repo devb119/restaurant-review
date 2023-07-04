@@ -10,6 +10,7 @@ import { useAuth } from "./hooks/useAuth";
 import { searchOption } from "./models/enum/searchOption";
 import ManageMenu from "./pages/manage_restaurant/ManageMenu";
 import { Dialog } from "./components/common";
+import Admin from "./pages/admin/Admin";
 
 export const searchContext = React.createContext({query: "", searchOption: searchOption.RestaurantSearch});
 
@@ -68,7 +69,8 @@ function App() {
           </Route>
           
           <Route path="/" element={ <Home getQuery={ getQueryDataHandler } /> }>
-            <Route path="manage-menu" element={<ManageMenu></ManageMenu>}></Route>
+              <Route path="admin" element={<Admin></Admin>}></Route>
+              <Route path="manage-menu" element={<ManageMenu></ManageMenu>}></Route>
               <Route path="" element={<JapaneseFavourites />}></Route>
               <Route path="japanese-favorites" element={<JapaneseFavourites />} />
               <Route
@@ -80,8 +82,8 @@ function App() {
                 path="search"
                 element={<SearchPage/>}
               ></Route>
-            </Route>
-          
+          </Route>
+            
           <Route path="*" element={<NotFound />}></Route>
         </Routes>
         <Dialog></Dialog>

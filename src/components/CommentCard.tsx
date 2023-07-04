@@ -25,7 +25,9 @@ const CommentCard = (props: Props) => {
     if (props.review) {
       getUserByDocId(props.review.user_id).then((user) => setCommentUser(user));
     } else if (props.foodReview) {
-      // getUserByDocId(props.foodReview)
+      getUserByDocId(props.foodReview.user_id).then((user) =>
+        setCommentUser(user)
+      );
     }
   }, []);
   return (
@@ -93,10 +95,18 @@ const CommentCard = (props: Props) => {
               }
             })}
           </div>
-          {/* <div className="flex gap-5 mb-6">
-            <img className="w-32 aspect-[4/3]" src="/img/buncha.jpg" />
-            <img className="w-32 aspect-[4/3]" src="/img/buncha.jpg" />
-          </div> */}
+          {props.review || props.foodReview ? (
+            <div className="flex gap-5 mb-6">
+              <img
+                className="w-32 aspect-[4/3]"
+                src={
+                  isRestaurant
+                    ? props.review?.image_url
+                    : props.foodReview?.image_url
+                }
+              />
+            </div>
+          ) : null}
           <div className="mb-8">
             {isRestaurant
               ? props.review?.about_quality
