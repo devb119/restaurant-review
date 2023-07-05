@@ -1,14 +1,17 @@
 import React from "react";
 import { RestaurantCard, Section } from "../../components";
-import { getRestaurantsByName } from "../../services/RestaurantApi";
+import { getActiveRestaurants, getRestaurantsByName } from "../../services/RestaurantApi";
 import { Loading } from "../../components/common";
+import Restaurant from "../../models/restaurants";
 
 function Restaurants() {
   const [loading, setLoading] = React.useState(true);
   const [restaurantLists, setRestaurantLists] = React.useState<any>([]);
   React.useEffect(() => {
     getRestaurantsByName("")
-      .then((res) => setRestaurantLists(res.slice(0, 5)))
+      .then((res ) => {
+        setRestaurantLists(res.filter((e) => e.is_active == true).slice(0, 5))
+      })
       .catch((err) => console.log(err))
       .finally(() => {
         setLoading(false);

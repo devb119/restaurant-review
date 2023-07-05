@@ -27,6 +27,20 @@ export async function getRestaurantsByName(name: string) {
   }));
 }
 
+//get active restaurants
+export async function getActiveRestaurants() {
+  const data = await firestore
+    .collection("restaurants")
+    .where("is_active", "==", true)
+    .orderBy("rating", "desc")
+    .get();
+
+  return data.docs.map((item) => ({
+    ...item.data(),
+    created_at: new Date(item.data().created_at.seconds * 1000)
+  }));
+}
+
 export async function getRestaurantById(id: string) {
   const data = await firestore
     .collection("restaurants")
@@ -138,18 +152,7 @@ export function deleteAllCollection(path: string) {
   });
 }
 
-//get active restaurants
-export async function getActiveRestaurants() {
-  const data = await firestore
-    .collection("restaurants")
-    .where("is_active", "!=", false)
-    .orderBy("rating", "desc")
-    .get();
 
-  return data.docs.map((item) => ({
-    ...item.data(),
-  }));
-}
 
 //update restaurant info
 export async function updateRestaurantInfo(
