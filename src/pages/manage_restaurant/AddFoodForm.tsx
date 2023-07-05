@@ -15,9 +15,11 @@ import { createFood } from "../../services/FoodApi";
 
 interface Props {
   setOpenModal: (value: boolean | ((prevVar: boolean) => boolean)) => void;
+  foods: Food[];
+  setFoods: (value: Food[] | ((prevVar: Food[]) => Food[])) => void;
 }
 
-const AddFoodForm = ({ setOpenModal }: Props) => {
+const AddFoodForm = ({ setOpenModal, foods, setFoods }: Props) => {
   const inputFile = useRef<HTMLInputElement>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
@@ -63,6 +65,7 @@ const AddFoodForm = ({ setOpenModal }: Props) => {
           setMessage("追加できました。");
           setTimeout(() => setLoading(false), 2000);
           setTimeout(() => setOpenModal(false), 2000);
+          setFoods([...foods, food]);
         });
       }
     }
