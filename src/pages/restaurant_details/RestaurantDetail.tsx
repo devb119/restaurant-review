@@ -59,8 +59,8 @@ function RestaurantDetail() {
          
             {user?.role == UserRole.Admin && createPortal(
               restaurant.is_active == false ? 
-              <p className="text-white text-sm z-20 w-full fixed top-20 py-5 px-3 bg-red-500">Đang xem ở chế độ admin. Request của nhà hàng này chưa được duyệt. Quay lại trang admin</p>
-              : <p className="text-white text-sm z-20 w-full fixed top-20 py-5 px-3 bg-green-600">Đang xem ở chế độ admin. Quay lại trang admin</p>
+              <p className="text-white text-xl z-20 w-full fixed top-20 py-5 px-3 bg-red-500">アドミンとして見ています。このレストランのリクエストをまだ承認されていません</p>
+              : <p className="text-white text-xl z-20 w-full fixed top-20 py-5 px-3 bg-green-600">アドミンとして見ています。スターテスを変更したい場合、管理ページでしてください。</p>
               ,
               noti
             )}
