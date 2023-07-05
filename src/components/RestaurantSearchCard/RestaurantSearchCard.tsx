@@ -20,12 +20,12 @@ const RestaurantSearch = ({ restaurant, searchOption, searchKeyword }: { restaur
     getFoodsByRestaurant(restaurant.food_list)
       .then((res) => {
         // console.log(res);
-        if(searchOption === Option.RestaurantSearch && res.length>0) {
-          setTop2(res.sort((r1, r2) => r2!.rating - r1!.rating).slice(0, 2) as Food[]);
+        if(searchOption === Option.RestaurantSearch) {
+          setTop2(res.sort((r1, r2) => r2?.rating - r1?.rating).slice(0, 2) as Food[]);
         }
         else if(searchOption === Option.FoodSearch && res.length>0) {
           const suitableFoodList = res.filter((e) => {
-            if(e!.name.toLowerCase().includes(searchKeyword.toLowerCase().trim()) === true) {
+            if(e?.name.toLowerCase().includes(searchKeyword.toLowerCase().trim()) === true) {
             return e;
           }});
          
@@ -33,14 +33,14 @@ const RestaurantSearch = ({ restaurant, searchOption, searchKeyword }: { restaur
             const displayFood = [];
             displayFood.push(suitableFoodList[0]);
             displayFood.push(...res.filter((e) => {
-              if(e!.name !== suitableFoodList[0]!.name) 
+              if(e?.name !== suitableFoodList[0]?.name) 
                 return e;
               })
-              .sort((r1, r2) => r2!.rating - r1!.rating).slice(0, 1));
+              .sort((r1, r2) => r2?.rating - r1?.rating).slice(0, 1));
            
             setTop2(displayFood as Food[]);
           } else {
-            setTop2(suitableFoodList.sort((r1, r2) => r2!.rating - r1!.rating).slice(0, 2) as Food[]);
+            setTop2(suitableFoodList.sort((r1, r2) => r2?.rating - r1?.rating).slice(0, 2) as Food[]);
           }
         }
       })
@@ -120,7 +120,7 @@ const RestaurantSearch = ({ restaurant, searchOption, searchKeyword }: { restaur
                         <div className="flex flex-row items-center">
                           <p className="py-1 font-semibold text-md">  {e && e.name ? e.name : ""}</p>
                           <div className="flex items-center ml-4">
-                            <p className="font-thin text-sm">( {e.rating}</p>
+                            <p className="font-thin text-sm">( {e?.rating}</p>
                               <span className="font-extrathin text-sm text-yellow-500 px-1">
                                 <FaStar ></FaStar>
                               </span>
@@ -129,7 +129,7 @@ const RestaurantSearch = ({ restaurant, searchOption, searchKeyword }: { restaur
                         </div>
                         <div className="h-1/2 rounded-md">
                           <div className="w-80 h-52 overflow-hidden">
-                            <img src={e.image} className="animation-on-hovering-image w-80 h-52" onClick={() => {
+                            <img src={e?.image} className="animation-on-hovering-image w-80 h-52" onClick={() => {
                               navigate(`/restaurants/${id}`);
                             }}></img>
                           </div>
