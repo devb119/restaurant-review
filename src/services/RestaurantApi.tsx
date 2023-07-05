@@ -73,13 +73,16 @@ export async function getRestaurantByDocId(docId: string) {
 }
 
 export async function getFoodsByRestaurant(foodList: Array<string>) {
-  const data = await firestore
+  const list = [];
+  for(let i = 0; i< foodList.length; i++) {
+    const data = await firestore
     .collection("Foods")
-    .where("id", "in", foodList)
+    .doc(foodList[i])
     .get();
-  return data.docs.map((item) => ({
-    ...item.data(),
-  }));
+    list.push(data.data());
+  }
+  console.log(list);
+  return list;
 }
 
 export async function generateDummyRestaurant(n: number) {
