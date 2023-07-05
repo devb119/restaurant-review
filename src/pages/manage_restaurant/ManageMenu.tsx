@@ -9,12 +9,10 @@ import { UserRole } from "../../models/enum";
 import { NoRestaurant, Unauthorized } from "..";
 import { Loading } from "../../components/common";
 import AddFoodForm from "./AddFoodForm";
-import { AiOutlinePlusCircle } from "react-icons/ai";
 
 function ManageMenu() {
   const [restaurant, setRestaurant] = useState<Restaurant | undefined>();
   const [loading, setLoading] = useState<boolean>(true);
-  const [modalOpen, setModalOpen] = useState<boolean>(false);
   const user = useSelector((state: RootState) => state.user.user);
 
   useEffect(() => {
@@ -34,12 +32,12 @@ function ManageMenu() {
 
   return (
     <div className="">
-      <div className="flex flex-wrap bg-white relative">
+      <div className="flex flex-wrap ">
         <div>
           <Sidebar></Sidebar>
         </div>
 
-        <div
+        {/* <div
           className="absolute top-0 right-0 text-white w-40 bg-red-500 rounded-full px-2 py-2 cursor-pointer"
           onClick={() => setModalOpen(true)}
         >
@@ -47,8 +45,7 @@ function ManageMenu() {
           <span className="text-2xl font-bold ml-2 inline-block translate-y-1">
             作成
           </span>
-        </div>
-        {modalOpen && <AddFoodForm setOpenModal={setModalOpen} />}
+        </div> */}
         {loading ? (
           <div className="m-auto">
             {" "}

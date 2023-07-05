@@ -15,9 +15,11 @@ import { createFood } from "../../services/FoodApi";
 
 interface Props {
   setOpenModal: (value: boolean | ((prevVar: boolean) => boolean)) => void;
+  foods: Food[];
+  setFoods: (value: Food[] | ((prevVar: Food[]) => Food[])) => void;
 }
 
-const AddFoodForm = ({ setOpenModal }: Props) => {
+const AddFoodForm = ({ setOpenModal, foods, setFoods }: Props) => {
   const inputFile = useRef<HTMLInputElement>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
@@ -41,31 +43,36 @@ const AddFoodForm = ({ setOpenModal }: Props) => {
       return;
     } else {
       const restaurant = getRestaurantByManagerId(user?.id || "");
-      console.log(user?.email);
-      const uploadImg = imageUploader(user?.email + "/reviews/", selectedImage);
+      if (user) {
+        const uploadImg = imageUploader(
+          user?.email + "/reviews/",
+          selectedImage
+        );
 
-      Promise.all([uploadImg, restaurant]).then((result) => {
-        setLoading(true);
-        const food: Food = {
-          restaurant_id: result[1].id || "",
-          name: foodName,
-          rating: 0,
-          description: description,
-          price: price,
-          created_at: new Date(),
-          updated_at: new Date(),
-          image: String(result[0]),
-        };
-        createFood(food);
-        setMessage("追加できました。");
-        setTimeout(() => setLoading(false), 2000);
-        setTimeout(() => setOpenModal(false), 2000);
-      });
+        Promise.all([uploadImg, restaurant]).then((result) => {
+          setLoading(true);
+          const food: Food = {
+            restaurant_id: result[1].id || "",
+            name: foodName,
+            rating: 0,
+            description: description,
+            price: price,
+            created_at: new Date(),
+            updated_at: new Date(),
+            image: String(result[0]),
+          };
+          createFood(food);
+          setMessage("追加できました。");
+          setTimeout(() => setLoading(false), 2000);
+          setTimeout(() => setOpenModal(false), 2000);
+          setFoods([...foods, food]);
+        });
+      }
     }
   };
 
   return (
-    <div className="w-screen h-screen fixed top-0 left-0 bg-gray z-[1300] overflow-scroll">
+    <div className="w-screen h-screen fixed top-0 left-0 bg-opacity-40 bg-neutral-600 z-[1300] overflow-scroll">
       <div className="mx-auto my-12 w-1/2 min-h-[685px] bg-cream relative rounded-xl p-12">
         <div className="w-8 absolute top-6 right-6 text-xs">
           <button
