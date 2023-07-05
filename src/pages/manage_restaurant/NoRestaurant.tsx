@@ -110,6 +110,7 @@ function RestaurantRequestForm({
           image: imgUrl,
           license_image: licenseUrl,
           manager_id: user.id,
+          created_at: new Date(),
         };
         const res = await createRestaurant(restaurantWithTime);
         setIsLoading(false);
