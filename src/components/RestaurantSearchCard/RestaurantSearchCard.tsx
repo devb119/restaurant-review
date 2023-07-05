@@ -9,6 +9,7 @@ import { TbPlayerTrackNextFilled } from "react-icons/tb";
 import { useNavigate } from "react-router-dom";
 import { searchOption as Option } from "../../models/enum/searchOption";
 import Food from "../../models/foods";
+import { getFoodsByRestaurantId } from "../../services/FoodApi";
 
 const RestaurantSearch = ({ restaurant, searchOption, searchKeyword }: { restaurant: Restaurant, searchOption: number, searchKeyword: string }) => {
   const { id, name, address, image, rating } = restaurant;
@@ -17,9 +18,9 @@ const RestaurantSearch = ({ restaurant, searchOption, searchKeyword }: { restaur
 
   React.useEffect(() => {
     setLoading(true);
-    getFoodsByRestaurant(restaurant.food_list)
+    getFoodsByRestaurantId(restaurant.id ? restaurant.id : "")
       .then((res) => {
-        // console.log(res);
+        console.log(res);
         if(searchOption === Option.RestaurantSearch) {
           setTop2(res.sort((r1, r2) => r2?.rating - r1?.rating).slice(0, 2) as Food[]);
         }

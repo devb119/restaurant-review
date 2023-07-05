@@ -227,3 +227,4 @@ export async function getRestaurantIdsByFoodName(name: string) {
 
   return restaurantIdList;
 }
+
