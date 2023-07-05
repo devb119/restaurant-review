@@ -50,13 +50,13 @@ function RestaurantDetail() {
               <img className="rounded-3xl h-600 w-full" src={image}></img>
             </div>
 
-            <div className=" text-2xl font-bold text-left mb-4">Food Description:</div>
+            <div className=" text-2xl font-bold text-left mb-4">ディスクリプション:</div>
             <div className="p-4 bg-slate-200 rounded-3xl mb-10">
               
               <p className="text-left"> {description}</p>
             </div>
           </div>
-          <div className=" text-2xl font-bold text-left mb-[-1rem]">Review Section: </div>
+          <div className=" text-2xl font-bold text-left mb-[-1rem]">レビュー:</div>
 
           <FoodReviewSection id={id} />
         </div>

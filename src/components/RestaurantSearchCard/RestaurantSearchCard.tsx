@@ -115,7 +115,7 @@ const RestaurantSearch = ({ restaurant, searchOption, searchKeyword }: { restaur
                     おすすめ:
                   </div>
                   <div className="flex gap-8 items-end">
-                    {top2.map((e: Food) => (
+                    {top2.length && top2.map((e: Food) => (
                       <div key={e.name} className="" >
                         <div className="flex flex-row items-center">
                           <p className="py-1 font-semibold text-md">{e.name}</p>
