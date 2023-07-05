@@ -118,7 +118,7 @@ const RestaurantSearch = ({ restaurant, searchOption, searchKeyword }: { restaur
                     {top2.map((e: Food) => (
                       <div key={e.name} className="" >
                         <div className="flex flex-row items-center">
-                          <p className="py-1 font-semibold text-md">{e.name}</p>
+                          <p className="py-1 font-semibold text-md">  {e.name ? e.name : ""}</p>
                           <div className="flex items-center ml-4">
                             <p className="font-thin text-sm">( {e.rating}</p>
                               <span className="font-extrathin text-sm text-yellow-500 px-1">

@@ -178,7 +178,7 @@ const Admin = () => {
                                                     {(index + 1) + (currentPage - 1) * 5}
                                                 </th>
                                                 <td className="px-6 py-4">
-                                                {e.name}
+                                                {e.name ? e.name : ""}
                                                 </td>
                                                 <td className="px-6 py-4">
                                                     {e.managerFullName}
