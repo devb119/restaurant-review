@@ -23,12 +23,12 @@ const StatusUpdate = ({
   const [popUpAlert, setPopUpAlert] = useState<boolean>(false);
   const user = useAuth();
   const statusUpdateHandler = () => {
-    if (user?.role && restaurant.id) {
+    if ( restaurant.id) {
       restaurant.is_active = !restaurant.is_active;
       const update = updateRestaurantInfo(
         restaurant.id,
         restaurant,
-        user?.role
+        user?.role ? user?.role : 0
       ).then((res) => {
         if (res) {
           setPopUpAlert(true);
