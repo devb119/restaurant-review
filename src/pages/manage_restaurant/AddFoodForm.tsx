@@ -157,7 +157,7 @@ const AddFoodForm = ({ setOpenModal, foods, setFoods }: Props) => {
           </div>
         </div>
         <div>
-          <h2>{message}</h2>
+          <h2 className="text-md text-mainShade m-2">{message}</h2>
         </div>
         <div className="w-full text-center mt-20">
           <button
