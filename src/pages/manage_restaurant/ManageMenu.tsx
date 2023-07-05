@@ -13,7 +13,6 @@ import AddFoodForm from "./AddFoodForm";
 function ManageMenu() {
   const [restaurant, setRestaurant] = useState<Restaurant | undefined>();
   const [loading, setLoading] = useState<boolean>(true);
-  const [modalOpen, setModalOpen] = useState<boolean>(false);
   const user = useSelector((state: RootState) => state.user.user);
 
   useEffect(() => {
@@ -47,7 +46,6 @@ function ManageMenu() {
             作成
           </span>
         </div> */}
-        {modalOpen && <AddFoodForm setOpenModal={setModalOpen} />}
         {loading ? (
           <div className="m-auto">
             {" "}
@@ -57,10 +55,7 @@ function ManageMenu() {
           <div className="-mt-20 flex-1">
             {user?.role === UserRole.RestaurantManager ? (
               restaurant && restaurant.id ? (
-                <MenuTable
-                  restaurantId={restaurant.id}
-                  setOpenModal={setModalOpen}
-                />
+                <MenuTable restaurantId={restaurant.id} />
               ) : (
                 <NoRestaurant />
               )

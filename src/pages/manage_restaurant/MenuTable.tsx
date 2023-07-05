@@ -9,8 +9,9 @@ import { MdOutlineAddCircleOutline } from "react-icons/md";
 import { LuEdit } from "react-icons/lu";
 import AddFood from "./AddFood";
 import { FaStar } from "react-icons/fa";
-import { NavigateFunction, } from "react-router-dom";
+import { NavigateFunction } from "react-router-dom";
 import { HeadCell } from "../../components/common/TablePager";
+import AddFoodForm from "./AddFoodForm";
 interface Data {
   id?: string;
   name: JSX.Element;
@@ -78,7 +79,6 @@ const DeleteEditAction = ({
   );
 };
 
-
 const headCells: readonly HeadCell<Data>[] = [
   {
     id: "name",
@@ -120,11 +120,10 @@ const headCells: readonly HeadCell<Data>[] = [
 
 export interface IMenuTableProps {
   restaurantId: string;
-  setOpenModal: (value: boolean | ((prevVar: boolean) => boolean)) => void;
 }
 
 export default function MenuTable(props: IMenuTableProps) {
-  const { restaurantId, setOpenModal } = props;
+  const { restaurantId } = props;
   const [foods, setFoods] = React.useState<Food[]>([]);
   const [display, setDisplay] = React.useState<Food[]>([]);
   // const [order, setOrder] = React.useState<Order>("asc");
@@ -133,6 +132,7 @@ export default function MenuTable(props: IMenuTableProps) {
   const [openCreateFood, setOpenCreateFood] = React.useState<boolean>(false);
   const searchKey = "name";
   const [searchText, setSearchText] = React.useState<string>("");
+  const [modalOpen, setModalOpen] = React.useState<boolean>(false);
 
   const dispatch = useDispatch();
 
@@ -212,12 +212,19 @@ export default function MenuTable(props: IMenuTableProps) {
     return (
       <>
         <button
-          onClick={() => setOpenModal(true)}
+          onClick={() => setModalOpen(true)}
           className="bg-main p-2 px-4 cursor-pointer rounded-2xl text-white font-bold flex items-center"
         >
           <MdOutlineAddCircleOutline className="text-white text-2xl fill-white mx-2 "></MdOutlineAddCircleOutline>
           作成
         </button>
+        {modalOpen && (
+          <AddFoodForm
+            setOpenModal={setModalOpen}
+            foods={foods}
+            setFoods={setFoods}
+          />
+        )}
         <Popup
           title="料理を追加"
           open={openCreateFood}
