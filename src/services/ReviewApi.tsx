@@ -34,7 +34,7 @@ export async function getReviewsByRestaurantId(restaurantId: string) {
   const data = await firestore
     .collection("reviews")
     .where("restaurant_id", "==", restaurantId)
-    .orderBy("star", "desc")
+    .orderBy("created_at", "desc")
     .get();
   return data.docs.map((item) => ({
     ...item.data(),
