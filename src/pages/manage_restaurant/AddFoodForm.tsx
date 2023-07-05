@@ -9,7 +9,7 @@ import { imageUploader } from "../../services/ImageUploader";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import Food from "../../models/foods";
-import { getRestaurantByManagerId } from "../../services/RestaurantApi";
+import {  addMenuToRestaurant, getRestaurantByManagerId } from "../../services/RestaurantApi";
 import Restaurant from "../../models/restaurants";
 import { createFood } from "../../services/FoodApi";
 
