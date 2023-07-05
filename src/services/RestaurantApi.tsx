@@ -66,6 +66,17 @@ export async function getRestaurants(pageNum: number, numPerPage: number) {
   }
 }
 
+export async function getAllRestaurantsFromDB() {
+  const data = await firestore
+    .collection("restaurants")
+    .orderBy("created_at", "desc")
+    .get();
+  return data.docs.map((item) => ({
+    ...item.data(),
+    created_at: new Date(item.data().created_at.seconds * 1000),
+  }));
+}
+
 //get by doc id cho no unique
 export async function getRestaurantByDocId(docId: string) {
   const data = await firestore.collection("restaurants").doc(docId).get();
