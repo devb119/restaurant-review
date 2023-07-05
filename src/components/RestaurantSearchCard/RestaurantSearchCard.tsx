@@ -23,7 +23,7 @@ const RestaurantSearch = ({ restaurant, searchOption, searchKeyword }: { restaur
         if(searchOption === Option.RestaurantSearch) {
           setTop2(res.sort((r1, r2) => r2?.rating - r1?.rating).slice(0, 2) as Food[]);
         }
-        else if(searchOption === Option.FoodSearch) {
+        else if(searchOption === Option.FoodSearch && res.length>0) {
           const suitableFoodList = res.filter((e) => {
             if(e?.name.toLowerCase().includes(searchKeyword.toLowerCase().trim()) === true) {
             return e;
@@ -115,10 +115,10 @@ const RestaurantSearch = ({ restaurant, searchOption, searchKeyword }: { restaur
                     おすすめ:
                   </div>
                   <div className="flex gap-8 items-end">
-                    {top2.length && top2.map((e: Food) => (
-                      <div key={e?.name} className="" >
+                    {top2.length>0 ? top2.map((e: Food) => (
+                      <div key={e.name} className="" >
                         <div className="flex flex-row items-center">
-                          <p className="py-1 font-semibold text-md">  {e?.name ? e.name : ""}</p>
+                          <p className="py-1 font-semibold text-md">  {e && e.name ? e.name : ""}</p>
                           <div className="flex items-center ml-4">
                             <p className="font-thin text-sm">( {e?.rating}</p>
                               <span className="font-extrathin text-sm text-yellow-500 px-1">
@@ -135,7 +135,7 @@ const RestaurantSearch = ({ restaurant, searchOption, searchKeyword }: { restaur
                           </div>
                         </div>
                       </div>
-                    ))}
+                    )): <div>データがありません。</div>}
                   </div>
                 </div>
               </div>
