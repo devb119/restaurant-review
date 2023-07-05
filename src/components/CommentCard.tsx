@@ -95,7 +95,7 @@ const CommentCard = (props: Props) => {
               }
             })}
           </div>
-          {props.review || props.foodReview ? (
+          {props.review?.image_url || props.foodReview?.image_url ? (
             <div className="flex gap-5 mb-6">
               <img
                 className="w-32 aspect-[4/3]"
