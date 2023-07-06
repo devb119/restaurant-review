@@ -61,11 +61,12 @@ const AddFoodForm = ({ setOpenModal, foods, setFoods }: Props) => {
             updated_at: new Date(),
             image: String(result[0]),
           };
-          createFood(food);
-          setMessage("追加できました。");
-          setTimeout(() => setLoading(false), 2000);
-          setTimeout(() => setOpenModal(false), 2000);
-          setFoods([...foods, food]);
+          createFood(food).then(() => {
+            setMessage("追加できました。");
+            setLoading(false);
+            setOpenModal(false);
+            setFoods([...foods, food]);
+          });
         });
       }
     }

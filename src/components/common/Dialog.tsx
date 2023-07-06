@@ -35,7 +35,7 @@ export default function AlertDialogSlide() {
             オーケー
           </button>
           <button
-            className="text-white font-semibold bg-green-600 p-2 px-4 rounded-lg"
+            className=" font-semibold border border-main text-black  p-2 px-4 rounded-lg"
             onClick={() => {
               dispatch(closeDialog());
             }}
