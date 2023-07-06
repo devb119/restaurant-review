@@ -83,6 +83,8 @@ function RestaurantRequestForm({
       ...restaurant,
       open_at: openTime,
       close_at: closeTime,
+      manager_id: user ? user.id : "",
+      created_at: new Date(Date.now()),
     };
     // Implement validation here
     if (!restaurantImg || !licenseImg) {

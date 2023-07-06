@@ -4,6 +4,7 @@ import AdminSideBar from "./AdminSideBar";
 // import { Unauthorized } from "..";
 // import { UserRole } from "../../models/enum";
 import {
+  getAllRestaurantsFromDB,
   getRestaurantsByName,
 } from "../../services/RestaurantApi";
 import Restaurant from "../../models/restaurants";
@@ -35,8 +36,10 @@ const Admin = () => {
     setLoading(true);
 
     async function getAllRestaurants(name: string) {
-      let data : any = await getRestaurantsByName();
-      const managerData : any = await getAllUsers();
+
+      let data: any = await getAllRestaurantsFromDB();
+      const managerData: any = await getAllUsers();
+      
       data = data.filter((e: Restaurant) =>
         e.name.toLowerCase().includes(name.trim().toLowerCase())
       );

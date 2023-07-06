@@ -49,9 +49,10 @@ const DeleteEditAction = ({
       setDialog({
         open: true,
         title: "変更確認",
-        text: "これらの変更を保存しますか?",
+        text: "この機能はまだできません",
         handleClickYes: () => {
-          deleteFood(food_id);
+          // deleteFood(food_id);
+          dispatch(closeDialog())
         },
       })
     );
@@ -59,14 +60,14 @@ const DeleteEditAction = ({
 
   return (
     <div className="flex items-center">
-      <button
+      {/* <button
         className="text-blue-800 p-2"
         onClick={() => {
           showEditMenuPopUp();
         }}
       >
         <LuEdit className="text-base"></LuEdit>
-      </button>
+      </button> */}
       <button
         className="text-main p-2"
         onClick={() => {

@@ -16,7 +16,7 @@ export async function createRestaurant(restaurant: Restaurant) {
 export async function getRestaurantsByName() {
   const data = await firestore
     .collection("restaurants")
-    .orderBy("created_at", "desc")
+    .orderBy("rating", "desc")
     // .where("name", ">=", name)
     // .where("name", "<=", name + "\uf8ff")
     .get();
@@ -80,6 +80,17 @@ export async function getRestaurants(pageNum: number, numPerPage: number) {
   }
 }
 
+export async function getAllRestaurantsFromDB() {
+  const data = await firestore
+    .collection("restaurants")
+    .orderBy("created_at", "desc")
+    .get();
+  return data.docs.map((item) => ({
+    ...item.data(),
+    created_at: new Date(item.data().created_at.seconds * 1000),
+  }));
+}
+
 //get by doc id cho no unique
 export async function getRestaurantByDocId(docId: string) {
   const data = await firestore.collection("restaurants").doc(docId).get();
@@ -88,11 +99,8 @@ export async function getRestaurantByDocId(docId: string) {
 
 export async function getFoodsByRestaurant(foodList: Array<string>) {
   const list = [];
-  for(let i = 0; i< foodList.length; i++) {
-    const data = await firestore
-    .collection("Foods")
-    .doc(foodList[i])
-    .get();
+  for (let i = 0; i < foodList.length; i++) {
+    const data = await firestore.collection("Foods").doc(foodList[i]).get();
     list.push(data.data());
   }
   // console.log(list);
@@ -160,19 +168,18 @@ export async function updateRestaurantInfo(
   restaurantInfo: Restaurant,
   user_role: UserRole
 ) {
-  if(user_role === UserRole.Admin)  {
-  const updatedData = await firestore.collection("restaurants").doc(docId);
+  if (user_role === UserRole.Admin) {
+    const updatedData = await firestore.collection("restaurants").doc(docId);
 
-  updatedData
-    .update(restaurantInfo)
-    .then(() => {
-      console.log("Update successfully!");
-    })
-    .catch((error) => {
-      console.error("Update review failed!", error);
-    });
-  }
-  else return new Error("Only Admin can update the restaurant's info");
+    updatedData
+      .update(restaurantInfo)
+      .then(() => {
+        console.log("Update successfully!");
+      })
+      .catch((error) => {
+        console.error("Update review failed!", error);
+      });
+  } else return new Error("Only Admin can update the restaurant's info");
 }
 
 //remove restaurant
