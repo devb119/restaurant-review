@@ -13,7 +13,7 @@ export async function createRestaurant(restaurant: Restaurant) {
 }
 
 //get all by 1 ca1 gi do ko unique
-export async function getRestaurantsByName(name: string) {
+export async function getRestaurantsByName() {
   const data = await firestore
     .collection("restaurants")
     .orderBy("created_at", "desc")
@@ -95,7 +95,7 @@ export async function getFoodsByRestaurant(foodList: Array<string>) {
     .get();
     list.push(data.data());
   }
-  console.log(list);
+  // console.log(list);
   return list;
 }
 

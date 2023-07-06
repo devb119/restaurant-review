@@ -1,16 +1,12 @@
-import { useContext, useRef, useState } from "react";
+import {  useRef, useState } from "react";
 import { FaCamera } from "react-icons/fa";
-import Rate from "../../components/Rate";
-import Review from "../../models/reviews";
-import { createNewReview } from "../../services/ReviewApi";
 import { Loading } from "../../components/common";
 import { FiX } from "react-icons/fi";
 import { imageUploader } from "../../services/ImageUploader";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import Food from "../../models/foods";
-import {  addMenuToRestaurant, getRestaurantByManagerId } from "../../services/RestaurantApi";
-import Restaurant from "../../models/restaurants";
+import {   getRestaurantByManagerId } from "../../services/RestaurantApi";
 import { createFood } from "../../services/FoodApi";
 
 interface Props {

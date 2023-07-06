@@ -41,15 +41,15 @@ const ReviewSection = (props: Props) => {
     if (!props.id) return;
     const data = await getReviewsByRestaurantId(props.id);
     setLoading(false);
-    console.log(data);
-    console.log(
-      data.sort(function (a, b) {
-        if (b.created_at && a.created_at) {
-          console.log(b.created_at, a.created_at);
-          return b.created_at.getTime() - a.created_at.getTime();
-        } else return 0;
-      })
-    );
+    // console.log(data);
+    // console.log(
+    //   data.sort(function (a, b) {
+    //     if (b.created_at && a.created_at) {
+    //       console.log(b.created_at, a.created_at);
+    //       return b.created_at.getTime() - a.created_at.getTime();
+    //     } else return 0;
+    //   })
+    // );
     setReviewList(data as Review[]);
   }, [props.id]);
 

@@ -134,7 +134,7 @@ export default function EnhancedTable<T extends { id?: string }>(
   ) => {
     const isAsc = orderBy === property && order === "asc";
     setOrder(isAsc ? "desc" : "asc");
-    console.log("change");
+    // console.log("change");
 
     // setOrderBy(property);
   };

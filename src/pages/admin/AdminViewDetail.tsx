@@ -1,36 +1,10 @@
-import { useEffect, useState } from "react";
 import {
   ButtonPrimary,
-  ButtonSecondary,
-  Loading,
 } from "../../components/common";
 import { Backdrop } from "@mui/material";
-import { BsArrowRight, BsUpload } from "react-icons/bs";
-import { AiOutlineClose } from "react-icons/ai";
-import Restaurant, { validateRestaurant } from "../../models/restaurants";
-import { imageUploader } from "../../services/ImageUploader";
-import { useSelector } from "react-redux";
-import { RootState } from "../../redux/store";
-import { createRestaurant } from "../../services/RestaurantApi";
-import { useNavigate } from "react-router-dom";
-import AdminSideBar from "./AdminSideBar";
+import { BsArrowRight} from "react-icons/bs";
+import Restaurant from "../../models/restaurants";
 
-const initialRestaurant: Restaurant = {
-  manager_id: "",
-  name: "",
-  description: "",
-  address: "",
-  website: "",
-  email: "",
-  phone: "",
-  image: "",
-  license_image: "",
-  food_list: [],
-  open_at: "",
-  close_at: "",
-  is_active: false,
-  rating: 0,
-};
 
 interface RestaurantRequestFormProps {
   openForm: boolean;
@@ -42,29 +16,9 @@ function RestaurantRequestForm({
   onCloseBtnClick,
   currentRestaurant,
 }: RestaurantRequestFormProps): JSX.Element {
-  const [restaurant, setRestaurant] = useState<Restaurant>(initialRestaurant);
-  const [activeHour, setActiveHour] = useState({
-    openHour: "",
-    openMinute: "",
-    closeHour: "",
-    closeMinute: "",
-  });
-  const [isLoading, setIsLoading] = useState(false);
-  const [restaurantImg, setRestaurantImg] = useState<File | null>(null);
-  const [previewRes, setPreviewRes] = useState("");
-  const [licenseImg, setLicenseImg] = useState<File | null>(null);
-  const [previewLicense, setPreviewLicense] = useState("");
-  const [message, setMessage] = useState("");
-
-  const user = useSelector((state: RootState) => state.user.user);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    return () => {
-      URL.revokeObjectURL(previewLicense);
-      URL.revokeObjectURL(previewRes);
-    };
-  }, [previewLicense, previewRes]);
+ 
+  
+  // const [message, setMessage] = useState("");
 
   return (
     <>
@@ -74,7 +28,7 @@ function RestaurantRequestForm({
       >
         <form className=" p-4 rounded-md bg-mainTint text-black jp w-3/5 min-w-0">
           <h2 className="mb-2 text-xl font-semibold">レストラン情報</h2>
-          <p className="h-8 text-main">{message}</p>
+          {/* <p className="h-8 text-main">{message}</p> */}
           <div className="flex gap-8 mb-8 items-stretch">
             <div className="flex flex-col gap-4 w-full">
               <div className="w-full flex flex-col">
@@ -87,9 +41,7 @@ function RestaurantRequestForm({
                   className="p-1 rounded"
                   value={currentRestaurant.name}
                   disabled
-                  onChange={(e) =>
-                    setRestaurant({ ...restaurant, name: e.target.value })
-                  }
+                 
                 />
               </div>
               <div className="w-full flex flex-col">
@@ -102,9 +54,7 @@ function RestaurantRequestForm({
                   className="p-1 rounded"
                   disabled
                   value={currentRestaurant.address}
-                  onChange={(e) =>
-                    setRestaurant({ ...restaurant, address: e.target.value })
-                  }
+                 
                 />
               </div>
               <div className="w-full flex flex-col">
@@ -117,9 +67,7 @@ function RestaurantRequestForm({
                   className="p-1 rounded"
                   disabled
                   value={currentRestaurant.website}
-                  onChange={(e) =>
-                    setRestaurant({ ...restaurant, website: e.target.value })
-                  }
+                  
                 />
               </div>
               <div className="w-full flex flex-col">
@@ -132,9 +80,7 @@ function RestaurantRequestForm({
                   className="p-1 rounded"
                   value={currentRestaurant.email}
                   disabled
-                  onChange={(e) =>
-                    setRestaurant({ ...restaurant, email: e.target.value })
-                  }
+                  
                 />
               </div>
               <div className="w-full flex flex-col">
@@ -147,9 +93,7 @@ function RestaurantRequestForm({
                   className="p-1 rounded"
                   value={currentRestaurant.phone}
                   disabled
-                  onChange={(e) =>
-                    setRestaurant({ ...restaurant, phone: e.target.value })
-                  }
+                  
                 />
               </div>
               <div className="w-full flex gap-8 items-center">
@@ -166,12 +110,7 @@ function RestaurantRequestForm({
                       className="p-1 rounded w-10"
                       value={7}
                       disabled
-                      onChange={(e) =>
-                        setActiveHour({
-                          ...activeHour,
-                          openHour: e.target.value,
-                        })
-                      }
+                      
                     />
                     <span>:</span>
                     <input
@@ -181,12 +120,7 @@ function RestaurantRequestForm({
                       className="p-1 rounded w-10"
                       value={30}
                       disabled
-                      onChange={(e) =>
-                        setActiveHour({
-                          ...activeHour,
-                          openMinute: e.target.value,
-                        })
-                      }
+                     
                     />
                     <span>AM</span>
                   </div>
@@ -207,12 +141,7 @@ function RestaurantRequestForm({
                       className="p-1 rounded w-10"
                       value={21}
                       disabled
-                      onChange={(e) =>
-                        setActiveHour({
-                          ...activeHour,
-                          closeHour: e.target.value,
-                        })
-                      }
+                    
                     />
                     <span>:</span>
                     <input
@@ -222,12 +151,7 @@ function RestaurantRequestForm({
                       className="p-1 rounded w-10"
                       value={10}
                       disabled
-                      onChange={(e) =>
-                        setActiveHour({
-                          ...activeHour,
-                          closeMinute: e.target.value,
-                        })
-                      }
+                     
                     />
                     <span>PM</span>
                   </div>
@@ -273,12 +197,7 @@ function RestaurantRequestForm({
                   className="p-1 rounded self-stretch h-full"
                   value={currentRestaurant.description}
                   disabled
-                  onChange={(e) =>
-                    setRestaurant({
-                      ...restaurant,
-                      description: e.target.value,
-                    })
-                  }
+                  
                 />
               </div>
             </div>
@@ -305,9 +224,7 @@ function AdminViewDetail({
   onClose: any;
   currentRestaurant: Restaurant;
 }): JSX.Element {
-  const [openForm, setOpenForm] = useState(true);
 
-  const handleOpenForm = () => setOpenForm(true);
   const handleCloseForm = () => {
     onClose(false);
   };
@@ -315,7 +232,7 @@ function AdminViewDetail({
   return (
     <>
       <RestaurantRequestForm
-        openForm={openForm}
+        openForm={true}
         onCloseBtnClick={handleCloseForm}
         currentRestaurant={currentRestaurant}
       />

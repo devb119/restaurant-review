@@ -41,7 +41,7 @@ function Sidebar() {
           <NavLink
             to={"/manage-coupon"}
             className={(isActive) => {
-              console.log(isActive);
+              // console.log(isActive);
               return isActive.isActive
                 ? "font-bold bg-orange-100 ml-2 w-48 m-1"
                 : "text-black font-bold ml-2 w-48 bg-white m-1";

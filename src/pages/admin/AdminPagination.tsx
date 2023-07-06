@@ -12,7 +12,7 @@ const AdminPagination = ({ restaurantsPerPage, totalRestaurants, paginate } : {r
         pageNumbers.push(i);
     }
 
-    const paginateHandler = (number : any) => {
+    const paginateHandler = (number : number) => {
         data.currentPage = number;
         paginate(number);
     }
