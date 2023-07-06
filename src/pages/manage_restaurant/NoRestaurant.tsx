@@ -114,7 +114,7 @@ function RestaurantRequestForm({
           manager_id: user.id,
           created_at: new Date(),
         };
-        const res = await createRestaurant(restaurantWithTime);
+        await createRestaurant(restaurantWithTime);
         setIsLoading(false);
         onCloseBtnClick();
         onSuccess();

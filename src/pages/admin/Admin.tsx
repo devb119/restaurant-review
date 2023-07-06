@@ -1,17 +1,15 @@
 import React, { useState } from "react";
 import { Loading } from "../../components/common";
 import AdminSideBar from "./AdminSideBar";
-import { Unauthorized } from "..";
-import { UserRole } from "../../models/enum";
+// import { Unauthorized } from "..";
+// import { UserRole } from "../../models/enum";
 import {
   getAllRestaurantsFromDB,
   getRestaurantsByName,
-  updateRestaurant,
 } from "../../services/RestaurantApi";
 import Restaurant from "../../models/restaurants";
 import {
   getAllUsers,
-  getManagerNameByRestaurantID,
 } from "../../services/UserApi";
 import AdminPagination from "./AdminPagination";
 import AdminPageOption from "./AdminPageOption";
@@ -38,9 +36,10 @@ const Admin = () => {
     setLoading(true);
 
     async function getAllRestaurants(name: string) {
+
       let data: any = await getAllRestaurantsFromDB();
       const managerData: any = await getAllUsers();
-      console.log(managerData);
+      
       data = data.filter((e: Restaurant) =>
         e.name.toLowerCase().includes(name.trim().toLowerCase())
       );
@@ -49,13 +48,11 @@ const Admin = () => {
         data[i].managerFullName = managerData.filter(
           (e: any) => e.id == data[i].manager_id
         )[0]?.fullname;
-        console.log(managerData.filter((e: any) => e.id == data[i].manager_id));
       }
       for (let i = 0; i < data.length; i++) {
         data[i].custom_created_at = data[i].created_at;
         // data[i].custom_created_at = new Date()
       }
-      console.log(data);
       setRestaurants(data);
       setLoading(false);
     }
@@ -67,7 +64,6 @@ const Admin = () => {
 
   const paginate = (pageNumber: number) => {
     setCurrentPage(pageNumber);
-    console.log(currentPage);
     window.scrollTo(0, 0);
   };
 

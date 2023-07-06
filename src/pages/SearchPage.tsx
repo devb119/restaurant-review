@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import RestaurantSearchCard from "../components/RestaurantSearchCard/RestaurantSearchCard";
 import PaginationSearch from "../components/PaginationSearch";
 import Restaurant from "../models/restaurants"
-import { getRestaurantsByName, getRestaurantIdsByFoodName, getActiveRestaurants } from "../services/RestaurantApi";
+import { getRestaurantsByName, getRestaurantIdsByFoodName } from "../services/RestaurantApi";
 import { searchOption as Option}  from "../models/enum/searchOption";
 import Footer from "../components/Footer";
 import { searchContext } from "../App";
@@ -17,9 +17,8 @@ const SearchPage = () => {
 
     React.useEffect(() => {
         async function getAllFood() {
-            let data : any = await getRestaurantsByName("");
+            let data : any = await getRestaurantsByName();
             data = data.filter((e : Restaurant) => e.is_active == true);
-            console.log(data);
             setAllFood(data);
             
         }

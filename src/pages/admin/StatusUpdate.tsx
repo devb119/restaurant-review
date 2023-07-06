@@ -4,7 +4,6 @@ import {
   HiOutlineEye,
 } from "react-icons/hi";
 import { MdCancel, MdOutlineCancel } from "react-icons/md";
-import { Link } from "react-router-dom";
 import { updateRestaurantInfo } from "../../services/RestaurantApi";
 import Restaurant from "../../models/restaurants";
 import { useState } from "react";

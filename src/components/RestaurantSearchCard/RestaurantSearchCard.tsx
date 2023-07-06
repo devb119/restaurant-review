@@ -20,7 +20,7 @@ const RestaurantSearch = ({ restaurant, searchOption, searchKeyword }: { restaur
     setLoading(true);
     getFoodsByRestaurantId(restaurant.id ? restaurant.id : "")
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         if(searchOption === Option.RestaurantSearch) {
           setTop2(res.sort((r1, r2) => r2?.rating - r1?.rating).slice(0, 2) as Food[]);
         }

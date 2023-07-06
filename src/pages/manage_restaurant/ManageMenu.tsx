@@ -8,7 +8,6 @@ import Restaurant from "../../models/restaurants";
 import { UserRole } from "../../models/enum";
 import { NoRestaurant, Unauthorized } from "..";
 import { Loading } from "../../components/common";
-import AddFoodForm from "./AddFoodForm";
 
 function ManageMenu() {
   const [restaurant, setRestaurant] = useState<Restaurant | undefined>();

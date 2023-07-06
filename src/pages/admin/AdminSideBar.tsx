@@ -2,7 +2,6 @@ import React from "react"
 import { Divider, Drawer, List, ListItem, ListItemButton } from "@mui/material";
 import { BiFoodMenu, BiUser } from "react-icons/bi";
 import { NavLink } from "react-router-dom";
-import { RiCoupon2Line } from "react-icons/ri";
 
 const AdminSideBar = () => {
     return(
