@@ -5,7 +5,6 @@ import AdminSideBar from "./AdminSideBar";
 // import { UserRole } from "../../models/enum";
 import {
   getAllRestaurantsFromDB,
-  getRestaurantsByName,
 } from "../../services/RestaurantApi";
 import Restaurant from "../../models/restaurants";
 import {

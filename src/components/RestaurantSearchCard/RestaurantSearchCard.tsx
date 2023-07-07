@@ -3,7 +3,6 @@ import "./RestaurantSearchCard.css";
 import Restaurant from "../../models/restaurants";
 import { FaStar } from "react-icons/fa";
 import { Loading } from "../common";
-import { getFoodsByRestaurant } from "../../services/RestaurantApi";
 import { HiOutlineLocationMarker } from "react-icons/hi";
 import { TbPlayerTrackNextFilled } from "react-icons/tb";
 import { useNavigate } from "react-router-dom";

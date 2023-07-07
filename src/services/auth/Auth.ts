@@ -15,6 +15,7 @@ export async function createUser(
     .then(async (userCredential) => {
       localStorage.setItem("user", JSON.stringify(userCredential.user));
       const newData = await firestore.collection("users").add(user);
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const updateDocId = await firestore
         .collection("users")
         .doc(newData.id)

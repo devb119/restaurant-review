@@ -6,7 +6,7 @@ import { closeDialog, setDialog } from "../../redux/dialog.reducer";
 import { getFoodsByRestaurantId, deleteFood } from "../../services/FoodApi";
 import { Popup, SearchBar, TablePager } from "../../components/common";
 import { MdOutlineAddCircleOutline } from "react-icons/md";
-import { LuEdit } from "react-icons/lu";
+// import { LuEdit } from "react-icons/lu";
 import AddFood from "./AddFood";
 import { FaStar } from "react-icons/fa";
 import { NavigateFunction } from "react-router-dom";
@@ -44,19 +44,19 @@ const DeleteEditAction = ({
     );
   };
 
-  const showEditMenuPopUp = () => {
-    dispatch(
-      setDialog({
-        open: true,
-        title: "変更確認",
-        text: "この機能はまだできません",
-        handleClickYes: () => {
-          // deleteFood(food_id);
-          dispatch(closeDialog())
-        },
-      })
-    );
-  };
+  // const showEditMenuPopUp = () => {
+  //   dispatch(
+  //     setDialog({
+  //       open: true,
+  //       title: "変更確認",
+  //       text: "この機能はまだできません",
+  //       handleClickYes: () => {
+  //         // deleteFood(food_id);
+  //         dispatch(closeDialog())
+  //       },
+  //     })
+  //   );
+  // };
 
   return (
     <div className="flex items-center">

@@ -122,6 +122,7 @@ export default function EnhancedTable<T extends { id?: string }>(
   const navigate = useNavigate();
 
   const [order, setOrder] = React.useState<Order>("asc");
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [selected, setSelected] = React.useState<T[]>([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
