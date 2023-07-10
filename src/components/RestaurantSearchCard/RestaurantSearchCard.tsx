@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./RestaurantSearchCard.css";
 import Restaurant from "../../models/restaurants";
 import { FaStar } from "react-icons/fa";
@@ -9,11 +9,13 @@ import { useNavigate } from "react-router-dom";
 import { searchOption as Option } from "../../models/enum/searchOption";
 import Food from "../../models/foods";
 import { getFoodsByRestaurantId } from "../../services/FoodApi";
+import { getReviewsByRestaurantId } from "../../services/ReviewApi";
 
 const RestaurantSearch = ({ restaurant, searchOption, searchKeyword }: { restaurant: Restaurant, searchOption: number, searchKeyword: string }) => {
-  const { id, name, address, image, rating } = restaurant;
+  const { id, name, address, image } = restaurant;
   const [loading, setLoading] = React.useState<boolean>(true);
   const [top2, setTop2] = React.useState<Food[]>([]);
+  const [rating, setRating] = useState(0);
 
   React.useEffect(() => {
     setLoading(true);
@@ -30,7 +32,7 @@ const RestaurantSearch = ({ restaurant, searchOption, searchKeyword }: { restaur
           }});
          
           if (suitableFoodList.length < 2) {
-            const displayFood = [];
+            const displayFood : any = [];
             displayFood.push(suitableFoodList[0]);
             displayFood.push(...res.filter((e) => {
               if(e?.name !== suitableFoodList[0]?.name) 
@@ -51,6 +53,21 @@ const RestaurantSearch = ({ restaurant, searchOption, searchKeyword }: { restaur
         setLoading(false);
       });
   }, [restaurant, searchOption, searchKeyword]);
+
+  React.useEffect(() => {
+    async function getAverageRating() {
+        const data : any = await getReviewsByRestaurantId(restaurant.id ? restaurant.id : "");
+        console.log(data);
+        let totalRating = 0;
+        for(let i = 0; i < data.length ; i++) {
+          totalRating += data[i].star;
+        }
+        const averageRating = parseFloat((totalRating / data.length).toFixed(1)) || 0;
+        setRating(averageRating);
+        
+    }
+    getAverageRating();
+}, [])
   const navigate = useNavigate();
   if (!id) return <></>;
   return (

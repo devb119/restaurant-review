@@ -16,6 +16,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import { createPortal } from 'react-dom';
 import { UserRole } from "../../models/enum";
+import React from "react";
 
 const noti = document.getElementById('noti')!;
 
@@ -59,8 +60,8 @@ function RestaurantDetail() {
          
             {user?.role == UserRole.Admin && createPortal(
               restaurant.is_active == false ? 
-              <p className="text-white text-xl z-20 w-full fixed top-20 py-5 px-3 bg-red-500">アドミンとして見ています。このレストランのリクエストをまだ承認されていません</p>
-              : <p className="text-white text-xl z-20 w-full fixed top-20 py-5 px-3 bg-green-600">アドミンとして見ています。スターテスを変更したい場合、管理ページでしてください。</p>
+              <p className="text-white z-20 w-full fixed top-20 py-5 px-3 bg-red-500">アドミンとして見ています。このレストランのリクエストをまだ承認されていません</p>
+              : <p className="text-white z-20 w-full fixed top-20 py-5 px-3 bg-green-600">アドミンとして見ています。スターテスを変更したい場合、管理ページでしてください。</p>
               ,
               noti
             )}

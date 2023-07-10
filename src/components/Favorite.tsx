@@ -1,3 +1,4 @@
+import React from "react";
 import { useContext, useEffect, useState } from "react";
 import { AiOutlineArrowRight } from "react-icons/ai";
 import { FaStar } from "react-icons/fa";

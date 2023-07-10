@@ -98,7 +98,7 @@ export async function getRestaurantByDocId(docId: string) {
 }
 
 export async function getFoodsByRestaurant(foodList: Array<string>) {
-  const list = [];
+  const list : any = [];
   for (let i = 0; i < foodList.length; i++) {
     const data = await firestore.collection("Foods").doc(foodList[i]).get();
     list.push(data.data());

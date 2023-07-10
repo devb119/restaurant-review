@@ -54,7 +54,7 @@ function Header({
   return (
     <>
       <div className="flex fixed w-full h-20 bg-mainTint z-10 justify-between items-center pr-4 text-lg shadow-sm">
-        <Logo />
+        <div onClick={() => setActiveLink("japanese-favorites")}><Logo /></div>
         {!isManagePage && (
           <>
             <ul className="flex gap-6 items-center">
