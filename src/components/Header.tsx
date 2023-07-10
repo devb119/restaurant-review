@@ -49,6 +49,7 @@ function Header({
     e.preventDefault();
     getQueryData(query, option, activeLink);
     navigate("/search");
+    searchContextData.activeLink = "search";
     // console.log(query);
     setActiveLink("search");
     setQuery("");
