@@ -1,6 +1,7 @@
 import { Header } from "../components";
 import { Outlet } from "react-router-dom";
 import React from "react";
+import Footer from "../components/Footer";
 
 function Home({
   getQuery,
@@ -15,6 +16,7 @@ function Home({
           <Outlet></Outlet>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }
