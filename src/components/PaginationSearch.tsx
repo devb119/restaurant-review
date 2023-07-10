@@ -22,7 +22,7 @@ const PaginationSearch = ({ restaurantsPerPage, totalRestaurants, paginate, curr
                                 
                                     <a
                                         className={number === currentPage ? " relative block rounded-full bg-primary-100 px-3 py-1.5 text-sm font-medium text-primary-700 transition-all duration-300 bg-[#C9391969] text-white hover:bg-[#C9391969]" 
-                                        : " relative block rounded-full bg-primary-100 px-3 py-1.5 text-sm font-medium text-primary-700 transition-all duration-300 focus:bg-[#C9391969] hover:bg-[#C9391969]"}
+                                        : " relative block rounded-full bg-primary-100 px-3 py-1.5 text-sm font-medium text-primary-700 transition-all duration-300 focus:bg-[#C9391969] hover:bg-[#C9391969] hover:text-white"}
                                         href="#!"
                                         onClick={() => paginate(number)}
                                     ><div className="w-2 flex items-center justify-center">{number}</div></a>

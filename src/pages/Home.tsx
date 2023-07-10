@@ -1,10 +1,12 @@
 import { Header } from "../components";
 import { Outlet } from "react-router-dom";
+import React from "react";
+import Footer from "../components/Footer";
 
 function Home({
   getQuery,
 }: {
-  getQuery: (query: string, option: number) => void;
+  getQuery: (query: string, option: number, activeLink: string) => void;
 }) {
   return (
     <div className="font-montserrat">
@@ -14,6 +16,7 @@ function Home({
           <Outlet></Outlet>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }
