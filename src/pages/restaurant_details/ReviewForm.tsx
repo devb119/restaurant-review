@@ -64,7 +64,7 @@ const ReviewForm = ({ setOpenModal, restaurant_id, id }: Props) => {
           setMessage("追加できました。");
           setTimeout(() => setLoading(false), 2000);
           setTimeout(() => setOpenModal(false), 2000);
-          setReviewList([...reviewList, review]);
+          setReviewList([review, ...reviewList]);
         });
       } else {
         setLoading(true);
