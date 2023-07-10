@@ -84,7 +84,6 @@ const SearchPage = () => {
                     : <h1 className="mb-8 text-2xl font-semibold flex">適切なレストランが見つけない："{query}"</h1>}
                 </div>
             }
-            <Footer />
             
         </React.Fragment>
     )
