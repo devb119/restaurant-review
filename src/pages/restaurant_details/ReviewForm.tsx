@@ -91,8 +91,8 @@ const ReviewForm = ({ setOpenModal, restaurant_id, id }: Props) => {
   };
 
   return (
-    <div className="w-screen h-screen fixed top-0 left-0 z-10 bg-slate-800 bg-opacity-50 overflow-y-scroll">
-      <div className="bg-white flex flex-col p-6 relative items-center justify-between w-1/2 h-2/3 min-h-685 mx-auto my-32 shadow-xl rounded-xl px-32">
+    <div className="w-full h-full fixed top-0 left-0 z-10 bg-slate-800 bg-opacity-50 flex justify-center items-center ">
+      <div className="bg-white flex flex-col p-6 relative items-center justify-between w-1/2 p-10h-2/3 min-h-685 mx-auto shadow-xl rounded-xl px-32">
         <div className="flex flex-col items-center justify-between w-full gap-4">
           <div className="w-8 absolute top-6 right-6 text-xs">
             <button
@@ -149,7 +149,7 @@ const ReviewForm = ({ setOpenModal, restaurant_id, id }: Props) => {
             <div>
               <img
                 alt="not found"
-                width={"250px"}
+                className="max-w-[18rem] max-h-[18rem]"
                 src={URL.createObjectURL(selectedImage)}
               />
               <br />
