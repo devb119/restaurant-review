@@ -5,6 +5,7 @@ import {
   AiOutlineLock,
   AiOutlineEyeInvisible,
   AiOutlineEye,
+  AiOutlineMail,
 } from "react-icons/ai";
 import { OutletContextProps } from "../../pages/Auth";
 import { login } from "../../services/auth/Auth";
@@ -54,13 +55,13 @@ const Login = (): JSX.Element => {
             htmlFor="username"
             className="bg-white text-2xl rounded-full absolute left-4 z-10 text-main"
           >
-            <AiOutlineUser />
+            <AiOutlineMail />
           </label>
           <input
             type="text"
             id="username"
             className="focus:outline-none rounded-full w-full py-2 px-12 shadow-lg focus:shadow-xl"
-            placeholder="ユーザー名"
+            placeholder="メールアドレス"
             onChange={(e) => setUsername(e.target.value)}
           />
         </div>
