@@ -6,7 +6,7 @@ import Footer from "../components/Footer";
 function Home({
   getQuery,
 }: {
-  getQuery: (query: string, option: number) => void;
+  getQuery: (query: string, option: number, activeLink: string) => void;
 }) {
   return (
     <div className="font-montserrat">

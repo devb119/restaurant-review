@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { BsCheckLg } from "react-icons/bs";
 import { NavLink, useNavigate, Link, useLocation } from "react-router-dom";
 import { ButtonPrimary, ButtonSecondary } from "./common";
@@ -6,6 +6,7 @@ import { searchOption } from "../models/enum/searchOption";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import AccountMenu from "./AccountMenu";
+import { searchContext } from "../App";
 
 interface NavOption {
   // id là id của phần nội dung sẽ nhảy tới (HTML id)
@@ -19,7 +20,7 @@ const navOptions: NavOption[] = [
   { id: "search", title: "レストラン情報検索" },
 ];
 
-type getQueryDataFunction = (query: string, option: number) => void;
+type getQueryDataFunction = (query: string, option: number, activeLink : string) => void;
 
 export const Logo = (): JSX.Element => (
   <Link
@@ -36,6 +37,8 @@ function Header({
 }: {
   getQueryData: getQueryDataFunction;
 }): JSX.Element {
+  const searchContextData = useContext(searchContext);
+  
   const [activeLink, setActiveLink] = useState("");
   const [query, setQuery] = useState("");
   const navigate = useNavigate();
@@ -44,26 +47,33 @@ function Header({
   const isManagePage = location.pathname.includes("manage");
   const handleSubmitSearch = (e: React.FormEvent, option: number): void => {
     e.preventDefault();
-    getQueryData(query, option);
+    getQueryData(query, option, activeLink);
     navigate("/search");
     // console.log(query);
     setActiveLink("search");
     setQuery("");
   };
 
+  const activeLinkHandler = (id : string) => {
+    setActiveLink(id);
+    searchContextData.activeLink = id;
+  }
+
   return (
     <>
       <div className="flex fixed w-full h-20 bg-mainTint z-10 justify-between items-center pr-4 text-lg shadow-sm">
-        <div onClick={() => setActiveLink("japanese-favorites")}><Logo /></div>
+        <div onClick={() => {
+           window.scrollTo(0, 0);
+           activeLinkHandler("japanese-favorites")}}><Logo /></div>
         {!isManagePage && (
           <>
             <ul className="flex gap-6 items-center">
               {navOptions.map((nav) =>
                 nav.id !== "restaurants" ? (
                   <li
-                    onClick={() => setActiveLink(nav.id)}
+                    onClick={() => activeLinkHandler(nav.id)}
                     className={
-                      nav.id === activeLink
+                      nav.id === searchContextData.activeLink
                         ? "border-b-4 border-main font-semibold transition-all"
                         : "border-b-4 border-transparent hover:border-main hover:font-semibold transition-all"
                     }
@@ -73,9 +83,9 @@ function Header({
                   </li>
                 ) : (
                   <li
-                    onClick={() => setActiveLink(nav.id)}
+                    onClick={() => activeLinkHandler(nav.id)}
                     className={
-                      nav.id === activeLink
+                      nav.id ===  searchContextData.activeLink
                         ? "border-b-4 border-main font-semibold transition-all"
                         : "border-b-4 border-transparent hover:border-main hover:font-semibold transition-all"
                     }

@@ -23,6 +23,7 @@ function FavoriteCard1(props: favoriteProps): JSX.Element {
   const moveToSearchHandler = () => {
     searchContextData.query = foodTitle,
     searchContextData.searchOption = searchOption.FoodSearch;
+    searchContextData.activeLink = "search";
     navigate("/search");
   }
   return (
