@@ -16,7 +16,7 @@ function Home({
           <Outlet></Outlet>
         </div>
       </div>
-      <Footer />
+      
     </div>
   );
 }

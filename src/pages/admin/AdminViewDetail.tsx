@@ -139,7 +139,7 @@ function RestaurantRequestForm({
                       min={0}
                       max={12}
                       className="p-1 rounded w-10"
-                      value={21}
+                      value={9}
                       disabled
                     
                     />

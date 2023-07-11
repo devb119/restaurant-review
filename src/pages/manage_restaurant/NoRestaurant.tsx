@@ -4,15 +4,16 @@ import {
   ButtonSecondary,
   Loading,
 } from "../../components/common";
-import { Backdrop } from "@mui/material";
+import { Backdrop, ButtonBase } from "@mui/material";
 import { BsArrowRight, BsUpload } from "react-icons/bs";
-import { AiOutlineClose, AiFillInfoCircle } from "react-icons/ai";
+import { AiOutlineClose, AiFillInfoCircle, AiFillCheckCircle } from "react-icons/ai";
 import Restaurant, { validateRestaurant } from "../../models/restaurants";
 import { imageUploader } from "../../services/ImageUploader";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import { createRestaurant } from "../../services/RestaurantApi";
 import { useNavigate } from "react-router-dom";
+import { HiCheckCircle } from "react-icons/hi";
 
 const initialRestaurant: Restaurant = {
   manager_id: "",
@@ -414,16 +415,16 @@ function NoRestaurant(): JSX.Element {
         onSuccess={handleOpenPopup}
       />
       {openPopup ? (
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 p-10 bg-white jp border border-main rounded-lg">
-          <p className="text-3xl text-main flex justify-center mb-4">
-            <AiFillInfoCircle />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 p-10 bg-white jp border border-[#51cf66] rounded-lg">
+          <p className="text-3xl flex justify-center mb-4">
+            <HiCheckCircle fill="#51cf66" />
           </p>
           <p className="mb-4 text-xl">
             あなたのリクエストは送信されました。
             <br /> 管理者が承認するまで お待ち下さい。
           </p>
           <div className="flex items-center justify-center">
-            <ButtonPrimary title="OK" onClick={handleClosePopup} />
+            <button onClick={handleClosePopup} className="border-2 border-white text-white bg-[#51cf66] py-2 px-4 rounded-full">OK</button>
           </div>
         </div>
       ) : null}

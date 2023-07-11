@@ -3,7 +3,7 @@ import React from "react";
 const Footer = () => {
     return (
         <React.Fragment>
-            <div className="mx-auto max-w-7xl p-4">
+            <div className="mx-auto max-w-7xl">
                 <div className="flex justify-between mb-[5rem] bg-white p-8">
                     <p className="italic text-[#FF4200] font-bold tracking-normal text-7xl">amumu</p>
                     <div className="flex flex-col gap-[0.8rem]">
