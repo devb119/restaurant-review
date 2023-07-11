@@ -36,7 +36,7 @@ const CommentCard = (props: Props) => {
         <div className="flex flex-col gap-2 mt-8 items-center">
           <img
             className="w-20 h-20 rounded-full aspect-square"
-            src={commentUser?.image ? commentUser?.image : "../../../../public/img/default-avt.png"}
+            src={commentUser?.image ? commentUser?.image : "../../../../img/default-avt.png"}
           />
           <p className=" font-bold text-md text-center w-32">
             {commentUser

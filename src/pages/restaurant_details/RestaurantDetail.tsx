@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Restaurant from "../../models/restaurants";
 import { useParams } from "react-router-dom";
-import { getRestaurantByDocId } from "../../services/RestaurantApi";
+import { getRestaurantByDocId, updateRestaurant } from "../../services/RestaurantApi";
 import { Loading } from "../../components/common";
 import { HiOutlineLocationMarker } from "react-icons/hi";
 import CouponList from "./CouponList";
@@ -39,7 +39,10 @@ function RestaurantDetail() {
         }
         const averageRating = parseFloat((totalRating / data.length).toFixed(1)) || 0;
         setRating(averageRating);
-        
+        if(restaurant !== undefined)
+        {
+          updateRestaurant(restaurant);
+        }
     }
     getAverageRating();
 }, [])
