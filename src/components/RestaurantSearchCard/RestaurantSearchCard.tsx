@@ -10,6 +10,7 @@ import { searchOption as Option } from "../../models/enum/searchOption";
 import Food from "../../models/foods";
 import { getFoodsByRestaurantId } from "../../services/FoodApi";
 import { getReviewsByRestaurantId } from "../../services/ReviewApi";
+import { updateRestaurant } from "../../services/RestaurantApi";
 
 const RestaurantSearch = ({ restaurant, searchOption, searchKeyword }: { restaurant: Restaurant, searchOption: number, searchKeyword: string }) => {
   const { id, name, address, image } = restaurant;
@@ -64,10 +65,11 @@ const RestaurantSearch = ({ restaurant, searchOption, searchKeyword }: { restaur
         }
         const averageRating = parseFloat((totalRating / data.length).toFixed(1)) || 0;
         setRating(averageRating);
-        
+        restaurant.rating = averageRating;
+        updateRestaurant(restaurant);
     }
     getAverageRating();
-}, [])
+}, [rating])
   const navigate = useNavigate();
   if (!id) return <></>;
   return (
