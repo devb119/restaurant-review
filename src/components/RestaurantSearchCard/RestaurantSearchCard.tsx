@@ -66,7 +66,7 @@ const RestaurantSearch = ({ restaurant, searchOption, searchKeyword }: { restaur
         const averageRating = parseFloat((totalRating / data.length).toFixed(1)) || 0;
         setRating(averageRating);
         restaurant.rating = averageRating;
-        updateRestaurant(restaurant);
+        // updateRestaurant(restaurant);
     }
     getAverageRating();
 }, [rating])
