@@ -85,7 +85,7 @@ const ReviewForm = ({ setOpenModal, restaurant_id, id }: Props) => {
         setMessage("追加できました。");
         setTimeout(() => setLoading(false), 2000);
         setTimeout(() => setOpenModal(false), 2000);
-        setReviewList([...reviewList, review]);
+        setReviewList([review, ...reviewList]);
       }
     }
   };
@@ -149,7 +149,7 @@ const ReviewForm = ({ setOpenModal, restaurant_id, id }: Props) => {
             <div>
               <img
                 alt="not found"
-                className="max-w-[18rem] max-h-[18rem]"
+                className="max-w-[10rem] max-h-[10rem]"
                 src={URL.createObjectURL(selectedImage)}
               />
               <br />

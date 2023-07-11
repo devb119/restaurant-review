@@ -17,6 +17,7 @@ import { RootState } from "../../redux/store";
 import { createPortal } from 'react-dom';
 import { UserRole } from "../../models/enum";
 import React from "react";
+import { getReviewsByRestaurantId } from "../../services/ReviewApi";
 
 const noti = document.getElementById('noti')!;
 
@@ -26,6 +27,22 @@ function RestaurantDetail() {
   const [appealFood, setAppealFood] = useState<Food[]>();
   const [couponLists, setCouponLists] = useState<Coupon[]>();
   const user = useSelector((state: RootState) => state.user.user);
+  const [rating, setRating] = useState(0);
+
+  React.useEffect(() => {
+    async function getAverageRating() {
+        const data : any = await getReviewsByRestaurantId(id ? id : "");
+        console.log(data);
+        let totalRating = 0;
+        for(let i = 0; i < data.length ; i++) {
+          totalRating += data[i].star;
+        }
+        const averageRating = parseFloat((totalRating / data.length).toFixed(1)) || 0;
+        setRating(averageRating);
+        
+    }
+    getAverageRating();
+}, [])
 
   const id = useParams().id || "";
   useEffect(() => {
@@ -49,7 +66,7 @@ function RestaurantDetail() {
       });
   }, [id]);
   if (!restaurant) return <></>;
-  const { name, address, rating, description, image } = restaurant;
+  const { name, address, description, image } = restaurant;
   
   return (
     <div>
@@ -58,13 +75,6 @@ function RestaurantDetail() {
       ) : (
         <>
          
-            {user?.role == UserRole.Admin && createPortal(
-              restaurant.is_active == false ? 
-              <p className="text-white z-20 w-full fixed top-20 py-5 px-3 bg-red-500">アドミンとして見ています。このレストランのリクエストをまだ承認されていません</p>
-              : <p className="text-white z-20 w-full fixed top-20 py-5 px-3 bg-green-600">アドミンとして見ています。スターテスを変更したい場合、管理ページでしてください。</p>
-              ,
-              noti
-            )}
          
           
           <div className="m-12 ">

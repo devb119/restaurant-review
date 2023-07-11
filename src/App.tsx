@@ -12,12 +12,14 @@ import ManageMenu from "./pages/manage_restaurant/ManageMenu";
 import { Dialog } from "./components/common";
 import Admin from "./pages/admin/Admin";
 
+
 // eslint-disable-next-line react-refresh/only-export-components
 export const searchContext = React.createContext({query: "", searchOption: searchOption.RestaurantSearch, activeLink: ""});
 
 function App() {
   const user = useAuth();
   console.log(user);
+
  
   const [query, setQuery] = useState("");
   const [searchOption, setSearchOption] = useState(1);
